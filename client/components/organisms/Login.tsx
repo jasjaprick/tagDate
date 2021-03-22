@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TextInput } from "react-native";
-import AppButton from "../atoms/AppButton";
+import AppButton from "../atoms/PurpleButton";
 import colors from "../../helpers/colors";
 
 function Login(props) {

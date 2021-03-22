@@ -12,17 +12,17 @@ class AddUserInput {
   @Field()
   age: number
   
-//   @Field()
-//   gender: string
+  @Field()
+  gender: string
 
-//   @Field()
-//   interestedIn: string
+  @Field()
+  interestedIn: string
 
-//   @Field()
-//   location: string
+  @Field()
+  location: string
 
-//   @Field()
-//   activity: string
+  @Field()
+  activity: string
 }
 
 @Resolver(User)
@@ -36,6 +36,10 @@ export class UserResolver {
       data: {
         name: data.name,
         age: data.age,
+        gender: data.gender,
+        interestedIn: data.interestedIn,
+        location: data.location,
+        activity: data.activity
       },
     });
   }

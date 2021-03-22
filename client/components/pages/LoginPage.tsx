@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Login from "../organisms/Login";
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import Login from '../organisms/Login';
 
 function LoginPage({ navigation }) {
   return (
@@ -13,9 +13,9 @@ function LoginPage({ navigation }) {
 const styles = StyleSheet.create({
   loginPageContainer: {
     flex: 1,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

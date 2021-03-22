@@ -1,23 +1,25 @@
 import React from "react";
 import { View, StyleSheet, TextInput } from "react-native";
+import colors from "../../helpers/colors";
 
-function AppTextInput({ placeholder, handler }) {
+function AppTextInput(props: any) {
   return (
-    <View>
-      <TextInput
-        style={styles.textInput}
-        placeholder={placeholder}
-        onChangeText={handler}
-      />
-    </View>
+    <TextInput
+      style={styles.textInput}
+      placeholder={props.placeholder}
+      onChangeText={props.onChangeText}
+      secureTextEntry={props.secureTextEntry}
+    />
   );
 }
 
 const styles = StyleSheet.create({
   textInput: {
-    backgroundColor: "red",
     margin: 10,
     textAlign: "center",
+    borderBottomColor: colors.violet,
+    borderBottomWidth: 2,
+    width: "80%",
   },
 });
 

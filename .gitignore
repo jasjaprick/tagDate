@@ -1,2 +1,3 @@
 client/.expo
 client/node_modules
+.env

@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { Query, Mutation, Arg, Ctx, FieldResolver, Root, Int, Field, InputType, Resolver} from 'type-graphql';
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client';
 import {User} from './User';
-import { Context} from './context';
+import { Context} from '../context';
 
 @InputType()
 class AddUserInput {
@@ -20,9 +20,6 @@ class AddUserInput {
 
   @Field()
   location: string
-
-  @Field()
-  activity: string
 }
 
 @Resolver(User)
@@ -39,7 +36,6 @@ export class UserResolver {
         gender: data.gender,
         interestedIn: data.interestedIn,
         location: data.location,
-        activity: data.activity
       },
     });
   }

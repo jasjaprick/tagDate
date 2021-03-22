@@ -1,7 +1,7 @@
-interface colorsInterface {
+interface IColors{
   violet: string
 }
 
-var colors:colorsInterface = { violet: "#725AC1" };
+const colors:IColors= { violet: '#725AC1' };
 
-export default colors
+export default colors;

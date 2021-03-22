@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import colors from "../../helpers/colors";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import colors from '../../helpers/colors';
 
 function PurpleButton({ title, action }) {
   return (
@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 20,
     margin: 20,
-    width: "60%",
-    alignItems: "center",
+    width: '60%',
+    alignItems: 'center',
   },
-  buttonText: { fontSize: 20, color: "white" },
+  buttonText: { fontSize: 20, color: 'white' },
 });
 
 export default PurpleButton;

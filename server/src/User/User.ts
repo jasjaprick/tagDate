@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { ObjectType, Field, ID} from 'type-graphql';
 
+
 @ObjectType()
 export class User {
   @Field((type) => ID)
@@ -29,10 +30,6 @@ export class User {
   
   @Field((type) => String, { nullable: true })
   profilePicture: string | null;
-
-//   //TODO:  there will be a type activity
-  @Field()
-  activity: string;
 
 //   //TODO: match Type
   @Field((type) => [String], { nullable: true })

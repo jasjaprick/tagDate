@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Login from "../molecules/Login";
+import Login from "../organisms/Login";
 
 function LoginPage({ navigation }) {
   return (

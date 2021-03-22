@@ -1,8 +1,8 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import LoginSuccessPage from "../pages/LoginSuccessPage";
-import LoginPage from "../pages/LoginPage";
+import LoginSuccessPage from '../pages/LoginSuccessPage';
+import LoginPage from '../pages/LoginPage';
 
 const Menu = createStackNavigator();
 

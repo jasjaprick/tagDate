@@ -1,0 +1,51 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Model for the user that contains profile info, activities and rejected people
+model User {
+  id                Int              @id @default(autoincrement())
+  name              String
+  bio               String?
+  age               Int
+  gender            String
+  interestedIn      String
+  location          String
+  profilePicture    String?
+  activity          Activity?
+  possibleMatches   PossibleMatch? @relation("PossibleMatch") // Relational reference 
+  likedByUser       PossibleMatch? @relation("LikedByUser") // Relational reference
+  rejections        User[]           @relation("rejections") // Relational reference
+  rejectionRelation User[]           @relation("rejections") // Relational reference
+}
+
+// Model for Activiy
+model Activity {
+  id              Int              @id @default(autoincrement())
+  description     String
+  tag             String
+  user            User             @relation(fields: [postedBy], references: [id]) // Relational reference
+  postedBy        Int // relational scalar field
+  userOneActivity PossibleMatch? @relation("myActivity") // Relation reference
+  userTwoActivity PossibleMatch? @relation("theirActivity") // Relation reference
+}
+
+// Joint table for Possible matches
+model PossibleMatch {
+  id              Int      @id @default(autoincrement())
+  userOne         User     @relation("PossibleMatch", fields: [UID1], references: [id]) // Relational reference
+  userTwo         User     @relation("LikedByUser", fields: [UID2], references: [id]) // Relational reference
+  UID1            Int // relational scalar field
+  UID2            Int // relational scalar field
+  userOneActivity Activity @relation("myActivity", fields: [myActivity], references: [id]) // Relational reference 
+  userTwoActivity Activity @relation("theirActivity", fields: [partnerActivity], references: [id]) // Relational reference
+  myActivity      Int // relational scalar field
+  partnerActivity Int // relational scalar field
+  isMatch         Boolean
+}

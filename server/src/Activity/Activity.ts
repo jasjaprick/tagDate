@@ -3,6 +3,7 @@ import {ObjectType, Field, ID } from 'type-graphql';
 
 
 
+
 @ObjectType()
 export class Activity {
   @Field(type => ID)
@@ -11,9 +12,11 @@ export class Activity {
   @Field()
   description: string;
 
-  @Field(type => [String])
-  tags: string[];
+  @Field(type => String)
+  tag: string;
 
   @Field()
   postedBy: number;
+
+
 }

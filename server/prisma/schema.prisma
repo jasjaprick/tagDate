@@ -21,8 +21,8 @@ model User {
   activity          Activity?
   possibleMatches   PossibleMatch? @relation("PossibleMatch") // Relational reference 
   likedByUser       PossibleMatch? @relation("LikedByUser") // Relational reference
-  rejections        User[]           @relation("rejections")
-  rejectionRelation User[]           @relation("rejections")
+  rejections        User[]           @relation("rejections") // Relational reference
+  rejectionRelation User[]           @relation("rejections") // Relational reference
 }
 
 // Model for Activiy
@@ -32,8 +32,8 @@ model Activity {
   tag             String
   user            User             @relation(fields: [postedBy], references: [id]) // Relational reference
   postedBy        Int // relational scalar field
-  userOneActivity PossibleMatch? @relation("myActivity")
-  userTwoActivity PossibleMatch? @relation("theirActivity")
+  userOneActivity PossibleMatch? @relation("myActivity") // Relation reference
+  userTwoActivity PossibleMatch? @relation("theirActivity") // Relation reference
 }
 
 // Joint table for Possible matches

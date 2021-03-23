@@ -10,10 +10,9 @@ import {
   Resolver,
   ID,
 } from 'type-graphql';
-import { prisma, Prisma } from '@prisma/client';
 import { User } from './User';
 import { Context } from '../context';
-import { Activity } from '../Activity/Activity';
+import { prisma } from '.prisma/client';
 
 @InputType()
 class AddUserInput {
@@ -48,11 +47,18 @@ export class UserResolver {
 
   // Get user by ID
   @Query((returns) => User, { nullable: true })
-  async user(@Arg('id', (type) => Int) id: number, @Ctx() ctx: Context) {
-    return ctx.prisma.user.findUnique({
+  async getUserById(@Arg('id', (type) => Int) id: number, @Ctx() ctx: Context) {
+    return await ctx.prisma.user.findUnique({
       where: { id: id },
     });
   }
+
+  // GetAll Query (for development purposes)
+  @Query((returns) => [User]) 
+  async getAllUsers(@Ctx() ctx: Context) {
+    return await ctx.prisma.user.findMany();
+  }
+
 
   // Mutations
 
@@ -73,24 +79,39 @@ export class UserResolver {
     });
   }
 
-  // Add user to rejection list
+  // Add user to rejection list // Disliking a User
   @Mutation((returns) => User)
   async rejectUser(
     @Arg('data') data: RejectUserInput,
     @Ctx() ctx: Context
   ): Promise<User> {
-    // Query user array that the current user rejected
-    const res = await ctx.prisma.user.findUnique({
+    // Query user array with users the current user rejected
+    const resUser = await ctx.prisma.user.findUnique({
       where: { id: data.ownID },
       select: {
         rejections: true,
       },
     });
-    // Update that array with the newly rejected user ID
+    // Query possible pending match with the user we dislike
+    const resMatch = await ctx.prisma.possibleMatch.findFirst({
+      where: {
+        AND: [{ UID1: data.rejectedID }, { UID2: data.ownID }],
+      },
+      select: {
+        id: true,
+      },
+    });
+    // delete that matchID if exists
+    await ctx.prisma.possibleMatch.delete({
+      where: {
+        id: resMatch.id,
+      },
+    });
+    // Update that array with the newly rejected user ID and return the current user
     return await ctx.prisma.user.update({
       data: {
         rejections: {
-          set: [...res.rejections, data.rejectedID],
+          set: [...resUser.rejections, data.rejectedID],
         },
       },
       where: { id: data.ownID },

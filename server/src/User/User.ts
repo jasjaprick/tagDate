@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { ObjectType, Field, ID} from 'type-graphql';
+import { Activity } from '../Activity/Activity';
 
 
 @ObjectType()
@@ -32,7 +33,17 @@ export class User {
   profilePicture: string | null;
 
 //   //TODO: match Type
-  @Field((type) => [String], { nullable: true })
-  matches: string[] | null;
+  @Field((type) => Activity, { nullable: true })
+  activity: Activity | null;
+
+  @Field(type => PossibleMatch, {nullable: true})
+  possibleMatch?: PossibleMatch[]
+
+  @Field(type => PossibleMatch, {nullable: true})
+  likedby?: PossibleMatch[]
+
+  @Field(type => [User], {nullable: true})
+  rejection: User[]
+
 }
 

@@ -11,9 +11,15 @@ export class Activity {
   @Field()
   description: string;
 
-  @Field(type => [String])
-  tags: string[];
+  @Field(type => String)
+  tag: string;
 
   @Field()
   postedBy: number;
+
+  @Field(type => PossibleMatch, { nullable: true})
+  myActivity?: PossibleMatch;
+
+  @Field(type => PossibleMatch, {nullable: true})
+  theirActivity?: PossibleMatch;
 }

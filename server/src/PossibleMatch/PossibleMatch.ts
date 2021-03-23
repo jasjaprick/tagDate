@@ -1,29 +1,31 @@
 import { Field, ObjectType, ID } from 'type-graphql';
+import { Activity } from '../Activity/Activity';
+
 
 //TODO: Check if UIDs and activities need to be adjusted to User and Activity type
 
 @ObjectType()
 export class PossibleMatch {
   // id -UID
-  @Field(type => ID)
-  id: number
+  @Field((type) => ID)
+  id: number;
   // UID1 - UId
   @Field()
-  UID1: number
+  UID1: number;
 
   // UID2 - UID
   @Field()
-  UID2: number
+  UID2: number;
 
   // myActivity -UID
-  @Field()
-  myActivity: number
+  @Field((type) => Activity)
+  myActivity: Activity;
 
   // partnerActivity -UID
-  @Field()
-  partnerActivity: number
+  @Field((type) => Activity)
+  partnerActivity: Activity;
 
   // isMatch - Boolean
   @Field()
-  isMatch: boolean
+  isMatch: boolean;
 }

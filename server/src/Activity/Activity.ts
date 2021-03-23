@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import {ObjectType, Field, ID } from 'type-graphql';
+import { User } from '../User/User';
 
 
 
@@ -15,8 +16,6 @@ export class Activity {
   @Field(type => String)
   tag: string;
 
-  @Field()
-  postedBy: number;
-
-
+  @Field(type => User)
+  user?: User;
 }

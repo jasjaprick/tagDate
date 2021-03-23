@@ -74,6 +74,9 @@ export class ActivityResolvers {
         tag: tag,
         NOT: { postedBy: id },
       },
+      include: {
+        user: true
+      }
     });
 
     // Filter and return the activities that were not posted by the rejected users

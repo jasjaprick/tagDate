@@ -17,9 +17,5 @@ export class Activity {
   @Field()
   postedBy: number;
 
-  @Field(type => PossibleMatch, { nullable: true})
-  myActivity?: PossibleMatch;
 
-  @Field(type => PossibleMatch, {nullable: true})
-  theirActivity?: PossibleMatch;
 }

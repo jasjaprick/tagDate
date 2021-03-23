@@ -36,14 +36,7 @@ export class User {
   @Field((type) => Activity, { nullable: true })
   activity: Activity | null;
 
-  @Field(type => PossibleMatch, {nullable: true})
-  possibleMatch?: PossibleMatch[]
-
-  @Field(type => PossibleMatch, {nullable: true})
-  likedby?: PossibleMatch[]
-
-  @Field(type => [User], {nullable: true})
-  rejection: User[]
+  
 
 }
 

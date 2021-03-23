@@ -1,8 +1,11 @@
 import React, { useState} from 'react';
-import { View, Text, StyleSheet, TextInput, } from 'react-native';
+import { View, Text, StyleSheet, TextInput, NativeSyntheticEvent, TextInputChangeEventData} from 'react-native';
 import colors from '../../helpers/colors';
 
-function InputFieldLarge({ placeholder, onChange }) {
+import  IPropsInput from '../interfaceInput';
+
+
+const InputFieldLarge =  ({placeholder, onChange}:  IPropsInput) => {
   return (
     <TextInput
     style={styles.input}
@@ -11,7 +14,7 @@ function InputFieldLarge({ placeholder, onChange }) {
     >
     </TextInput>
   );
-}
+};
 
 const styles = StyleSheet.create({
   input: {

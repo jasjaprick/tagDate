@@ -3,7 +3,7 @@ import * as tq from 'type-graphql';
 import { ApolloServer } from 'apollo-server';
 import { UserResolver } from './User/UserResolvers';
 import { context } from './context';
-import {ActivityResolvers} from './Activity/ActivivityResolvers';
+import {ActivityResolvers} from './Activity/ActivityResolvers';
 
 const app = async () => {
   const schema = await tq.buildSchema({

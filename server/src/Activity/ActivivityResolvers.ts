@@ -13,7 +13,7 @@ class AddActivityInput {
   postedBy: number;
   @Field(type => [String])
   @ArrayMaxSize(3)
-  tags: [string];
+  tag: string;
 
 }
 
@@ -28,7 +28,7 @@ export class ActivityResolvers {
       data: {
         description: data.description,
         postedBy: data.postedBy,
-        tags: data.tags
+        tag: data.tag
       },
     });
   }

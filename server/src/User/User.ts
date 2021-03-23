@@ -32,11 +32,5 @@ export class User {
   @Field((type) => String, { nullable: true })
   profilePicture: string | null;
 
-//   //TODO: match Type
-  @Field((type) => Activity, { nullable: true })
-  activity: Activity | null;
-
-  
-
 }
 

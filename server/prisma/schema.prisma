@@ -18,7 +18,7 @@ model User {
   interestedIn      String
   location          String
   profilePicture    String?
-  activity          Activity?
+  activity          Activity? // Relational reference
   possibleMatches   PossibleMatch? @relation("PossibleMatch") // Relational reference 
   likedByUser       PossibleMatch? @relation("LikedByUser") // Relational reference
   rejections        User[]           @relation("rejections") // Relational reference

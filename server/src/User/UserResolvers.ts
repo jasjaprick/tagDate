@@ -3,6 +3,7 @@ import { Query, Mutation, Arg, Ctx, FieldResolver, Root, Int, Field, InputType, 
 import { Prisma } from '@prisma/client';
 import {User} from './User';
 import { Context} from '../context';
+import { Activity } from '../Activity/Activity';
 
 @InputType()
 class AddUserInput {

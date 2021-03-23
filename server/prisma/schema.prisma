@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,27 +9,26 @@ datasource db {
 
 // Model for the user that contains profile info, activities and rejected people
 model User {
-  id                Int              @id @default(autoincrement())
-  name              String
-  bio               String?
-  age               Int
-  gender            String
-  interestedIn      String
-  location          String
-  profilePicture    String?
-  activity          Activity? // Relational reference
-  possibleMatches   PossibleMatch? @relation("PossibleMatch") // Relational reference 
-  likedByUser       PossibleMatch? @relation("LikedByUser") // Relational reference
-  rejections        User[]           @relation("rejections") // Relational reference
-  rejectionRelation User[]           @relation("rejections") // Relational reference
+  id              Int            @id @default(autoincrement())
+  name            String
+  bio             String?
+  age             Int
+  gender          String
+  interestedIn    String
+  location        String
+  profilePicture  String?
+  rejections      Int[]
+  activity        Activity[] // Relational reference
+  possibleMatches PossibleMatch? @relation("PossibleMatch") // Relational reference 
+  likedByUser     PossibleMatch? @relation("LikedByUser") // Relational reference
 }
 
 // Model for Activiy
 model Activity {
-  id              Int              @id @default(autoincrement())
+  id              Int            @id @default(autoincrement())
   description     String
   tag             String
-  user            User             @relation(fields: [postedBy], references: [id]) // Relational reference
+  user            User           @relation(fields: [postedBy], references: [id]) // Relational reference
   postedBy        Int // relational scalar field
   userOneActivity PossibleMatch? @relation("myActivity") // Relation reference
   userTwoActivity PossibleMatch? @relation("theirActivity") // Relation reference
@@ -47,5 +45,5 @@ model PossibleMatch {
   userTwoActivity Activity @relation("theirActivity", fields: [partnerActivity], references: [id]) // Relational reference
   myActivity      Int // relational scalar field
   partnerActivity Int // relational scalar field
-  isMatch         Boolean
+  isMatch         Boolean  @default(false)
 }

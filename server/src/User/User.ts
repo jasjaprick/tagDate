@@ -1,7 +1,5 @@
 import 'reflect-metadata';
 import { ObjectType, Field, ID} from 'type-graphql';
-import { Activity } from '../Activity/Activity';
-
 
 @ObjectType()
 export class User {
@@ -31,6 +29,9 @@ export class User {
   
   @Field((type) => String, { nullable: true })
   profilePicture: string | null;
+
+  @Field(type => [Number])
+  rejections: number[]
 
 }
 

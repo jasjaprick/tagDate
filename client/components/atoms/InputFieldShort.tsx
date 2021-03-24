@@ -2,29 +2,31 @@ import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import colors from '../../helpers/colors';
 
-
 interface IProps {
   placeholder: string;
-  onChangeText: ((text: string) => void);
+  onChangeText: (text: string) => void;
   value: string | undefined;
 }
 
-const InputFieldShort: React.FC<IProps> = ({ placeholder, onChangeText, value } : IProps) => {
+const InputFieldShort: React.FC<IProps> = ({
+  placeholder,
+  onChangeText,
+  value,
+}: IProps) => {
   return (
     <TextInput
-    style={styles.input}
-    onChangeText={onChangeText}
-    placeholder={placeholder}
-    value={value}
-    >
-    </TextInput>
+      style={styles.input}
+      onChangeText={onChangeText}
+      placeholder={placeholder}
+      value={value}></TextInput>
   );
 };
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: 'colors.white',
+    backgroundColor: colors.white,
     borderColor: colors.grey,
+    borderWidth: 0.5,
     padding: 10,
     borderRadius: 20,
     marginBottom: 10,
@@ -32,9 +34,9 @@ const styles = StyleSheet.create({
     height: '10%',
     alignItems: 'center',
     fontSize: 20,
-    color: 'grey'
+    color: colors.grey,
   },
-  placeHolder: { fontSize: 20, color: 'grey' },
+  placeHolder: { fontSize: 20, color: colors.grey },
 });
 
 export default InputFieldShort;

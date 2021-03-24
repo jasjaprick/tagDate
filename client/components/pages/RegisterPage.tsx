@@ -1,60 +1,134 @@
-import React, { useState} from 'react';
-import { View, Text, StyleSheet, TextInput,NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from 'react-native';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../helpers/colors';
-
 
 import InputFieldShort from '../atoms/InputFieldShort';
 import InputFieldLarge from '../atoms/InputFieldLarge';
+import InputAge from '../atoms/InputAge';
 
 function RegisterPage() {
   const [name, setName] = useState(''); //Name
-  const [age, setAge] = useState(0); //Age
+  const [age, setAge] = useState<number | null>(null); //Age
   const [bio, setBio] = useState(''); //Bio
+  const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
+  const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
 
   return (
     <View style={styles.registerPageContainer}>
-  
       <InputFieldShort
-        onChange={(name: string) => {
+        onChangeText={(name: string) => {
           setName(name);
         }}
         placeholder={'Name'}
-      >
-     </InputFieldShort>
+        value={name}></InputFieldShort>
 
-
-     <InputFieldShort
-        onChange={(age: number) => {
-        setAge(age);
-      }}
+      <InputFieldShort
+        onChangeText={(age: string) => {
+          setAge(+age);
+        }}
         placeholder={'Age'}
-      >
-     </InputFieldShort>
+        value={age?.toString()}></InputFieldShort>
 
-  
+      <View style={styles.genderContainer}>
+        <Text style={styles.font}>Gender</Text>
+        <View style={styles.genderItemsContainer}>
+          <TouchableOpacity style={styles.genderItem}>
+            <View style={styles.genderItem}>
+              <Ionicons
+                name='male-outline'
+                label='User'
+                size={24}
+                style={styles.icons}
+              />
+              <Text style={styles.fontGender}>Male</Text>
+            </View>
+          </TouchableOpacity>
 
-   <Text style={styles.font}>Gender</Text>
+          <TouchableOpacity style={styles.genderItem}>
+            <View style={styles.gender}>
+              <Ionicons name='female-outline' size={24} style={styles.icons} />
+              <Text style={styles.fontGender}>Female</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
 
-
-   <InputFieldLarge
-        onChange={(bio: string) => {
+      <InputFieldLarge
+        onChangeText={(bio: string) => {
           setBio(bio);
         }}
         placeholder={'Tell us about yourself...'}
-      >
-  </InputFieldLarge>
+        value={bio}></InputFieldLarge>
 
+      <View style={styles.pictureContainer}>
+        <Text style={styles.font}>Add picture</Text>
+        <TouchableOpacity style={styles.camera}>
+          <View style={styles.genderItem}>
+            <MaterialCommunityIcons
+              name='camera-plus-outline'
+              size={24}
+              style={styles.icons}
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
 
+      <View style={styles.genderContainer}>
+        <Text style={styles.font}>Interested in</Text>
+        <View style={styles.genderItemsContainer}>
+          <TouchableOpacity style={styles.genderItem}>
+            <View style={styles.genderItem}>
+              <Ionicons
+                name='male-outline'
+                label='User'
+                size={24}
+                style={styles.icons}
+              />
+              <Text style={styles.fontGender}>Male</Text>
+            </View>
+          </TouchableOpacity>
 
+          <TouchableOpacity style={styles.genderItem}>
+            <View style={styles.gender}>
+              <Ionicons name='female-outline' size={24} style={styles.icons} />
+              <Text style={styles.fontGender}>Female</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
 
-   <Text  style={styles.font}>Add picture</Text>
+      <>
+        <Text style={styles.font}>Age range</Text>
+        <View style={styles.AgeContainer}>
+          <InputAge
+            title={'From'}
+            onChangeText={(minAge: string) => {
+              setMinAge(+minAge);
+            }}
+            placeholder={''}
+            value={minAge?.toString()}></InputAge>
 
-   <Text style={styles.font}>Interested in</Text>
+          <InputAge
+            title={'to'}
+            onChangeText={(maxAge: string) => {
+              setMaxAge(+maxAge);
+            }}
+            placeholder={''}
+            value={maxAge?.toString()}></InputAge>
+        </View>
+      </>
 
-   <Text style={styles.font}>Age range</Text>
-
-
-  </View>
+      {/* <Button title="Submit" onPress={handleSubmit(onSubmit)} /> */}
+    </View>
   );
 }
 
@@ -67,25 +141,37 @@ const styles = StyleSheet.create({
     // alignContent: 'stretch',
     alignSelf: 'center',
     flexDirection: 'column',
-    backgroundColor: 'blue',
-    position: 'relative'
-    
+    backgroundColor: colors.white,
+    position: 'relative',
   },
-    font: { fontSize: 20, color: 'grey' },
+  font: { fontSize: 20, color: colors.grey },
+  genderItemsContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    position: 'relative',
+    flexDirection: 'row',
+    marginRight: '8%',
+  },
+  fontGender: { fontSize: 10, color: colors.violet },
+  genderItem: {
+    display: 'flex',
+    // flexDirection: 'column',
+    justifyContent: 'center',
+    position: 'relative',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginLeft: '5%',
+  },
+  gender: {},
+  genderContainer: {},
+  pictureContainer: {},
+  input: {},
+  icons: { color: colors.grey },
+  AgeContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
 });
 
-
-
 export default RegisterPage;
-
-
-
-
-
-
-  
-
-
-
-
-

@@ -15,6 +15,7 @@ import colors from '../../helpers/colors';
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputAge from '../atoms/InputAge';
 import PersonalDetails from '../organisms/PersonalDetails';
+import BioInfo from '../organisms/BioInfo';
 
 interface Iprops {
   onPress: (text: string) => void;
@@ -36,7 +37,13 @@ function RegisterPage() {
         setAge={setAge}
       />
 
-      <Button onPress={console.log(name, age)} title='Next' color='#841584' />
+      <BioInfo bio={bio} setBio={setBio} />
+
+      <Button
+        onPress={console.log('name:', name, 'age:', age, 'bio:', bio)}
+        title='Next'
+        color='#841584'
+      />
 
       {/* 
       <View style={styles.genderContainer}>
@@ -63,12 +70,7 @@ function RegisterPage() {
         </View>
       </View>
 
-      <InputFieldLarge
-        onChangeText={(bio: string) => {
-          setBio(bio);
-        }}
-        placeholder={'Tell us about yourself...'}
-        value={bio}></InputFieldLarge>
+
 
       <View style={styles.pictureContainer}>
         <Text style={styles.font}>Add picture</Text>
@@ -191,4 +193,13 @@ export default RegisterPage;
         }}
         placeholder={'Age'}
         value={age?.toString()}></InputFieldShort> */
+}
+
+{
+  /* <InputFieldLarge
+onChangeText={(bio: string) => {
+  setBio(bio);
+}}
+placeholder={'Tell us about yourself...'}
+value={bio}></InputFieldLarge> */
 }

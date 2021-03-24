@@ -38,16 +38,12 @@ export class ActivityResolvers {
       where: { id: id },
     });
   }
-   // GetAll Query (for development purposes)
+  // GetAll Query (for development purposes)
   @Query((returns) => [Activity])
   async getAllActivities(@Ctx() ctx: Context) {
     return await ctx.prisma.activity.findMany({
-      include:
-       {user: 
-        { include : 
-          {profile: true}}}  }
-    
-    );
+      include: { user: { include: { profile: true } } },
+    });
   }
   // Find activities based on tag (returns list of array of activities with matching tags,
   // posted by possible partners and not posted by our own

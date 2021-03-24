@@ -19,7 +19,4 @@ export class Activity {
 
   @Field(type => User)
   user?: User;
-
-  @Field(type => Profile)
-  profile?: Profile;
 }

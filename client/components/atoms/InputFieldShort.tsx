@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     height: '10%',
     alignItems: 'center',
     fontSize: 20,
-    color: 'grey',
+    color: colors.grey,
   },
   placeHolder: { fontSize: 20, color: colors.grey },
 });

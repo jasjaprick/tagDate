@@ -5,9 +5,6 @@ import { userData } from './mockData/mockUsers';
 const prisma = new PrismaClient();
 
 
-
-
-
 async function main() {
   console.log('Start seeding');
   for (const u of userData) {
@@ -25,7 +22,7 @@ async function main() {
   for (const a of activityData) {
     const activity = await prisma.activity.create({
       data: a
-    })
+    });
     console.log(`Created activity with id ${activity.id}`);
   }
   console.log('Seeding finished.');

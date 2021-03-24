@@ -26,30 +26,24 @@ class AddActivityInput {
 // Main resolver class for the activities
 @Resolver(Activity)
 export class ActivityResolvers {
+  // Queries
 
   // Add a new activity
-  @Mutation((returns) => Activity)
-  async addActivity(
-    @Arg('data') data: AddActivityInput,
-    @Ctx() ctx: Context
-  ): Promise<Activity> {
-    return await ctx.prisma.activity.create({
-      data: {
-        description: data.description,
-        postedBy: data.postedBy,
-        tag: data.tag,
-      },
-      
-    });
-  }
+ 
+ 
+ 
 
   // Get activity by ID
   @Query((returns) => Activity, { nullable: true })
-  async activity(@Arg('id', (type) => Int) id: number, @Ctx() ctx: Context) {
+  async getActivityById(
+    @Arg('id', (type) => Int) id: number,
+    @Ctx() ctx: Context
+  ) {
     return ctx.prisma.activity.findUnique({
       where: { id: id },
     });
   }
+   // GetAll Query (for development purposes)
   @Query((returns) => [Activity])
   async getAllActivities(@Ctx() ctx: Context) {
     return await ctx.prisma.activity.findMany({
@@ -85,13 +79,30 @@ export class ActivityResolvers {
         NOT: { postedBy: id },
       },
       include: {
-        user: true
-      }
+        user: true,
+      },
     });
 
     // Filter and return the activities that were not posted by the rejected users
     return activitiesToShow.filter(
       (activity) => !rejectedUsers.rejections.includes(activity.postedBy)
     );
+  }
+
+  // Mutations
+
+  // Add a new activity
+  @Mutation((returns) => Activity)
+  async addActivity(
+    @Arg('data') data: AddActivityInput,
+    @Ctx() ctx: Context
+  ): Promise<Activity> {
+    return await ctx.prisma.activity.create({
+      data: {
+        description: data.description,
+        postedBy: data.postedBy,
+        tag: data.tag,
+      },
+    });
   }
 }

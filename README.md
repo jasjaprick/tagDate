@@ -20,27 +20,54 @@ To use expo:
 > Select "Run in web browser"
 
 ### Server Site Info
-The server is connected with Prisma and Postgres. To initiate the connection, please run the commands listed below in sequence from the server folder
+The server is connected with Prisma and Postgres. To initiate the connection, please run the commands listed below in sequence from the server folder. It is possible to run the postgresQL DB from Docker.
+
+**Starting Docker**
+
+To initiate the database from a container, please run the following command:
+
+```
+docker-compose up
+```
+
+To stop the db, run
+
+```
+docker-compose up
+```
+
 
 **Generate DB template**
+
 To generate the database model with Prisma, run the following command
 
-> npm generate
+```
+npm run generate
+```
 
 **Migrate and create the DB in Postgres**
+
 To create the db and tables, please run the following command 
 
-> npm migrate
+```
+npm run migrate
+```
 
 **Seeding the DB**
+
 Optionally, run the following command to populate with six mock users
 
-> npm seed
+```
+npm run seed
+```
 
 **Starting the server**
+
 Start the server with the following command
 
-> npm run start
+```
+npm run start
+```
 
 
 ### Links:

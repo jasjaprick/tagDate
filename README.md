@@ -42,7 +42,7 @@ docker-compose up
 To generate the database model with Prisma, run the following command
 
 ```
-npm generate
+npm run generate
 ```
 
 **Migrate and create the DB in Postgres**
@@ -50,7 +50,7 @@ npm generate
 To create the db and tables, please run the following command 
 
 ```
-npm migrate
+npm run migrate
 ```
 
 **Seeding the DB**
@@ -58,7 +58,7 @@ npm migrate
 Optionally, run the following command to populate with six mock users
 
 ```
-npm seed
+npm run seed
 ```
 
 **Starting the server**

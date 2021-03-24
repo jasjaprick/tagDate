@@ -14,8 +14,8 @@ model User {
   password        String
   rejections      Int[]
   activity        Activity[] // Relational reference
-  possibleMatches PossibleMatch? @relation("PossibleMatch") // Relational reference 
-  likedByUser     PossibleMatch? @relation("LikedByUser") // Relational reference
+  possibleMatches PossibleMatch[] @relation("PossibleMatch") // Relational reference 
+  likedByUser     PossibleMatch[] @relation("LikedByUser") // Relational reference
   profile         Profile?       @relation("userProfile") //Relational reference
 }
 
@@ -42,8 +42,8 @@ model Activity {
   tag             String
   user            User           @relation(fields: [postedBy], references: [id]) // Relational reference
   postedBy        Int // relational scalar field
-  userOneActivity PossibleMatch? @relation("myActivity") // Relation reference
-  userTwoActivity PossibleMatch? @relation("theirActivity") // Relation reference
+  ownActivity PossibleMatch[] @relation("ownActivity") // Relation reference
+  partnerActivity PossibleMatch[] @relation("partnerActivity") // Relation reference
 }
 
 // Joint table for Possible matches
@@ -51,10 +51,10 @@ model PossibleMatch {
   id              Int      @id @default(autoincrement())
   userOne         User     @relation("PossibleMatch", fields: [UID1], references: [id]) // Relational reference
   userTwo         User     @relation("LikedByUser", fields: [UID2], references: [id]) // Relational reference
-  UID1            Int // relational scalar field
-  UID2            Int // relational scalar field
-  userOneActivity Activity @relation("myActivity", fields: [myActivity], references: [id]) // Relational reference 
-  userTwoActivity Activity @relation("theirActivity", fields: [partnerActivity], references: [id]) // Relational reference
+  UID1            Int      // relational scalar field
+  UID2            Int      // relational scalar field
+  userOneActivity Activity @relation("ownActivity", fields: [myActivity], references: [id]) // Relational reference 
+  userTwoActivity Activity @relation("partnerActivity", fields: [partnerActivity], references: [id]) // Relational reference
   myActivity      Int // relational scalar field
   partnerActivity Int // relational scalar field
   isMatch         Boolean  @default(false)

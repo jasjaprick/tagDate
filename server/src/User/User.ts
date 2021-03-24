@@ -23,6 +23,11 @@ export class User {
   @Field()
   interestedIn: string;
 
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
 //   //TODO: Add object that can take latitude and longitude
   @Field()
   location: string;

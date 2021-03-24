@@ -16,6 +16,7 @@ import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputAge from '../atoms/InputAge';
 import PersonalDetails from '../organisms/PersonalDetails';
 import BioInfo from '../organisms/BioInfo';
+import AddPicture from '../organisms/AddPicture';
 
 interface Iprops {
   onPress: (text: string) => void;
@@ -38,6 +39,8 @@ function RegisterPage() {
       />
 
       <BioInfo bio={bio} setBio={setBio} />
+
+      <AddPicture />
 
       <Button
         onPress={console.log('name:', name, 'age:', age, 'bio:', bio)}
@@ -71,19 +74,6 @@ function RegisterPage() {
       </View>
 
 
-
-      <View style={styles.pictureContainer}>
-        <Text style={styles.font}>Add picture</Text>
-        <TouchableOpacity style={styles.camera}>
-          <View style={styles.genderItem}>
-            <MaterialCommunityIcons
-              name='camera-plus-outline'
-              size={24}
-              style={styles.icons}
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
 
       <View style={styles.genderContainer}>
         <Text style={styles.font}>Interested in</Text>
@@ -167,7 +157,7 @@ const styles = StyleSheet.create({
   },
   gender: {},
   genderContainer: {},
-  pictureContainer: {},
+
   input: {},
   icons: { color: colors.grey },
   AgeContainer: {
@@ -203,3 +193,16 @@ onChangeText={(bio: string) => {
 placeholder={'Tell us about yourself...'}
 value={bio}></InputFieldLarge> */
 }
+
+// <View style={styles.pictureContainer}>
+// <Text style={styles.font}>Add picture</Text>
+// <TouchableOpacity style={styles.camera}>
+//   <View style={styles.genderItem}>
+//     <MaterialCommunityIcons
+//       name='camera-plus-outline'
+//       size={24}
+//       style={styles.icons}
+//     />
+//   </View>
+// </TouchableOpacity>
+// </View>

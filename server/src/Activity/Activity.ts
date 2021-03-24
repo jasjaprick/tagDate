@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import {ObjectType, Field, ID } from 'type-graphql';
+import { Profile } from '../Profile/Profile';
 import { User } from '../User/User';
 
 
@@ -18,4 +19,7 @@ export class Activity {
 
   @Field(type => User)
   user?: User;
+
+  @Field(type => Profile)
+  profile?: Profile;
 }

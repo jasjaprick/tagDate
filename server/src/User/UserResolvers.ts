@@ -47,7 +47,9 @@ export class UserResolver {
   // GetAll Query (for development purposes)
   @Query((returns) => [User]) 
   async getAllUsers(@Ctx() ctx: Context) {
-    return await ctx.prisma.user.findMany();
+    return await ctx.prisma.user.findMany(
+      {include: {profile:true}}
+    );
   }
 
  

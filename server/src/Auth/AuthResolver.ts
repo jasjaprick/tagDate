@@ -10,12 +10,16 @@ import {
   ID,
 } from 'type-graphql';
 import { User } from '../User/User';
-import { Token } from '../Auth/Auth';
+import { Token, Id } from '../Auth/Auth';
 import { Context } from '../context';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 interface IToken {
-  accessToken?: string
+  accessToken?: string;
+}
+
+interface IId {
+  id?: number;
 }
 
 @InputType()
@@ -26,6 +30,9 @@ class LoginInput {
   @Field()
   password: string;
 }
+
+let tk: string =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE2NjA3MDY3fQ.vWbeNd4LjJAZdSMalbpnPZnPDGQ83TcZS0lQMVN6p3o';
 
 @Resolver(User)
 export class AuthResolver {
@@ -52,7 +59,7 @@ export class AuthResolver {
       return null;
     }
 
-  const webToken: IToken = {};
+    const webToken: IToken = {};
 
     //Generate accessToken
     webToken.accessToken = sign({ id: user.id }, 'deded');
@@ -62,9 +69,21 @@ export class AuthResolver {
   }
 
   // Verify JWT
-  // @Query(() => Token)
-  // async verifyjwt(@Arg('token') token: string, @Ctx() ctx: Context) {
-  //   jwt.verify(token, 'deded');
-  //   return accessToken;
-  // }
+  @Query(() => Id)
+  async verifyWebToken(
+    @Arg('tokenToVerify') tokenToVerify: string,
+    @Ctx() ctx: Context
+  ) {
+    try {
+      let res = verify(tokenToVerify, 'deded');
+      const Id: IId = {};
+      Id.id = res.id;
+      console.log('id: ', Id.id);
+      return Id;
+    } catch (err) {
+      console.log('error', err);
+
+      return null;
+    }
+  }
 }

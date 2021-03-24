@@ -33,6 +33,8 @@ model Profile {
   profilePicture String?
 }
 
+
+
 // Model for Activiy
 model Activity {
   id              Int            @id @default(autoincrement())

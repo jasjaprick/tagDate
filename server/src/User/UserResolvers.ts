@@ -25,7 +25,7 @@ class RejectUserInput {
   rejectedID: number;
 }
 @InputType()
-class LoginInput {
+class AddUserInput {
   @Field()
   email: string;
   @Field()
@@ -57,7 +57,7 @@ export class UserResolver {
   // Add new user
   @Mutation((returns) => User)
   async addUser(
-    @Arg('data') data: LoginInput,
+    @Arg('data') data: AddUserInput,
     @Ctx() ctx: Context
   ): Promise<User> {
     return await ctx.prisma.user.create({

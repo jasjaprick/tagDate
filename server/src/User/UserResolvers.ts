@@ -45,6 +45,13 @@ class RejectUserInput {
   @Field()
   rejectedID: number;
 }
+@InputType()
+class LoginInput {
+  @Field()
+  email: string;
+  @Field()
+  password: string;
+}
 
 @Resolver(User)
 export class UserResolver {
@@ -64,6 +71,23 @@ export class UserResolver {
     return await ctx.prisma.user.findMany();
   }
 
+  @Query((returns) => [User])
+  async getjwt(@Arg('data') data: LoginInput, @Ctx() ctx: Context) {
+    //Verify email
+    const user = await ctx.prisma.user.findUnique({
+      where: {
+        email: data.email,
+      },
+    })
+    console.log('user', user);
+    //Verify password
+    //Generate accessToken
+    //Other
+    console.log('logging in?');
+    console.log(data);
+    console.log(data.email);
+    return await ctx.prisma.user.findMany();
+  }
 
   // Mutations
 

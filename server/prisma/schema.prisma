@@ -16,7 +16,7 @@ model User {
   gender          String
   interestedIn    String
   location        String
-  email           String
+  email           String         @unique
   password        String
   profilePicture  String?
   rejections      Int[]

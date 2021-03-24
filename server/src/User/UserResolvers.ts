@@ -12,18 +12,8 @@ import {
 } from 'type-graphql';
 import { User } from './User';
 import { Context } from '../context';
-import { prisma } from '.prisma/client';
 
-
-
-@InputType()
-class RejectUserInput {
-  @Field()
-  ownID: number;
-
-  @Field()
-  rejectedID: number;
-}
+// Inputs
 @InputType()
 class AddUserInput {
   @Field()
@@ -74,12 +64,13 @@ export class UserResolver {
   // Add user to rejection list // Disliking a User
   @Mutation((returns) => User)
   async rejectUser(
-    @Arg('data') data: RejectUserInput,
+    @Arg('ownId') ownId: number,
+    @Arg('rejectedId') rejectedId: number,
     @Ctx() ctx: Context
   ): Promise<User> {
     // Query user array with users the current user rejected
     const resUser = await ctx.prisma.user.findUnique({
-      where: { id: data.ownID },
+      where: { id: ownId },
       select: {
         rejections: true,
       },
@@ -87,14 +78,14 @@ export class UserResolver {
     // Query possible pending match with the user we dislike
     const resMatch = await ctx.prisma.possibleMatch.findFirst({
       where: {
-        AND: [{ UID1: data.rejectedID }, { UID2: data.ownID }],
+        AND: [{ UID1: rejectedId }, { UID2: ownId }],
       },
       select: {
         id: true,
       },
     });
     // delete that matchID if exists
-    await ctx.prisma.possibleMatch.delete({
+    if (resMatch) await ctx.prisma.possibleMatch.delete({
       where: {
         id: resMatch.id,
       },
@@ -103,10 +94,10 @@ export class UserResolver {
     return await ctx.prisma.user.update({
       data: {
         rejections: {
-          set: [...resUser.rejections, data.rejectedID],
+          set: [...resUser.rejections, rejectedId],
         },
       },
-      where: { id: data.ownID },
+      where: { id: ownId },
     });
   }
 }

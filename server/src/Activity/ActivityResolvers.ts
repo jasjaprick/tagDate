@@ -28,11 +28,6 @@ class AddActivityInput {
 export class ActivityResolvers {
   // Queries
 
-  // Add a new activity
- 
- 
- 
-
   // Get activity by ID
   @Query((returns) => Activity, { nullable: true })
   async getActivityById(

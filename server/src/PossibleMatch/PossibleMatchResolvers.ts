@@ -1,7 +1,15 @@
 import 'reflect-metadata';
-import { Ctx, Field, InputType, Mutation, Resolver, Arg, Query } from 'type-graphql';
+import {
+  Ctx,
+  Field,
+  InputType,
+  Mutation,
+  Resolver,
+  Arg,
+  Query,
+} from 'type-graphql';
 import { Context } from '../context';
-import { PossibleMatch} from './PossibleMatch';
+import { PossibleMatch } from './PossibleMatch';
 
 @InputType()
 class AddPossibleMatchInput {
@@ -12,10 +20,10 @@ class AddPossibleMatchInput {
   UID2: number;
 
   @Field()
-  myActivity: number
+  myActivity: number;
 
   @Field()
-  partnerActivity: number
+  partnerActivity: number;
 }
 
 @Resolver(PossibleMatch)
@@ -30,7 +38,7 @@ export class PossibleMatchResolvers {
 
   // Mutations
 
-  // Create or confirm possible match
+  // Create or confirm possible match - Liking
   @Mutation((returns) => PossibleMatch)
   async addPossibleMatch(
     @Arg('data') data: AddPossibleMatchInput,
@@ -46,21 +54,28 @@ export class PossibleMatchResolvers {
       },
     });
 
-    // Confirm the possible match if the target user likes us,
-    // If not, then create the possible match. Finallty return the created match
-    return ctx.prisma.possibleMatch.upsert({
-      where: {
-        id: pendingMatch.id,
-      },
-      update: {
-        isMatch: true,
-      },
-      create: {
-        UID1: data.UID1,
-        UID2: data.UID2,
-        myActivity: data.myActivity,
-        partnerActivity: data.partnerActivity,
-      },
-    });
+    // If the target user likes us, then we simply update and confirm the match
+    if (pendingMatch) {
+       return ctx.prisma.possibleMatch.update({
+         where: {
+           id: pendingMatch.id,
+         },
+         data: {
+           isMatch: true,
+         },
+       });
+    } else {
+    // If the other user is not into us yet, then we create the possible match
+    // isMatch (match confirmation) will be set to default false
+     return ctx.prisma.possibleMatch.create({
+       data: {
+         UID1: data.UID1,
+         UID2: data.UID2,
+         myActivity: data.myActivity,
+         partnerActivity: data.partnerActivity,
+       },
+     });
+    }
+    
   }
 }

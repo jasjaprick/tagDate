@@ -16,7 +16,7 @@ import { Context } from '../context';
 import { Profile } from './Profile';
 
 @InputType()
-class AddProfileInput {
+export class AddProfileInput {
   @Field()
   name: string;
 
@@ -31,36 +31,32 @@ class AddProfileInput {
 
   @Field()
   location: string;
-  @Field()
-  userId: number;
 }
 
-@Resolver(Profile) 
-export class ProfileResolvers{
+@Resolver(Profile)
+export class ProfileResolvers {
+  //Mutation that will be called after the user has filled up the form in the frontend
+  // @Mutation((returns) => Profile)
+  // async addProfile(
+  //   @Arg('data') data: AddProfileInput,
+  //   @Ctx() ctx: Context
+  // ): Promise<Profile> {
+  //   return await ctx.prisma.profile.create({
+  //     data: {
+  //       name: data.name,
+  //       age: data.age,
+  //       gender: data.gender,
+  //       interestedIn: data.interestedIn,
+  //       location: data.location,
+  //       userId: data.userId,
+  //     },
+  //   });
+  // }
 
-
-    
-    //Mutation that will be called after the user has filled up the form in the frontend
-    @Mutation((returns) => Profile) 
-     async addProfile(@Arg('data') data: AddProfileInput,
-        @Ctx() ctx: Context
-      ): Promise<Profile> {
-        return await ctx.prisma.profile.create({
-          data: {
-              name: data.name,
-              age: data.age,
-              gender: data.gender,
-            interestedIn: data.interestedIn,
-            location: data.location,
-            userId: data.userId
-          },
-        });
-      }
-
-      @Query(returns => [Profile])
-      async getAllProfiles(@Ctx() ctx: Context) {
-          return await ctx.prisma.profile.findMany({
-              include: {user: true}
-          })
-      }
-    }
+  @Query((returns) => [Profile])
+  async getAllProfiles(@Ctx() ctx: Context) {
+    return await ctx.prisma.profile.findMany({
+      include: { user: true },
+    });
+  }
+}

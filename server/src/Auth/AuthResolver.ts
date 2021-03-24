@@ -14,6 +14,10 @@ import { Token } from '../Auth/Auth';
 import { Context } from '../context';
 import { sign } from 'jsonwebtoken';
 
+interface IToken {
+  accessToken?: string
+}
+
 @InputType()
 class LoginInput {
   @Field()
@@ -48,11 +52,13 @@ export class AuthResolver {
       return null;
     }
 
-    //Generate accessToken
-    const accessToken = sign({ id: user.id }, 'deded');
-    console.log('accessToken', accessToken);
+  const webToken: IToken = {};
 
-    return Token;
+    //Generate accessToken
+    webToken.accessToken = sign({ id: user.id }, 'deded');
+    console.log('accessToken', webToken.accessToken);
+
+    return webToken;
   }
 
   // Verify JWT

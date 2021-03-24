@@ -1,6 +1,6 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 import { activityData } from './mockData/mockActivities';
-import { mockProfilesData} from './mockData/mockProfiles'
+import { mockProfilesData} from './mockData/mockProfiles';
 import { userData } from './mockData/mockUsers';
 const prisma = new PrismaClient();
 

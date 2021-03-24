@@ -31,7 +31,9 @@ export class ActivityResolvers {
   // GetAll Query (for development purposes)
   @Query((returns) => [Activity])
   async getAllActivities(@Ctx() ctx: Context) {
-    return await ctx.prisma.activity.findMany();
+    return await ctx.prisma.activity.findMany({
+      include: {user: true}
+    });
   }
 
   // Get activity by ID

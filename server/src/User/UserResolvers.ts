@@ -30,6 +30,11 @@ class AddUserInput {
 
   @Field()
   location: string;
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
 }
 
 @InputType()
@@ -75,6 +80,8 @@ export class UserResolver {
         gender: data.gender,
         interestedIn: data.interestedIn,
         location: data.location,
+        email: data.email,
+        password: data.password
       },
     });
   }

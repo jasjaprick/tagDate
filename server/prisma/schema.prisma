@@ -16,6 +16,8 @@ model User {
   gender          String
   interestedIn    String
   location        String
+  email           String
+  password        String
   profilePicture  String?
   rejections      Int[]
   activity        Activity[] // Relational reference

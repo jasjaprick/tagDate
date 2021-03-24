@@ -9,6 +9,8 @@ const userData: Prisma.UserCreateInput[] = [
     gender: 'male',
     interestedIn: 'female',
     location: 'Barcelona',
+    email: 'johnnie@example.com',
+    password: 'jonny'
   },
   {
     name: 'Beckie',
@@ -16,6 +18,8 @@ const userData: Prisma.UserCreateInput[] = [
     gender: 'female',
     interestedIn: 'male',
     location: 'Barcelona',
+    email: 'beckie@example.com',
+    password: 'beckie'
   },
   {
     name: 'Diana',
@@ -23,6 +27,8 @@ const userData: Prisma.UserCreateInput[] = [
     gender: 'female',
     interestedIn: 'female',
     location: 'Barcelona',
+    email: 'diana@example.com',
+    password: 'diana'
   },
   {
     name: 'Toby',
@@ -30,6 +36,8 @@ const userData: Prisma.UserCreateInput[] = [
     gender: 'male',
     interestedIn: 'female',
     location: 'Barcelona',
+    email: 'toby@example.com',
+    password: 'toby'
   },
   {
     name: 'Johnie II',
@@ -37,6 +45,8 @@ const userData: Prisma.UserCreateInput[] = [
     gender: 'male',
     interestedIn: 'female',
     location: 'Barcelona',
+    email: 'johnnie2@example.com',
+    password: 'jonny2'
   },
   {
     name: 'Lulu',
@@ -44,8 +54,12 @@ const userData: Prisma.UserCreateInput[] = [
     gender: 'female',
     interestedIn: 'male',
     location: 'Barcelona',
+    email: 'lulu@example.com',
+    password: 'lulu'
   },
 ];
+
+
 
 async function main() {
   console.log('Start seeding');

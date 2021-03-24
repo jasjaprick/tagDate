@@ -17,12 +17,14 @@ const Match: React.FC<Props> = ({name, age, location, pictures, activity}) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={ image } style={styles.image}>
-      <MatchUserInfo 
+      <View style={styles.infobox}>
+      <MatchUserInfo  
       name={name}
       age={age}
       location={location}
       activity={activity}
       />
+      </View>
       </ImageBackground>
     </View>
   );
@@ -43,6 +45,17 @@ const styles = StyleSheet.create({
     width: '100%',
     resizeMode: 'contain',
     justifyContent: 'center',
+  },
+  infobox: {
+    flex: 1,
+    height: '25%',
+    width: '90%',
+    position: 'absolute',
+    bottom: 0,
+    borderRadius: 20,
+    color: '#ffffff',
+    // justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

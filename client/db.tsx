@@ -1,4 +1,4 @@
-interface IUsers {
+export interface IUsers {
   name: string,
   bio: string,
   age: number,
@@ -12,16 +12,16 @@ interface IUsers {
 
 
 
-export const dbUser :IUsers [] = 
+export const dbUser  = 
   [
     {
-      name: 'Pedro',
-      bio: 'I love cats and Rock&Roll',
+      name: 'Sofia',
+      bio: 'I love dogs and Rock&Roll',
       age: 26,
-      gender: 'male',
-      interestedIn: 'female',
+      gender: 'female',
+      interestedIn: 'male',
       location: 'Barcelona',
-      pictures: ['https://api.unsplash.com/photos/8ig-SzHpqDw', 'https://unsplash.com/photos/jgaVXPv9soI'],
+      pictures: ['https://source.unsplash.com/NUEWYsqzHxM', 'https://source.unsplash.com/fwafgljc0f0'],
       activity: 1,
     },
     {

@@ -12,8 +12,9 @@ const MatchUserInfo: React.FC<Props> = ({name, age, location, activity}) => {
 
   return (
     <View style={styles.container}>
-      <Text>{name}, {age}</Text>
-      <Text>{location}</Text>
+      <Text style={styles.text}>{name}, {age}</Text>
+      <Text style={styles.text}>{location}</Text>
+      <Text style={styles.text}>Do you want to {activity}?</Text>
     </View>
   );
 };
@@ -21,14 +22,19 @@ const MatchUserInfo: React.FC<Props> = ({name, age, location, activity}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // height: '20%',
-    // width: '80%',
     marginBottom: 30,
-    backgroundColor: '#725ac1',
-    opacity: 0.8,
+    minWidth: '90%',
+    backgroundColor: 'rgba(114,90,193, 0.4)',
+    opacity: 0.3,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5
+    borderRadius: 10,
+  },
+  text: {
+    color: 'white',
+    opacity: 1,
+    fontSize: 18
+    // fontFamily: 'Roboto'
   }
 });
 

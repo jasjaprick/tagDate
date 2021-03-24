@@ -14,28 +14,7 @@ import { User } from './User';
 import { Context } from '../context';
 import { prisma } from '.prisma/client';
 
-@InputType()
-class AddUserInput {
-  @Field()
-  name: string;
 
-  @Field()
-  age: number;
-
-  @Field()
-  gender: string;
-
-  @Field()
-  interestedIn: string;
-
-  @Field()
-  location: string;
-  @Field()
-  email: string;
-
-  @Field()
-  password: string;
-}
 
 @InputType()
 class RejectUserInput {
@@ -71,39 +50,19 @@ export class UserResolver {
     return await ctx.prisma.user.findMany();
   }
 
-  @Query((returns) => [User])
-  async getjwt(@Arg('data') data: LoginInput, @Ctx() ctx: Context) {
-    //Verify email
-    const user = await ctx.prisma.user.findUnique({
-      where: {
-        email: data.email,
-      },
-    })
-    console.log('user', user);
-    //Verify password
-    //Generate accessToken
-    //Other
-    console.log('logging in?');
-    console.log(data);
-    console.log(data.email);
-    return await ctx.prisma.user.findMany();
-  }
+ 
 
   // Mutations
 
   // Add new user
   @Mutation((returns) => User)
   async addUser(
-    @Arg('data') data: AddUserInput,
+    @Arg('data') data: LoginInput,
     @Ctx() ctx: Context
   ): Promise<User> {
     return await ctx.prisma.user.create({
       data: {
-        name: data.name,
-        age: data.age,
-        gender: data.gender,
-        interestedIn: data.interestedIn,
-        location: data.location,
+        
         email: data.email,
         password: data.password
       },

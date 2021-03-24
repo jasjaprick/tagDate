@@ -39,6 +39,7 @@ export class ActivityResolvers {
         postedBy: data.postedBy,
         tag: data.tag,
       },
+      
     });
   }
 
@@ -49,7 +50,16 @@ export class ActivityResolvers {
       where: { id: id },
     });
   }
-
+  @Query((returns) => [Activity])
+  async getAllActivities(@Ctx() ctx: Context) {
+    return await ctx.prisma.activity.findMany({
+      include:
+       {user: 
+        { include : 
+          {profile: true}}}  }
+    
+    );
+  }
   // Find activities based on tag (returns list of array of activities with matching tags,
   // posted by possible partners and not posted by our own
   @Query((returns) => [Activity], { nullable: true })

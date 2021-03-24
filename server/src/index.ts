@@ -4,10 +4,12 @@ import { ApolloServer } from 'apollo-server';
 import { UserResolver } from './User/UserResolvers';
 import { context } from './context';
 import {ActivityResolvers} from './Activity/ActivityResolvers';
+import { PossibleMatchResolvers } from './PossibleMatch/PossibleMatchResolvers';
+import { ProfileResolvers } from './Profile/ProfileResolvers';
 
 const app = async () => {
   const schema = await tq.buildSchema({
-    resolvers: [UserResolver, ActivityResolvers]
+    resolvers: [UserResolver, ActivityResolvers, PossibleMatchResolvers, ProfileResolvers]
   });
 
   new ApolloServer({ schema, context: context }).listen({ port: 4000 }, () =>

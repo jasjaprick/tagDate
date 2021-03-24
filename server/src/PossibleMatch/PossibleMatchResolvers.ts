@@ -24,7 +24,7 @@ export class PossibleMatchResolvers {
 
   // GetAll Query (for development purposes)
   @Query((returns) => [PossibleMatch])
-  async getAllUsers(@Ctx() ctx: Context) {
+  async getAllPossibleMatches(@Ctx() ctx: Context) {
     return await ctx.prisma.possibleMatch.findMany();
   }
 

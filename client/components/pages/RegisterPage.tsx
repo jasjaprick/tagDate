@@ -11,7 +11,6 @@ import {
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../helpers/colors';
 
-// import InputFieldShort from '../atoms/InputFieldShort';
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputAge from '../atoms/InputAge';
 import PersonalDetails from '../organisms/PersonalDetails';
@@ -28,6 +27,7 @@ function RegisterPage() {
   const [bio, setBio] = useState(''); //Bio
   const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
+  const [userGender, setUserGender] = React.useState('male');
 
   return (
     <View style={styles.registerPageContainer}>
@@ -36,6 +36,8 @@ function RegisterPage() {
         setName={setName}
         age={age}
         setAge={setAge}
+        userGender={userGender}
+        setUserGender={setUserGender}
       />
 
       <BioInfo bio={bio} setBio={setBio} />
@@ -49,32 +51,6 @@ function RegisterPage() {
       />
 
       {/* 
-      <View style={styles.genderContainer}>
-        <Text style={styles.font}>Gender</Text>
-        <View style={styles.genderItemsContainer}>
-          <TouchableOpacity style={styles.genderItem}>
-            <View style={styles.genderItem}>
-              <Ionicons
-                name='male-outline'
-                label='User'
-                size={24}
-                style={styles.icons}
-              />
-              <Text style={styles.fontGender}>Male</Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.genderItem}>
-            <View style={styles.gender}>
-              <Ionicons name='female-outline' size={24} style={styles.icons} />
-              <Text style={styles.fontGender}>Female</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-
-
       <View style={styles.genderContainer}>
         <Text style={styles.font}>Interested in</Text>
         <View style={styles.genderItemsContainer}>
@@ -118,9 +94,7 @@ function RegisterPage() {
             placeholder={''}
             value={maxAge?.toString()}></InputAge>
         </View>
-      </> */}
-
-      {/* <Button title="Submit" onPress={handleSubmit(onSubmit)} /> */}
+      </>  */}
     </View>
   );
 }
@@ -168,41 +142,3 @@ const styles = StyleSheet.create({
 });
 
 export default RegisterPage;
-
-{
-  /* <InputFieldShort
-        onChangeText={(name: string) => {
-          setName(name);
-        }}
-        placeholder={'Name'}
-        value={name}></InputFieldShort>
-
-      <InputFieldShort
-        onChangeText={(age: string) => {
-          setAge(+age);
-        }}
-        placeholder={'Age'}
-        value={age?.toString()}></InputFieldShort> */
-}
-
-{
-  /* <InputFieldLarge
-onChangeText={(bio: string) => {
-  setBio(bio);
-}}
-placeholder={'Tell us about yourself...'}
-value={bio}></InputFieldLarge> */
-}
-
-// <View style={styles.pictureContainer}>
-// <Text style={styles.font}>Add picture</Text>
-// <TouchableOpacity style={styles.camera}>
-//   <View style={styles.genderItem}>
-//     <MaterialCommunityIcons
-//       name='camera-plus-outline'
-//       size={24}
-//       style={styles.icons}
-//     />
-//   </View>
-// </TouchableOpacity>
-// </View>

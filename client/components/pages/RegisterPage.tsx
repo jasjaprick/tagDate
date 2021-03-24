@@ -1,27 +1,32 @@
 import React, { useState} from 'react';
-import { View, Text, StyleSheet, TextInput, } from 'react-native';
+import { View, Text, StyleSheet, TextInput,NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import colors from '../../helpers/colors';
+
 
 import InputFieldShort from '../atoms/InputFieldShort';
 import InputFieldLarge from '../atoms/InputFieldLarge';
 
 function RegisterPage() {
-  const [text, onChangeText] = useState(''); //Name
-  const [number, onChangeNumber] = useState(''); //Age
-  const [bio, onChangeBio] = useState(''); //Bio
+  const [name, setName] = useState(''); //Name
+  const [age, setAge] = useState(0); //Age
+  const [bio, setBio] = useState(''); //Bio
 
   return (
     <View style={styles.registerPageContainer}>
   
       <InputFieldShort
-        onChange={onChangeText}
+        onChange={(name: string) => {
+          setName(name);
+        }}
         placeholder={'Name'}
       >
      </InputFieldShort>
 
 
      <InputFieldShort
-        onChange={onChangeNumber}
+        onChange={(age: number) => {
+        setAge(age);
+      }}
         placeholder={'Age'}
       >
      </InputFieldShort>
@@ -32,7 +37,9 @@ function RegisterPage() {
 
 
    <InputFieldLarge
-        onChange={onChangeText}
+        onChange={(bio: string) => {
+          setBio(bio);
+        }}
         placeholder={'Tell us about yourself...'}
       >
   </InputFieldLarge>

@@ -1,21 +1,29 @@
-import React, { useState} from 'react';
-import { View, Text, StyleSheet, TextInput, } from 'react-native';
+import React from 'react';
+import { StyleSheet, TextInput } from 'react-native';
 import colors from '../../helpers/colors';
 
-function InputFieldShort({ placeholder, onChange }) {
+
+interface IProps {
+  placeholder: string;
+  onChangeText: ((text: string) => void);
+  value: string | undefined;
+}
+
+const InputFieldShort: React.FC<IProps> = ({ placeholder, onChangeText, value } : IProps) => {
   return (
     <TextInput
     style={styles.input}
-    onChange={onChange}
+    onChangeText={onChangeText}
     placeholder={placeholder}
+    value={value}
     >
     </TextInput>
   );
-}
+};
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: 'red',
+    backgroundColor: 'colors.white',
     borderColor: colors.grey,
     padding: 10,
     borderRadius: 20,

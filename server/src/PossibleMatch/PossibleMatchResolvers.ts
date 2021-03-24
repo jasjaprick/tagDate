@@ -30,10 +30,26 @@ class AddPossibleMatchInput {
 export class PossibleMatchResolvers {
   // Queries
 
-  // GetAll Query (for development purposes)
+  // GetAll Query
   @Query((returns) => [PossibleMatch])
   async getAllPossibleMatches(@Ctx() ctx: Context) {
-    return await ctx.prisma.possibleMatch.findMany();
+    return await ctx.prisma.possibleMatch.findMany({
+      include: {
+        userOne: {
+          include: {
+            profile: true,
+          },
+        },
+        userTwo: {
+          include: {
+            profile: true,
+          },
+        },
+        userOneActivity: true,
+        userTwoActivity: true
+      },
+
+    });
   }
 
   // Mutations
@@ -56,26 +72,25 @@ export class PossibleMatchResolvers {
 
     // If the target user likes us, then we simply update and confirm the match
     if (pendingMatch) {
-       return ctx.prisma.possibleMatch.update({
-         where: {
-           id: pendingMatch.id,
-         },
-         data: {
-           isMatch: true,
-         },
-       });
+      return ctx.prisma.possibleMatch.update({
+        where: {
+          id: pendingMatch.id,
+        },
+        data: {
+          isMatch: true,
+        },
+      });
     } else {
-    // If the other user is not into us yet, then we create the possible match
-    // isMatch (match confirmation) will be set to default false
-     return ctx.prisma.possibleMatch.create({
-       data: {
-         UID1: data.UID1,
-         UID2: data.UID2,
-         myActivity: data.myActivity,
-         partnerActivity: data.partnerActivity,
-       },
-     });
+      // If the other user is not into us yet, then we create the possible match
+      // isMatch (match confirmation) will be set to default false
+      return ctx.prisma.possibleMatch.create({
+        data: {
+          UID1: data.UID1,
+          UID2: data.UID2,
+          myActivity: data.myActivity,
+          partnerActivity: data.partnerActivity,
+        },
+      });
     }
-    
   }
 }

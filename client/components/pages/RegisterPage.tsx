@@ -11,9 +11,14 @@ import {
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../helpers/colors';
 
-import InputFieldShort from '../atoms/InputFieldShort';
+// import InputFieldShort from '../atoms/InputFieldShort';
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputAge from '../atoms/InputAge';
+import PersonalDetails from '../organisms/PersonalDetails';
+
+interface Iprops {
+  onPress: (text: string) => void;
+}
 
 function RegisterPage() {
   const [name, setName] = useState(''); //Name
@@ -24,20 +29,16 @@ function RegisterPage() {
 
   return (
     <View style={styles.registerPageContainer}>
-      <InputFieldShort
-        onChangeText={(name: string) => {
-          setName(name);
-        }}
-        placeholder={'Name'}
-        value={name}></InputFieldShort>
+      <PersonalDetails
+        name={name}
+        setName={setName}
+        age={age}
+        setAge={setAge}
+      />
 
-      <InputFieldShort
-        onChangeText={(age: string) => {
-          setAge(+age);
-        }}
-        placeholder={'Age'}
-        value={age?.toString()}></InputFieldShort>
+      <Button onPress={console.log(name, age)} title='Next' color='#841584' />
 
+      {/* 
       <View style={styles.genderContainer}>
         <Text style={styles.font}>Gender</Text>
         <View style={styles.genderItemsContainer}>
@@ -125,7 +126,7 @@ function RegisterPage() {
             placeholder={''}
             value={maxAge?.toString()}></InputAge>
         </View>
-      </>
+      </> */}
 
       {/* <Button title="Submit" onPress={handleSubmit(onSubmit)} /> */}
     </View>
@@ -175,3 +176,19 @@ const styles = StyleSheet.create({
 });
 
 export default RegisterPage;
+
+{
+  /* <InputFieldShort
+        onChangeText={(name: string) => {
+          setName(name);
+        }}
+        placeholder={'Name'}
+        value={name}></InputFieldShort>
+
+      <InputFieldShort
+        onChangeText={(age: string) => {
+          setAge(+age);
+        }}
+        placeholder={'Age'}
+        value={age?.toString()}></InputFieldShort> */
+}

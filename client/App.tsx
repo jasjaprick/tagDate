@@ -20,7 +20,7 @@ export default function App() {
 
     if (!fontsLoaded) {
       return <View />;
-    // return <AppLoading />;
+    //  return <AppLoading />;
   } else {
   return (
     <AppScreen>

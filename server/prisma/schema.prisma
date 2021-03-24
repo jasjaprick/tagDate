@@ -10,19 +10,27 @@ datasource db {
 // Model for the user that contains profile info, activities and rejected people
 model User {
   id              Int            @id @default(autoincrement())
-  name            String
-  bio             String?
-  age             Int
-  gender          String
-  interestedIn    String
-  location        String
   email           String         @unique
   password        String
-  profilePicture  String?
   rejections      Int[]
   activity        Activity[] // Relational reference
   possibleMatches PossibleMatch? @relation("PossibleMatch") // Relational reference 
   likedByUser     PossibleMatch? @relation("LikedByUser") // Relational reference
+  profile         Profile?       @relation("userProfile") //Relational reference
+}
+
+//Model for the profile
+model Profile {
+  id             Int     @id @default(autoincrement())
+  user           User    @relation("userProfile", fields: [userId], references: [id]) //Relational reference
+  userId         Int // relational scalar field
+  name           String
+  bio            String?
+  age            Int
+  gender         String
+  interestedIn   String
+  location       String
+  profilePicture String?
 }
 
 // Model for Activiy

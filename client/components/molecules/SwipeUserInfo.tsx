@@ -6,11 +6,11 @@ interface Props {
   age: number,
   location: string,
   activity: number,
-  onLike: any,
-  onNoLike: any
+  onLike: () => void,
+  onNoLike: () => void
 }
 
-const MatchUserInfo: React.FC<Props> = ({name, age, location, activity, onLike, onNoLike}) => {
+const MatchUserInfo: React.FC<Props> = ({name, age, location, activity, onLike, onNoLike}: Props) => {
 
   return (
     <View style={styles.container}>

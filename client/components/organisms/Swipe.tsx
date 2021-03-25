@@ -9,7 +9,7 @@ interface Props {
   onNoLike: () => void;
 }
 
-const Match: React.FC<Props> = ({user, onLike, onNoLike}) => {
+const Match: React.FC<Props> = ({user, onLike, onNoLike}: Props) => {
  
   return (
     <View style={styles.container}>

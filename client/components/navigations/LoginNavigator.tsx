@@ -6,21 +6,19 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import colors from '../../helpers/colors';
 
-
 const Menu = createStackNavigator();
 
 function LoginNavigator() {
   return (
     <Menu.Navigator
-        screenOptions={{
-          headerShown: true,
-          headerTintColor: colors.violet
-        }}
+      screenOptions={{
+        headerShown: true,
+        headerTintColor: colors.violet,
+      }}
     >
-      <Menu.Screen name="RegisterPage" component={RegisterPage}/>
-      <Menu.Screen name="LoginPage" component={LoginPage} />
-      <Menu.Screen name="LoginSuccessPage" component={LoginSuccessPage} />
-
+      <Menu.Screen name='LoginPage' component={LoginPage} />
+      <Menu.Screen name='RegisterPage' component={RegisterPage} />
+      <Menu.Screen name='LoginSuccessPage' component={LoginSuccessPage} />
     </Menu.Navigator>
   );
 }

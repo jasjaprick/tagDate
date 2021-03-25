@@ -19,6 +19,7 @@ import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
 import UserPreferences from '../organisms/UserPreferences';
+import InputFieldShort from '../atoms/InputFieldShort';
 
 interface Iprops {
   onPress: (text: string) => void;
@@ -38,6 +39,20 @@ function RegisterPage() {
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
   const [userGender, setUserGender] = React.useState('male');
   const [interestGender, setInterestGender] = React.useState('male');
+  const [location, setLocation] = useState(''); //Name
+
+  const handleOnPress = () => {
+    console.log('email:', email);
+    console.log('password:', password);
+    console.log('name:', name);
+    console.log('age:', age);
+    console.log('bio:', bio);
+    console.log('minAge:', minAge);
+    console.log('maxAge:', maxAge);
+    console.log('userGender:', userGender);
+    console.log('interestGender:', interestGender);
+    console.log('location:', location);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,26 +87,22 @@ function RegisterPage() {
             setInterestGender={setInterestGender}
           />
 
-          <Button
-            onPress={console.log(
-              'email;',
-              email,
-              'pass:',
-              password,
-              'name:',
-              name,
-              'age:',
-              age,
-              'bio:',
-              bio,
-              'minAge:',
-              minAge,
-              'maxAge:',
-              maxAge
-            )}
-            title='Next'
-            color='#841584'
-          />
+          <View style={styles.locationPageContainer}>
+            <InputFieldShort
+              onChangeText={(location: string) => {
+                setLocation(location);
+              }}
+              placeholder={'Location'}
+              value={location}></InputFieldShort>
+
+            {/* <ImageBackground
+        source={image}
+        style={styles.locationLogo}></ImageBackground> */}
+          </View>
+
+          <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -110,6 +121,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     position: 'relative',
   },
+  nextButton: {
+    backgroundColor: colors.violet,
+    padding: 20,
+    borderRadius: 20,
+    margin: 20,
+    width: '60%',
+    alignItems: 'center',
+  },
+  buttonText: { fontSize: 20, color: 'white' },
 });
 
 export default RegisterPage;

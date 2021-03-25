@@ -9,7 +9,7 @@ interface Props {
   onNoLike: () => void;
 }
 
-const Match: React.FC<Props> = ({user, onLike, onNoLike}: Props) => {
+const Swipe: React.FC<Props> = ({user, onLike, onNoLike}: Props) => {
  
   return (
     <View style={styles.container}>
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Match;
+export default Swipe;

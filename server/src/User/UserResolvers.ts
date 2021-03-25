@@ -37,6 +37,9 @@ export class AddUserInput {
 
   @Field()
   location: string;
+
+  @Field(type => String, {nullable : true})
+  profilePicture?: string;
 }
 
 @Resolver(User)
@@ -84,6 +87,7 @@ export class UserResolver {
         interestedIn: data.interestedIn,
         location: data.location,
         userId: newUser.id,
+        profilePicture: data.profilePicture
       },
     });
     console.log('User Added 🥳');

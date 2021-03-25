@@ -18,7 +18,10 @@ const InputFieldLarge: React.FC<IPropsInput> = ({
       style={styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
-      value={value}></TextInput>
+      value={value}
+      multiline
+      numberOfLines={4}
+    />
   );
 };
 
@@ -26,12 +29,11 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: colors.white,
     borderColor: colors.grey,
-    padding: 10,
     borderRadius: 20,
+    padding: 5,
     borderWidth: 0.5,
     marginBottom: 10,
     width: '100%',
-    height: '30%',
     alignItems: 'center',
     fontSize: 20,
     color: colors.grey,

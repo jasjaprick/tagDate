@@ -32,6 +32,9 @@ export class AddProfileInput {
 
   @Field()
   location: string;
+
+  @Field()
+  profilePicture?: string;
 }
 
 @Resolver(Profile)

@@ -10,7 +10,7 @@ interface Props {
   onNoLike: () => void
 }
 
-const MatchUserInfo: React.FC<Props> = ({name, age, location, activity, onLike, onNoLike}: Props) => {
+const SwipeUserInfo: React.FC<Props> = ({name, age, location, activity, onLike, onNoLike}: Props) => {
 
   return (
     <View style={styles.container}>
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MatchUserInfo;
+export default SwipeUserInfo;

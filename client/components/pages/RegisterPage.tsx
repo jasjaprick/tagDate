@@ -9,6 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import {useMutation, gql } from '@apollo/client';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../helpers/colors';
 
@@ -19,10 +20,24 @@ import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
 import UserPreferences from '../organisms/UserPreferences';
+import InputFieldShort from '../atoms/InputFieldShort';
 
 interface Iprops {
   onPress: (text: string) => void;
 }
+
+// Create user mutation
+// TODO: delete nested returns
+const ADD_USER = gql`
+  mutation Mutation($addUserData: AddUserInput!) {
+    addUser(data: $addUserData) {
+      id
+      profile {
+        name
+      }
+    }
+  }
+`;
 
 //TODO: FIX SCROLLVIEW
 //TODO: ADD STYLE
@@ -38,6 +53,24 @@ function RegisterPage() {
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
   const [userGender, setUserGender] = React.useState('male');
   const [interestGender, setInterestGender] = React.useState('male');
+  const [location, setLocation] = useState(''); //Name
+  const [addUser, { error, data }] = useMutation(ADD_USER, {variables: {
+        addUserData:  {
+          email: email,
+          password: password,
+          name: name,
+          age: age,
+          bio: bio,
+          gender: userGender,
+          interestedIn: interestGender,
+          location: location,
+        },
+      }});
+
+  const handleOnPress = () => {
+    console.log('-------it has been called');
+    addUser();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,26 +105,22 @@ function RegisterPage() {
             setInterestGender={setInterestGender}
           />
 
-          <Button
-            onPress={console.log(
-              'email;',
-              email,
-              'pass:',
-              password,
-              'name:',
-              name,
-              'age:',
-              age,
-              'bio:',
-              bio,
-              'minAge:',
-              minAge,
-              'maxAge:',
-              maxAge
-            )}
-            title='Next'
-            color='#841584'
-          />
+          <View style={styles.locationPageContainer}>
+            <InputFieldShort
+              onChangeText={(location: string) => {
+                setLocation(location);
+              }}
+              placeholder={'Location'}
+              value={location}></InputFieldShort>
+
+            {/* <ImageBackground
+        source={image}
+        style={styles.locationLogo}></ImageBackground> */}
+          </View>
+
+          <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -110,6 +139,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     position: 'relative',
   },
+  nextButton: {
+    backgroundColor: colors.violet,
+    padding: 20,
+    borderRadius: 20,
+    margin: 20,
+    width: '60%',
+    alignItems: 'center',
+  },
+  buttonText: { fontSize: 20, color: 'white' },
 });
 
 export default RegisterPage;

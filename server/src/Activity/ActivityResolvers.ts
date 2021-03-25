@@ -11,6 +11,7 @@ import {
 } from 'type-graphql';
 import { Activity } from './Activity';
 import { Context } from '../context';
+import { userData } from '../../prisma/mockData/mockUsers';
 
 // Input definition for add new activity mutation
 @InputType()
@@ -28,14 +29,6 @@ class AddActivityInput {
 export class ActivityResolvers {
   // Queries
 
-  // GetAll Query (for development purposes)
-  @Query((returns) => [Activity])
-  async getAllActivities(@Ctx() ctx: Context) {
-    return await ctx.prisma.activity.findMany({
-      include: {user: true}
-    });
-  }
-
   // Get activity by ID
   @Query((returns) => Activity, { nullable: true })
   async getActivityById(
@@ -46,7 +39,13 @@ export class ActivityResolvers {
       where: { id: id },
     });
   }
-
+  // GetAll Query (for development purposes)
+  @Query((returns) => [Activity])
+  async getAllActivities(@Ctx() ctx: Context) {
+    return await ctx.prisma.activity.findMany({
+      include: { user: { include: { profile: true } } },
+    });
+  }
   // Find activities based on tag (returns list of array of activities with matching tags,
   // posted by possible partners and not posted by our own
   @Query((returns) => [Activity], { nullable: true })
@@ -56,29 +55,60 @@ export class ActivityResolvers {
     @Ctx() ctx: Context
   ) {
     // Query user array that the current user rejected
-    const rejectedUsers = await ctx.prisma.user.findUnique({
+    const theUser = await ctx.prisma.user.findUnique({
       where: {
         id,
-      },
-      select: {
-        rejections: true,
-      },
+      }, include: {profile: true}
+    // select: {
+    //     rejections: true,
+    //   }  ,
     });
+    
 
+    //switch(theUser.profile.gender) {
+      
     // Query the activities that have our tag but NOT our ID
-    const activitiesToShow = await ctx.prisma.activity.findMany({
-      where: {
-        tag: tag,
-        NOT: { postedBy: id },
-      },
-      include: {
-        user: true,
-      },
-    });
+    let activitiesToShow;
+    if ( theUser.profile.interestedIn === 'all' ) {
+      activitiesToShow = await ctx.prisma.activity.findMany({
+        where: {
+          AND: [
+            {tag: tag}, 
+            {isActive: true}, 
+            {OR: [
+              {user: {profile: {interestedIn: theUser.profile.gender}}}, 
+              {user: {profile: {interestedIn: 'all'}}}
+            ]}
+          ],
+          NOT: { postedBy: id },
+        },
+        include: {
+          user: {include: { profile : true}}
+        },
+      });
+    } else {
+      activitiesToShow = await ctx.prisma.activity.findMany({
+        where: {
+          AND: [
+            {tag: tag}, 
+            {isActive: true}, 
+            {OR: [
+              {user: {profile: {interestedIn: theUser.profile.gender}}}, 
+              {user: {profile: {interestedIn: 'all'}}}
+            ]},
+            {user: {profile: {gender: theUser.profile.interestedIn}}}
+          ],
+          NOT: { postedBy: id },
+        },
+        include: {
+          user: {include: { profile : true}}
+        },
+      });
+    }
 
     // Filter and return the activities that were not posted by the rejected users
     return activitiesToShow.filter(
-      (activity) => !rejectedUsers.rejections.includes(activity.postedBy)
+      (activity) => !theUser.rejections.includes(activity.postedBy)
     );
   }
 
@@ -90,6 +120,13 @@ export class ActivityResolvers {
     @Arg('data') data: AddActivityInput,
     @Ctx() ctx: Context
   ): Promise<Activity> {
+    await ctx.prisma.activity.updateMany({
+      where: {
+        AND: [{postedBy: data.postedBy}, {isActive: true}]
+      }, data: {
+        isActive: false
+      }
+    });
     return await ctx.prisma.activity.create({
       data: {
         description: data.description,

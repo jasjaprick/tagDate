@@ -3,134 +3,124 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
-  TextInput,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
+import { useMutation, gql } from '@apollo/client';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+
 import colors from '../../helpers/colors';
-
+import PersonalDetails from '../organisms/PersonalDetails';
+import BioInfo from '../organisms/BioInfo';
+import AddPicture from '../organisms/AddPicture';
+import UserAccessData from '../organisms/UserAccessData';
+import UserPreferences from '../organisms/UserPreferences';
 import InputFieldShort from '../atoms/InputFieldShort';
-import InputFieldLarge from '../atoms/InputFieldLarge';
-import InputAge from '../atoms/InputAge';
 
-function RegisterPage() {
+interface Iprops {
+  onPress: (text: string) => void;
+}
+
+// Create user mutation
+// TODO: delete nested returns
+const ADD_USER = gql`
+  mutation Mutation($addUserData: AddUserInput!) {
+    addUser(data: $addUserData) {
+      id
+      profile {
+        name
+      }
+    }
+  }
+`;
+
+//TODO: FIX SCROLLVIEWnpm start
+//TODO: ADD STYLE
+//TODO: CHECK TYPE PASSWORD
+
+const RegisterPage = (props) => {
+  const [email, setEmail] = useState(''); //Email
+  const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
   const [age, setAge] = useState<number | null>(null); //Age
   const [bio, setBio] = useState(''); //Bio
   const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
+  const [userGender, setUserGender] = React.useState('male');
+  const [genderPreference, setGenderPreference] = React.useState('male');
+  const [location, setLocation] = useState(''); //Name
+  const [addUser, { error, data }] = useMutation(ADD_USER, {
+    variables: {
+      addUserData: {
+        email: email,
+        password: password,
+        name: name,
+        age: age,
+        bio: bio,
+        gender: userGender,
+        interestedIn: genderPreference,
+        location: location,
+      },
+    },
+  });
+
+  const handleOnPress = () => {
+    console.log('-------it has been called');
+    addUser();
+    props.navigation.replace('TagDatePage');
+  };
 
   return (
-    <View style={styles.registerPageContainer}>
-      <InputFieldShort
-        onChangeText={(name: string) => {
-          setName(name);
-        }}
-        placeholder={'Name'}
-        value={name}></InputFieldShort>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.registerPageContainer}>
+          <UserAccessData
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
 
-      <InputFieldShort
-        onChangeText={(age: string) => {
-          setAge(+age);
-        }}
-        placeholder={'Age'}
-        value={age?.toString()}></InputFieldShort>
+          <PersonalDetails
+            name={name}
+            setName={setName}
+            age={age}
+            setAge={setAge}
+            userGender={userGender}
+            setUserGender={setUserGender}
+          />
 
-      <View style={styles.genderContainer}>
-        <Text style={styles.font}>Gender</Text>
-        <View style={styles.genderItemsContainer}>
-          <TouchableOpacity style={styles.genderItem}>
-            <View style={styles.genderItem}>
-              <Ionicons
-                name='male-outline'
-                label='User'
-                size={24}
-                style={styles.icons}
-              />
-              <Text style={styles.fontGender}>Male</Text>
-            </View>
-          </TouchableOpacity>
+          <BioInfo bio={bio} setBio={setBio} />
 
-          <TouchableOpacity style={styles.genderItem}>
-            <View style={styles.gender}>
-              <Ionicons name='female-outline' size={24} style={styles.icons} />
-              <Text style={styles.fontGender}>Female</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+          <AddPicture />
 
-      <InputFieldLarge
-        onChangeText={(bio: string) => {
-          setBio(bio);
-        }}
-        placeholder={'Tell us about yourself...'}
-        value={bio}></InputFieldLarge>
+          <UserPreferences
+            minAge={minAge}
+            setMinAge={setMinAge}
+            maxAge={maxAge}
+            setMaxAge={setMaxAge}
+            genderPreference={genderPreference}
+            setGenderPreference={setGenderPreference}
+          />
 
-      <View style={styles.pictureContainer}>
-        <Text style={styles.font}>Add picture</Text>
-        <TouchableOpacity style={styles.camera}>
-          <View style={styles.genderItem}>
-            <MaterialCommunityIcons
-              name='camera-plus-outline'
-              size={24}
-              style={styles.icons}
-            />
+          <View style={styles.locationPageContainer}>
+            <InputFieldShort
+              onChangeText={(location: string) => {
+                setLocation(location);
+              }}
+              placeholder={'Location'}
+              value={location}></InputFieldShort>
           </View>
-        </TouchableOpacity>
-      </View>
 
-      <View style={styles.genderContainer}>
-        <Text style={styles.font}>Interested in</Text>
-        <View style={styles.genderItemsContainer}>
-          <TouchableOpacity style={styles.genderItem}>
-            <View style={styles.genderItem}>
-              <Ionicons
-                name='male-outline'
-                label='User'
-                size={24}
-                style={styles.icons}
-              />
-              <Text style={styles.fontGender}>Male</Text>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.genderItem}>
-            <View style={styles.gender}>
-              <Ionicons name='female-outline' size={24} style={styles.icons} />
-              <Text style={styles.fontGender}>Female</Text>
-            </View>
+          <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
+            <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>
         </View>
-      </View>
-
-      <>
-        <Text style={styles.font}>Age range</Text>
-        <View style={styles.AgeContainer}>
-          <InputAge
-            title={'From'}
-            onChangeText={(minAge: string) => {
-              setMinAge(+minAge);
-            }}
-            placeholder={''}
-            value={minAge?.toString()}></InputAge>
-
-          <InputAge
-            title={'to'}
-            onChangeText={(maxAge: string) => {
-              setMaxAge(+maxAge);
-            }}
-            placeholder={''}
-            value={maxAge?.toString()}></InputAge>
-        </View>
-      </>
-
-      {/* <Button title="Submit" onPress={handleSubmit(onSubmit)} /> */}
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   registerPageContainer: {
@@ -138,40 +128,20 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'stretch',
     justifyContent: 'center',
-    // alignContent: 'stretch',
     alignSelf: 'center',
     flexDirection: 'column',
     backgroundColor: colors.white,
     position: 'relative',
   },
-  font: { fontSize: 20, color: colors.grey },
-  genderItemsContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    position: 'relative',
-    flexDirection: 'row',
-    marginRight: '8%',
-  },
-  fontGender: { fontSize: 10, color: colors.violet },
-  genderItem: {
-    display: 'flex',
-    // flexDirection: 'column',
-    justifyContent: 'center',
-    position: 'relative',
+  nextButton: {
+    backgroundColor: colors.violet,
+    padding: 20,
+    borderRadius: 20,
+    margin: 20,
+    width: '60%',
     alignItems: 'center',
-    alignSelf: 'center',
-    marginLeft: '5%',
   },
-  gender: {},
-  genderContainer: {},
-  pictureContainer: {},
-  input: {},
-  icons: { color: colors.grey },
-  AgeContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
+  buttonText: { fontSize: 20, color: 'white' },
 });
 
 export default RegisterPage;

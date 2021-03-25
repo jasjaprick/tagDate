@@ -6,17 +6,24 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
-import {
-  useFonts,
-  RobotoCondensed_400Regular,
-  RobotoCondensed_400Regular_Italic
-} from '@expo-google-fonts/roboto-condensed';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache()
+});
+
+// import {
+//   useFonts,
+//   RobotoCondensed_400Regular,
+//   RobotoCondensed_400Regular_Italic
+// } from '@expo-google-fonts/roboto-condensed';
 
 export default function App() {
-    const [fontsLoaded] = useFonts({
-    RobotoCondensed_400Regular,
-    RobotoCondensed_400Regular_Italic
-  });
+  //   const [fontsLoaded] = useFonts({
+  //     RobotoCondensed_400Regular,
+  //     RobotoCondensed_400Regular_Italic,
+  //   });
 
     if (!fontsLoaded) {
     return <View style={[styles.container, styles.horizontal]}>
@@ -24,11 +31,14 @@ export default function App() {
     </View>;
   } else {
   return (
+    <ApolloProvider client={client}>
     <AppScreen>
       <NavigationContainer>
         <LoginNavigator />
-       </NavigationContainer>
+      </NavigationContainer>
     </AppScreen>
+    </ApolloProvider>
+    
   );
   }
 }
@@ -44,3 +54,4 @@ const styles = StyleSheet.create({
     padding: 10
   }
 });
+

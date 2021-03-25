@@ -11,15 +11,18 @@ export class PossibleMatch {
   @Field((type) => ID)
   id: number;
   // UID1 - UId
-  @Field(type => User)
+  @Field()
+  UID1: number;
+
+  @Field((type) => User)
   userOne?: User;
 
   // UID2 - UID
 
   @Field()
-  UID2: number
-  
-  @Field(type => User)
+  UID2: number;
+
+  @Field((type) => User)
   userTwo?: User;
 
   // myActivity -UID

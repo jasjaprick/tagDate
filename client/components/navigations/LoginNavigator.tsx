@@ -27,7 +27,9 @@ function LoginNavigator() {
 
       <Menu.Screen name='TagDatePage' component={TagDatePage} />
 
+
       <Menu.Screen name='SwipePage' component={SwipePage} />
+
 
       <Menu.Screen
         name='ChatPage'

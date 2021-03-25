@@ -1,17 +1,31 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-function Chat(props) {
+interface IProps {
+  match: any
+}
+
+const Chat: React.FunctionComponent<IProps> = ({match})  => {
+  const { userOne, userTwo } = match;
+
+  let userToDisplay;
+
+  if (userOne.id === 1) {
+    userToDisplay = userTwo;
+  } else {
+    userToDisplay = userOne;
+  }
+
   return (
     <View style={styles.chatContainer}>
       <View style={styles.photoContainer}></View>
       <View style={styles.infoContainer}>
-        <Text style={styles.chatInfoName}>First Name</Text>
+        <Text style={styles.chatInfoName}>{userToDisplay.profile.name}</Text>
         <Text>Hello, how are you?</Text>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   chatContainer: {

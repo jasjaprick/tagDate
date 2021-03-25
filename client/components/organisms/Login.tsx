@@ -12,7 +12,7 @@ function Login(props) {
   console.log('username', username, 'password', password);
 
   const handleLogin = () => {
-    props.navigation.replace('LoginSuccessPage');
+    props.navigation.replace('MenuNavigator');
   };
 
   return (

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     borderColor: colors.violet,
     borderWidth: 2,
     padding: 10,
-    borderRadius: 20,
+    borderRadius: 10,
     margin: 10,
     width: '60%',
     alignItems: 'center',

@@ -1,4 +1,3 @@
-import { arrayNotEmpty } from 'class-validator';
 import 'reflect-metadata';
 import {
   Ctx,
@@ -50,13 +49,19 @@ export class PossibleMatchResolvers {
   // Get all confirmed matches for loggedIn user
   @Query((returns) => [PossibleMatch])
   async getConfirmedMatches(@Arg('id') id: number, @Ctx() ctx: Context) {
-    const userLikes = await ctx.prisma.possibleMatch.findMany({
+    await ctx.prisma.possibleMatch.findMany({
       // find many matches where the match has been confirmed and where logged in user is present
       where: {
-        AND: [{ UID1: id }, { isMatch: true }],
+        isMatch: true,
+        OR: [{ UID1: id }, { UID2: id }],
       },
       // include
       include: {
+        userOne: {
+          include: {
+            profile: true,
+          },
+        },
         userTwo: {
           include: {
             profile: true,
@@ -66,23 +71,6 @@ export class PossibleMatchResolvers {
         userTwoActivity: true,
       },
     });
-    const likedByUser = await ctx.prisma.possibleMatch.findMany({
-      // find many matches where the match has been confirmed and where logged in user is present
-      where: {
-        AND: [{ UID2: id }, { isMatch: true }],
-      },
-      // include
-      include: {
-        userOne: {
-          select: {
-            profile: true,
-          },
-        },
-        userOneActivity: true,
-        userTwoActivity: true,
-      },
-    });
-    return [...userLikes, ...likedByUser]; 
   }
 
   // Mutations
@@ -118,8 +106,8 @@ export class PossibleMatchResolvers {
       // isMatch (match confirmation) will be set to default false
       const myActivity = await ctx.prisma.activity.findFirst({
         where: {
-          AND: [{postedBy: data.UID1}, {isActive: true}]
-        }
+          AND: [{ postedBy: data.UID1 }, { isActive: true }],
+        },
       });
 
       const partnerActivity = await ctx.prisma.activity.findFirst({

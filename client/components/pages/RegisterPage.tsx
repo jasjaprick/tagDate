@@ -16,12 +16,15 @@ import InputAge from '../atoms/InputAge';
 import PersonalDetails from '../organisms/PersonalDetails';
 import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
+import UserAccessData from '../organisms/UserAccessData';
 
 interface Iprops {
   onPress: (text: string) => void;
 }
 
 function RegisterPage() {
+  const [email, setEmail] = useState(''); //Email
+  const [password, setPassword] = useState<number | null>(null); //Password
   const [name, setName] = useState(''); //Name
   const [age, setAge] = useState<number | null>(null); //Age
   const [bio, setBio] = useState(''); //Bio
@@ -31,6 +34,13 @@ function RegisterPage() {
 
   return (
     <View style={styles.registerPageContainer}>
+      <UserAccessData
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
+
       <PersonalDetails
         name={name}
         setName={setName}
@@ -45,7 +55,18 @@ function RegisterPage() {
       <AddPicture />
 
       <Button
-        onPress={console.log('name:', name, 'age:', age, 'bio:', bio)}
+        onPress={console.log(
+          'email;',
+          email,
+          'pass:',
+          password,
+          'name:',
+          name,
+          'age:',
+          age,
+          'bio:',
+          bio
+        )}
         title='Next'
         color='#841584'
       />

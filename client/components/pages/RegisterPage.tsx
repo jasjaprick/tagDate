@@ -7,6 +7,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -39,7 +40,7 @@ const ADD_USER = gql`
 //TODO: ADD STYLE
 //TODO: CHECK TYPE PASSWORD
 
-const RegisterPage = (props) => {
+const RegisterPage = () => {
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
@@ -65,10 +66,12 @@ const RegisterPage = (props) => {
     },
   });
 
+  const navigation = useNavigation();
+
   const handleOnPress = () => {
     console.log('-------it has been called');
     addUser();
-    props.navigation.replace('TagDatePage');
+    navigation.navigate('TagDatePage');
   };
 
   return (
@@ -92,7 +95,6 @@ const RegisterPage = (props) => {
           />
 
           <BioInfo bio={bio} setBio={setBio} />
-
           <AddPicture />
 
           <UserPreferences
@@ -124,14 +126,17 @@ const RegisterPage = (props) => {
 
 const styles = StyleSheet.create({
   registerPageContainer: {
-    flex: 1,
+    // flex: 1,
     width: '90%',
+    height: 'auto',
     alignItems: 'stretch',
     justifyContent: 'center',
     alignSelf: 'center',
     flexDirection: 'column',
     backgroundColor: colors.white,
     position: 'relative',
+    marginTop: 20,
+    marginBottom: 20,
   },
   nextButton: {
     backgroundColor: colors.violet,

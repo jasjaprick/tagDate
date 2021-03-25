@@ -38,7 +38,7 @@ export class AddUserInput {
   @Field()
   location: string;
 
-  @Field()
+  @Field(type => String, {nullable : true})
   profilePicture?: string;
 }
 

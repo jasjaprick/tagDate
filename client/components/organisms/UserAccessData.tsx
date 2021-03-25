@@ -9,7 +9,7 @@ import InputFieldShort from '../atoms/InputFieldShort';
 interface IProps {
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
-  password: number | null;
+  password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 

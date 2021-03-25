@@ -7,7 +7,7 @@ interface Props {
   dbUser: IUsers[]
 }
 
-const MatchPage: React.FunctionComponent<Props> = () => {
+const SwipePage: React.FunctionComponent<Props> = () => {
   const [index, setIndex]  = useState(0);
   const [user, setUser]  = useState<IUsers>(dbUser[0]);
   
@@ -33,4 +33,4 @@ const MatchPage: React.FunctionComponent<Props> = () => {
   );
 };
 
-export default MatchPage;
+export default SwipePage;

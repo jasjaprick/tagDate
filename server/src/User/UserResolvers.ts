@@ -12,15 +12,31 @@ import {
 } from 'type-graphql';
 import { User } from './User';
 import { Context } from '../context';
-import { AddProfileInput } from '../Profile/ProfileResolvers';
 
 // Inputs
 @InputType()
-class AddUserInput {
+export class AddUserInput {
   @Field()
   email: string;
   @Field()
   password: string;
+  @Field()
+  name: string;
+
+  @Field()
+  age: number;
+
+  @Field()
+  bio?: string;
+
+  @Field()
+  gender: string;
+
+  @Field()
+  interestedIn: string;
+
+  @Field()
+  location: string;
 }
 
 @Resolver(User)
@@ -46,28 +62,29 @@ export class UserResolver {
   // Add new user
   @Mutation((returns) => User)
   async addUser(
-    @Arg('userData') userData: AddUserInput,
-    @Arg('profileData') profileData: AddProfileInput,
+    @Arg('data') data: AddUserInput,
     @Ctx() ctx: Context
   ): Promise<User> {
     // Create the User model with email and password
     const newUser = await ctx.prisma.user.create({
       data: {
-        email: userData.email,
-        password: userData.password,
+        email: data.email,
+        password: data.password,
       },
     });
     // Then create the profile and link it to the user
     await ctx.prisma.profile.create({
       data: {
-        name: profileData.name,
-        age: profileData.age,
-        gender: profileData.gender,
-        interestedIn: profileData.interestedIn,
-        location: profileData.location,
+        name: data.name,
+        age: data.age,
+        gender: data.gender,
+        bio: data.bio,
+        interestedIn: data.interestedIn,
+        location: data.location,
         userId: newUser.id,
       },
     });
+    console.log('User Added 🥳');
     // Finally, return the user including the newly set profile
     return ctx.prisma.user.findUnique({
       where: {

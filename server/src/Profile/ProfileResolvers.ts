@@ -15,6 +15,7 @@ import {
 import { Context } from '../context';
 import { Profile } from './Profile';
 
+//TODO: DELETE THIS
 @InputType()
 export class AddProfileInput {
   @Field()

@@ -9,6 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import {useMutation, gql } from '@apollo/client';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../helpers/colors';
 
@@ -25,6 +26,19 @@ interface Iprops {
   onPress: (text: string) => void;
 }
 
+// Create user mutation
+// TODO: delete nested returns
+const ADD_USER = gql`
+  mutation Mutation($addUserData: AddUserInput!) {
+    addUser(data: $addUserData) {
+      id
+      profile {
+        name
+      }
+    }
+  }
+`;
+
 //TODO: FIX SCROLLVIEW
 //TODO: ADD STYLE
 //TODO: CHECK TYPE PASSWORD
@@ -40,18 +54,22 @@ function RegisterPage() {
   const [userGender, setUserGender] = React.useState('male');
   const [interestGender, setInterestGender] = React.useState('male');
   const [location, setLocation] = useState(''); //Name
+  const [addUser, { error, data }] = useMutation(ADD_USER, {variables: {
+        addUserData:  {
+          email: email,
+          password: password,
+          name: name,
+          age: age,
+          bio: bio,
+          gender: userGender,
+          interestedIn: interestGender,
+          location: location,
+        },
+      }});
 
   const handleOnPress = () => {
-    console.log('email:', email);
-    console.log('password:', password);
-    console.log('name:', name);
-    console.log('age:', age);
-    console.log('bio:', bio);
-    console.log('minAge:', minAge);
-    console.log('maxAge:', maxAge);
-    console.log('userGender:', userGender);
-    console.log('interestGender:', interestGender);
-    console.log('location:', location);
+    console.log('-------it has been called');
+    addUser();
   };
 
   return (

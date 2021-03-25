@@ -6,6 +6,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache()
+});
+
 // import {
 //   useFonts,
 //   RobotoCondensed_400Regular,
@@ -23,11 +30,14 @@ export default function App() {
   //     // return <AppLoading />;
   //   } else {
   return (
+    <ApolloProvider client={client}>
     <AppScreen>
       <NavigationContainer>
         <LoginNavigator />
       </NavigationContainer>
     </AppScreen>
+    </ApolloProvider>
+    
   );
   // }
 }

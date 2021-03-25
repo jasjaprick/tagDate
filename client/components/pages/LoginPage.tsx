@@ -5,7 +5,7 @@ import colors from '../../helpers/colors';
 import Login from '../organisms/Login';
 
 function LoginPage({ navigation }) {
-  const register = () => navigation.replace('LoginSuccessPage');
+  const register = () => navigation.replace('RegisterPage');
 
   return (
     <View style={styles.loginPageContainer}>

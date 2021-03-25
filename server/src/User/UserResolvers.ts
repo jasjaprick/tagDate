@@ -47,7 +47,9 @@ export class UserResolver {
   @Query((returns) => User, { nullable: true })
   async getUserById(@Arg('id', (type) => Int) id: number, @Ctx() ctx: Context) {
     return await ctx.prisma.user.findUnique({
-      where: { id: id },
+      where: { id: id }, include: {
+        profile: true
+      }
     });
   }
 

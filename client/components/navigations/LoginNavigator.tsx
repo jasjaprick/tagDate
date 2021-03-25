@@ -20,6 +20,7 @@ function LoginNavigator() {
         headerShown: true,
         headerTintColor: colors.violet,
       }}>
+
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
 
       <Menu.Screen name='TagDatePage' component={TagDatePage} />
@@ -31,16 +32,19 @@ function LoginNavigator() {
         component={ChatPage}
         options={{ headerShown: false }}
       />
+
       <Menu.Screen
         name='MatchSuccessPage'
         component={MatchSuccessPage}
         options={{ headerShown: false }}
       />
+      
       <Menu.Screen
         name='LoginPage'
         component={LoginPage}
         options={{ headerShown: false }}
       />
+
       <Menu.Screen name='LoginSuccessPage' component={LoginSuccessPage} />
     </Menu.Navigator>
   );

@@ -28,7 +28,7 @@ interface Iprops {
 //TODO: ADD STYLE
 //TODO: CHECK TYPE PASSWORD
 
-function RegisterPage() {
+function TESTRegisterPage() {
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
@@ -112,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterPage;
+export default TESTRegisterPage;

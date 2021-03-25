@@ -12,18 +12,9 @@ import {
 } from 'type-graphql';
 import { User } from './User';
 import { Context } from '../context';
-import { prisma } from '.prisma/client';
+import { AddProfileInput } from '../Profile/ProfileResolvers';
 
-
-
-@InputType()
-class RejectUserInput {
-  @Field()
-  ownID: number;
-
-  @Field()
-  rejectedID: number;
-}
+// Inputs
 @InputType()
 class AddUserInput {
   @Field()
@@ -45,26 +36,45 @@ export class UserResolver {
   }
 
   // GetAll Query (for development purposes)
-  @Query((returns) => [User]) 
+  @Query((returns) => [User])
   async getAllUsers(@Ctx() ctx: Context) {
-    return await ctx.prisma.user.findMany();
+    return await ctx.prisma.user.findMany({ include: { profile: true } });
   }
-
- 
 
   // Mutations
 
   // Add new user
   @Mutation((returns) => User)
   async addUser(
-    @Arg('data') data: AddUserInput,
+    @Arg('userData') userData: AddUserInput,
+    @Arg('profileData') profileData: AddProfileInput,
     @Ctx() ctx: Context
   ): Promise<User> {
-    return await ctx.prisma.user.create({
+    // Create the User model with email and password
+    const newUser = await ctx.prisma.user.create({
       data: {
-        
-        email: data.email,
-        password: data.password
+        email: userData.email,
+        password: userData.password,
+      },
+    });
+    // Then create the profile and link it to the user
+    await ctx.prisma.profile.create({
+      data: {
+        name: profileData.name,
+        age: profileData.age,
+        gender: profileData.gender,
+        interestedIn: profileData.interestedIn,
+        location: profileData.location,
+        userId: newUser.id,
+      },
+    });
+    // Finally, return the user including the newly set profile
+    return ctx.prisma.user.findUnique({
+      where: {
+        id: newUser.id,
+      },
+      include: {
+        profile: true,
       },
     });
   }
@@ -72,12 +82,13 @@ export class UserResolver {
   // Add user to rejection list // Disliking a User
   @Mutation((returns) => User)
   async rejectUser(
-    @Arg('data') data: RejectUserInput,
+    @Arg('ownId') ownId: number,
+    @Arg('rejectedId') rejectedId: number,
     @Ctx() ctx: Context
   ): Promise<User> {
     // Query user array with users the current user rejected
     const resUser = await ctx.prisma.user.findUnique({
-      where: { id: data.ownID },
+      where: { id: ownId },
       select: {
         rejections: true,
       },
@@ -85,26 +96,27 @@ export class UserResolver {
     // Query possible pending match with the user we dislike
     const resMatch = await ctx.prisma.possibleMatch.findFirst({
       where: {
-        AND: [{ UID1: data.rejectedID }, { UID2: data.ownID }],
+        AND: [{ UID1: rejectedId }, { UID2: ownId }],
       },
       select: {
         id: true,
       },
     });
     // delete that matchID if exists
-    await ctx.prisma.possibleMatch.delete({
-      where: {
-        id: resMatch.id,
-      },
-    });
+    if (resMatch)
+      await ctx.prisma.possibleMatch.delete({
+        where: {
+          id: resMatch.id,
+        },
+      });
     // Update that array with the newly rejected user ID and return the current user
     return await ctx.prisma.user.update({
       data: {
         rejections: {
-          set: [...resUser.rejections, data.rejectedID],
+          set: [...resUser.rejections, rejectedId],
         },
       },
-      where: { id: data.ownID },
+      where: { id: ownId },
     });
   }
 }

@@ -12,7 +12,7 @@ const InputFieldShort: React.FC<IProps> = ({
   placeholder,
   onChangeText,
   value,
-}: IProps) => {
+}) => {
   return (
     <TextInput
       style={styles.input}

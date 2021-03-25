@@ -18,7 +18,6 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: true,
         headerTintColor: colors.violet,
-
       }}
     >
       <Menu.Screen
@@ -37,7 +36,6 @@ function LoginNavigator() {
         options={{ headerShown: false }}
       />
 
-      }}>
       <Menu.Screen name='TagDatePage' component={TagDatePage} />
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
       <Menu.Screen name='LoginSuccessPage' component={LoginSuccessPage} />

@@ -4,34 +4,36 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputFieldShort from '../atoms/InputFieldShort';
-import {useMutation, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 const ADD_ACTIVITY = gql`
   mutation AddActivityMutation($addActivityData: AddActivityInput!) {
-  addActivity(data: $addActivityData) {
-    tag
-    description
-    user {
-     id
+    addActivity(data: $addActivityData) {
+      tag
+      description
+      user {
+        id
+      }
     }
   }
-}
 `;
 
 const TagDatePage = (props) => {
   const [dateDescription, setDateDescription] = useState(''); //Date description
   const [tag, setTag] = useState(''); //Tag
-  const [addActivity, { error, data }] = useMutation(ADD_ACTIVITY, {variables: {
-    addActivityData:  {
-      description: dateDescription,
-      tag: tag,
-      postedBy: 7
+  const [addActivity, { error, data }] = useMutation(ADD_ACTIVITY, {
+    variables: {
+      addActivityData: {
+        description: dateDescription,
+        tag: tag,
+        postedBy: 7,
+      },
     },
-  }});
+  });
   const HandleOnPress = () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
     addActivity();
-     props.navigation.replace('MatchPage');
+    props.navigation.replace('SwipePage');
   };
 
   return (
@@ -39,12 +41,14 @@ const TagDatePage = (props) => {
       <InputFieldLarge
         onChangeText={setDateDescription}
         placeholder={'I want to...'}
-        value={dateDescription}></InputFieldLarge>
+        value={dateDescription}
+      ></InputFieldLarge>
 
       <InputFieldShort
         onChangeText={setTag}
         placeholder={'Choose your tag'}
-        value={tag}></InputFieldShort>
+        value={tag}
+      ></InputFieldShort>
 
       <TouchableOpacity onPress={HandleOnPress} style={styles.confirmButton}>
         <Ionicons name='md-checkmark-circle' size={32} color='green' />

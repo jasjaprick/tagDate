@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import colors from '../../helpers/colors';
 
-function PurpleButton({ title, action }) {
+function SecondaryButton({ title, action }) {
   return (
     <TouchableOpacity onPress={action} style={styles.mainButton}>
       <Text style={styles.buttonText}>{title}</Text>
@@ -12,14 +12,16 @@ function PurpleButton({ title, action }) {
 
 const styles = StyleSheet.create({
   mainButton: {
-    backgroundColor: colors.violet,
-    padding: 20,
+    backgroundColor: colors.white,
+    borderColor: colors.violet,
+    borderWidth: 2,
+    padding: 10,
     borderRadius: 20,
-    margin: 20,
+    margin: 10,
     width: '60%',
     alignItems: 'center',
   },
-  buttonText: { fontSize: 20, color: 'white' },
+  buttonText: { fontSize: 20, color: colors.violet },
 });
 
-export default PurpleButton;
+export default SecondaryButton;

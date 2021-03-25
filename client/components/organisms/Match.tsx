@@ -1,33 +1,29 @@
 import  React, { useState, useEffect, Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
+import { IUsers } from '../../db';
 import MatchUserInfo from '../molecules/MatchUserInfo';
 
 interface Props {
-  name: string,
-  age: number,
-  location: string,
-  pictures: string[],
-  activity: number,
+  user: IUsers;
   onLike: () => void;
   onNoLike: () => void;
 }
 
-const Match: React.FC<Props> = ({name, age, location, pictures, activity, onLike, onNoLike}) => {
-  // const [cards, setCards] = useState<any>();
-  // const [shouldShow, setShouldShow] = useState<boolean>(true);
-  const image = {uri: pictures[0]};
+const Match: React.FC<Props> = ({user, onLike, onNoLike}) => {
+ 
 
+// console.log('IMG:', image);
   return (
     <View style={styles.container}>
-      <ImageBackground source={ image } style={styles.image}>
+      <ImageBackground source={ {uri: user.pictures[0]} } style={styles.image}>
       <View style={styles.infobox}>
       <MatchUserInfo  
       onLike={onLike}
       onNoLike={onNoLike}
-      name={name}
-      age={age}
-      location={location}
-      activity={activity}
+      name={user.name}
+      age={user.age}
+      location={user.location}
+      activity={user.activity}
       />
       </View>
       </ImageBackground>

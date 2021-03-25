@@ -10,8 +10,9 @@ interface Props {
 const MatchPage: React.FunctionComponent<Props> = () => {
   const [index, setIndex]  = useState(0);
   const [user, setUser]  = useState<IUsers>(dbUser[0]);
+  
   useEffect(() => {
-    setUser(dbUser[index]);
+    setUser({...dbUser[index]});
   }, [index]);
   console.log(user, 'USER');
   const onLike = () => {setIndex(index+1);};
@@ -19,15 +20,15 @@ const MatchPage: React.FunctionComponent<Props> = () => {
 // console.log('dbUser:', dbUser);
   return (
     <View>
-      <Match 
-      name={user.name}
-      age={user.age}
-      location={user.location}
-      pictures={user.pictures}
-      activity={user.activity}
-      onLike={onLike}
-      onNoLike={onNoLike}
-      />
+      {dbUser[index] ? 
+        <Match 
+        user={user}
+        onLike={onLike}
+        onNoLike={onNoLike}
+        />
+        :
+        <Text>NO MORE USERS!</Text>
+      }
     </View>
   );
 };

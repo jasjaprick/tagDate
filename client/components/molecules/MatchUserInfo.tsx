@@ -18,16 +18,18 @@ const MatchUserInfo: React.FC<Props> = ({name, age, location, activity, onLike, 
       <Text style={styles.text}>{location}</Text>
       <Text style={styles.text}>Do you want to {activity}?</Text>
       <TouchableOpacity
-        // onPress={() => {console.log('oulala');}}
         style={styles.btn}
-        onPress={onLike}
+        onPress={() => {
+          onLike();
+         }}
         >
         <Text style={styles.text}>Likey!</Text>
     </TouchableOpacity>
     <TouchableOpacity
-        // onPress={() => {console.log('no match');}}
         style={styles.btn}
-        onPress={onNoLike}
+        onPress={() => {
+          onNoLike();
+         }}
         >
         <Text style={styles.text}>No Likey</Text>
     </TouchableOpacity>

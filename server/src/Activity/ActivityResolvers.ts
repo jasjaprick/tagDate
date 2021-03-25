@@ -11,6 +11,7 @@ import {
 } from 'type-graphql';
 import { Activity } from './Activity';
 import { Context } from '../context';
+import { userData } from '../../prisma/mockData/mockUsers';
 
 // Input definition for add new activity mutation
 @InputType()
@@ -54,29 +55,60 @@ export class ActivityResolvers {
     @Ctx() ctx: Context
   ) {
     // Query user array that the current user rejected
-    const rejectedUsers = await ctx.prisma.user.findUnique({
+    const theUser = await ctx.prisma.user.findUnique({
       where: {
         id,
-      },
-      select: {
-        rejections: true,
-      },
+      }, include: {profile: true}
+    // select: {
+    //     rejections: true,
+    //   }  ,
     });
+    
 
+    //switch(theUser.profile.gender) {
+      
     // Query the activities that have our tag but NOT our ID
-    const activitiesToShow = await ctx.prisma.activity.findMany({
-      where: {
-        AND: [{tag: tag}, {isActive: true}],
-        NOT: { postedBy: id },
-      },
-      include: {
-        user: true,
-      },
-    });
+    let activitiesToShow;
+    if ( theUser.profile.interestedIn === 'all' ) {
+      activitiesToShow = await ctx.prisma.activity.findMany({
+        where: {
+          AND: [
+            {tag: tag}, 
+            {isActive: true}, 
+            {OR: [
+              {user: {profile: {interestedIn: theUser.profile.gender}}}, 
+              {user: {profile: {interestedIn: 'all'}}}
+            ]}
+          ],
+          NOT: { postedBy: id },
+        },
+        include: {
+          user: {include: { profile : true}}
+        },
+      });
+    } else {
+      activitiesToShow = await ctx.prisma.activity.findMany({
+        where: {
+          AND: [
+            {tag: tag}, 
+            {isActive: true}, 
+            {OR: [
+              {user: {profile: {interestedIn: theUser.profile.gender}}}, 
+              {user: {profile: {interestedIn: 'all'}}}
+            ]},
+            {user: {profile: {gender: theUser.profile.interestedIn}}}
+          ],
+          NOT: { postedBy: id },
+        },
+        include: {
+          user: {include: { profile : true}}
+        },
+      });
+    }
 
     // Filter and return the activities that were not posted by the rejected users
     return activitiesToShow.filter(
-      (activity) => !rejectedUsers.rejections.includes(activity.postedBy)
+      (activity) => !theUser.rejections.includes(activity.postedBy)
     );
   }
 

@@ -12,7 +12,7 @@ const InputFieldLarge: React.FC<IPropsInput> = ({
   placeholder,
   onChangeText,
   value,
-}: IPropsInput) => {
+}) => {
   return (
     <TextInput
       style={styles.input}

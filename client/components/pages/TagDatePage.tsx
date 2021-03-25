@@ -5,13 +5,14 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputFieldShort from '../atoms/InputFieldShort';
 
-const TagDatePage = () => {
+const TagDatePage = (props) => {
   const [dateDescription, setDateDescription] = useState(''); //Date description
   const [tag, setTag] = useState(''); //Tag
 
   const HandleOnPress = () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
+    props.navigation.replace('MatchPage');
   };
 
   return (

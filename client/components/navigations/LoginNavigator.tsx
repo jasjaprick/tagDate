@@ -9,6 +9,7 @@ import TagDatePage from '../pages/TagDatePage';
 import colors from '../../helpers/colors';
 import MatchSuccessPage from '../pages/MatchSuccessPage';
 import ChatPage from '../pages/ChatPage';
+import MatchPage from '../pages/MatchPage';
 
 const Menu = createStackNavigator();
 
@@ -18,9 +19,13 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: true,
         headerTintColor: colors.violet,
+      }}>
+      <Menu.Screen name='RegisterPage' component={RegisterPage} />
 
-      }}
-    >
+      <Menu.Screen name='TagDatePage' component={TagDatePage} />
+
+      <Menu.Screen name='MatchPage' component={MatchPage} />
+
       <Menu.Screen
         name='ChatPage'
         component={ChatPage}
@@ -36,10 +41,6 @@ function LoginNavigator() {
         component={LoginPage}
         options={{ headerShown: false }}
       />
-
-      }}>
-      <Menu.Screen name='TagDatePage' component={TagDatePage} />
-      <Menu.Screen name='RegisterPage' component={RegisterPage} />
       <Menu.Screen name='LoginSuccessPage' component={LoginSuccessPage} />
     </Menu.Navigator>
   );

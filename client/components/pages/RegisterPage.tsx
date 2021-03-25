@@ -3,18 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
-  TextInput,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import {useMutation, gql } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import colors from '../../helpers/colors';
 
-import InputFieldLarge from '../atoms/InputFieldLarge';
-import InputAge from '../atoms/InputAge';
+import colors from '../../helpers/colors';
 import PersonalDetails from '../organisms/PersonalDetails';
 import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
@@ -39,11 +35,11 @@ const ADD_USER = gql`
   }
 `;
 
-//TODO: FIX SCROLLVIEW
+//TODO: FIX SCROLLVIEWnpm start
 //TODO: ADD STYLE
 //TODO: CHECK TYPE PASSWORD
 
-function RegisterPage() {
+const RegisterPage = (props) => {
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
@@ -52,24 +48,27 @@ function RegisterPage() {
   const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
   const [userGender, setUserGender] = React.useState('male');
-  const [interestGender, setInterestGender] = React.useState('male');
+  const [genderPreference, setGenderPreference] = React.useState('male');
   const [location, setLocation] = useState(''); //Name
-  const [addUser, { error, data }] = useMutation(ADD_USER, {variables: {
-        addUserData:  {
-          email: email,
-          password: password,
-          name: name,
-          age: age,
-          bio: bio,
-          gender: userGender,
-          interestedIn: interestGender,
-          location: location,
-        },
-      }});
+  const [addUser, { error, data }] = useMutation(ADD_USER, {
+    variables: {
+      addUserData: {
+        email: email,
+        password: password,
+        name: name,
+        age: age,
+        bio: bio,
+        gender: userGender,
+        interestedIn: genderPreference,
+        location: location,
+      },
+    },
+  });
 
   const handleOnPress = () => {
     console.log('-------it has been called');
     addUser();
+    props.navigation.replace('TagDatePage');
   };
 
   return (
@@ -101,8 +100,8 @@ function RegisterPage() {
             setMinAge={setMinAge}
             maxAge={maxAge}
             setMaxAge={setMaxAge}
-            interestGender={interestGender}
-            setInterestGender={setInterestGender}
+            genderPreference={genderPreference}
+            setGenderPreference={setGenderPreference}
           />
 
           <View style={styles.locationPageContainer}>
@@ -112,10 +111,6 @@ function RegisterPage() {
               }}
               placeholder={'Location'}
               value={location}></InputFieldShort>
-
-            {/* <ImageBackground
-        source={image}
-        style={styles.locationLogo}></ImageBackground> */}
           </View>
 
           <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
@@ -125,7 +120,7 @@ function RegisterPage() {
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   registerPageContainer: {
@@ -133,7 +128,6 @@ const styles = StyleSheet.create({
     width: '90%',
     alignItems: 'stretch',
     justifyContent: 'center',
-    // alignContent: 'stretch',
     alignSelf: 'center',
     flexDirection: 'column',
     backgroundColor: colors.white,

@@ -11,7 +11,7 @@ const ADD_ACTIVITY = gql`
     tag
     description
     user {
-      email
+     id
     }
   }
 }

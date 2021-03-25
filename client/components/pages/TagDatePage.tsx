@@ -4,14 +4,33 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputFieldShort from '../atoms/InputFieldShort';
+import {useMutation, gql } from '@apollo/client';
+const ADD_ACTIVITY = gql`
+  mutation AddActivityMutation($addActivityData: AddActivityInput!) {
+  addActivity(data: $addActivityData) {
+    tag
+    description
+    user {
+      email
+    }
+  }
+}
+`;
 
 const TagDatePage = () => {
   const [dateDescription, setDateDescription] = useState(''); //Date description
   const [tag, setTag] = useState(''); //Tag
-
+  const [addActivity, { error, data }] = useMutation(ADD_ACTIVITY, {variables: {
+    addActivityData:  {
+      description: dateDescription,
+      tag: tag,
+      postedBy: 7
+    },
+  }});
   const HandleOnPress = () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
+    addActivity();
   };
 
   return (

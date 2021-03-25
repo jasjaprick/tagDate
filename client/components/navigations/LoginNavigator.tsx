@@ -9,7 +9,7 @@ import TagDatePage from '../pages/TagDatePage';
 import colors from '../../helpers/colors';
 import MatchSuccessPage from '../pages/MatchSuccessPage';
 import ChatPage from '../pages/ChatPage';
-import MatchPage from '../pages/MatchPage';
+import SwipePage from '../pages/SwipePage';
 
 const Menu = createStackNavigator();
 
@@ -25,7 +25,7 @@ function LoginNavigator() {
 
       <Menu.Screen name='TagDatePage' component={TagDatePage} />
 
-      <Menu.Screen name='MatchPage' component={MatchPage} />
+      <Menu.Screen name='MatchPage' component={SwipePage} />
 
       <Menu.Screen
         name='ChatPage'

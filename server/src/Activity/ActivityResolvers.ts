@@ -66,7 +66,7 @@ export class ActivityResolvers {
     // Query the activities that have our tag but NOT our ID
     const activitiesToShow = await ctx.prisma.activity.findMany({
       where: {
-        tag: tag,
+        AND: [{tag: tag}, {isActive: true}],
         NOT: { postedBy: id },
       },
       include: {
@@ -88,6 +88,13 @@ export class ActivityResolvers {
     @Arg('data') data: AddActivityInput,
     @Ctx() ctx: Context
   ): Promise<Activity> {
+    await ctx.prisma.activity.updateMany({
+      where: {
+        AND: [{postedBy: data.postedBy}, {isActive: true}]
+      }, data: {
+        isActive: false
+      }
+    });
     return await ctx.prisma.activity.create({
       data: {
         description: data.description,

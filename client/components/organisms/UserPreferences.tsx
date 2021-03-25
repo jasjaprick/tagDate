@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
 import colors from '../../helpers/colors';
+
 import InputAge from '../atoms/InputAge';
 
 //TODO: ADD STYLE

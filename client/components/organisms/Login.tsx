@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native';
 import PrimaryButton from '../atoms/PrimaryButton';
 import SecondaryButton from '../atoms/SecondaryButton';
 import colors from '../../helpers/colors';
 
-function Login(props) {
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  console.log('prpos', props);
+
   console.log('username', username, 'password', password);
 
+  const navigation = useNavigation();
+
   const handleLogin = () => {
-    props.navigation.replace('LoginSuccessPage');
+    navigation.navigate('LoginSuccessPage');
   };
 
   return (

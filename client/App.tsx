@@ -7,10 +7,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import MenuNavigator from './components/navigations/MenuNavigator';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 // import {
@@ -32,13 +33,12 @@ export default function App() {
   } else {
   return (
     <ApolloProvider client={client}>
-    <AppScreen>
-      <NavigationContainer>
-        <LoginNavigator />
-      </NavigationContainer>
-    </AppScreen>
+      <AppScreen>
+        <NavigationContainer>
+          <LoginNavigator />
+        </NavigationContainer>
+      </AppScreen>
     </ApolloProvider>
-    
   );
   }
 }

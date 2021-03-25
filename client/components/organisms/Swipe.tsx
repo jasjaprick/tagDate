@@ -1,28 +1,27 @@
-import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native';
-import MatchUserInfo from '../molecules/MatchUserInfo';
+import  React, { useState, useEffect, Component } from 'react';
+import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
+import { IUsers } from '../../db';
+import SwipeUserInfo from '../molecules/SwipeUserInfo';
 
 interface Props {
-  name: string,
-  age: number,
-  location: string,
-  pictures: string[],
-  activity: number
+  user: IUsers;
+  onLike: () => void;
+  onNoLike: () => void;
 }
 
-
-
-const Match: React.FC<Props> = ({name, age, location, pictures, activity}) => {
-  const image = {uri: pictures[0]};
+const Match: React.FC<Props> = ({user, onLike, onNoLike}: Props) => {
+ 
   return (
     <View style={styles.container}>
-      <ImageBackground source={ image } style={styles.image}>
+      <ImageBackground source={ {uri: user.pictures[0]} } style={styles.image}>
       <View style={styles.infobox}>
-      <MatchUserInfo  
-      name={name}
-      age={age}
-      location={location}
-      activity={activity}
+      <SwipeUserInfo  
+      onLike={onLike}
+      onNoLike={onNoLike}
+      name={user.name}
+      age={user.age}
+      location={user.location}
+      activity={user.activity}
       />
       </View>
       </ImageBackground>

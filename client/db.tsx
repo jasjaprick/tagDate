@@ -7,6 +7,7 @@ export interface IUsers {
   location: string,
   pictures: string[],
   activity: number,
+  key: number
   // matches?: Match[]
 }
 
@@ -22,7 +23,8 @@ export const dbUser  =
       interestedIn: 'male',
       location: 'Barcelona',
       pictures: ['https://source.unsplash.com/NUEWYsqzHxM', 'https://source.unsplash.com/fwafgljc0f0'],
-      activity: 1,
+      activity: 1,  
+      key: 1
     },
     {
       name: 'Luis',
@@ -31,8 +33,9 @@ export const dbUser  =
       gender: 'male',
       interestedIn: 'female',
       location: 'London',
-      pictures: ['https://unsplash.com/photos/DItYlc26zVI', 'https://unsplash.com/photos/uuVguyksViA'],
+      pictures: ['https://source.unsplash.com/DItYlc26zVI', 'https://source.unsplash.com/uuVguyksViA'],
       activity: 2,
+      key: 2
     },
     {
       name: 'Craig',
@@ -41,8 +44,9 @@ export const dbUser  =
       gender: 'male',
       interestedIn: 'female',
       location: 'Iran',
-      pictures: ['https://unsplash.com/photos/a3RhaDG_pNM', 'https://unsplash.com/photos/QLcxFso3gLk'],
+      pictures: ['https://source.unsplash.com/a3RhaDG_pNM', 'https://source.unsplash.com/QLcxFso3gLk'],
       activity: 3,
+      key: 3
     },
   ];
 

@@ -17,6 +17,9 @@ export class Activity {
   @Field(type => String)
   tag: string;
 
+  @Field()
+  postedBy?: number;
+
   @Field(type => User)
   user?: User;
 }

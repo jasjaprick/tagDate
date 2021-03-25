@@ -12,8 +12,8 @@ interface IPropsPreferences {
   setMinAge: React.Dispatch<React.SetStateAction<number | null>>;
   maxAge: number | null;
   setMaxAge: React.Dispatch<React.SetStateAction<number | null>>;
-  interestGender: string;
-  setInterestGender: React.Dispatch<React.SetStateAction<string>>;
+  genderPreference: string;
+  setGenderPreference: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const UserPreferences: React.FC<IPropsPreferences> = ({
@@ -21,8 +21,8 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
   setMinAge,
   maxAge,
   setMaxAge,
-  interestGender,
-  setInterestGender,
+  genderPreference,
+  setGenderPreference,
 }) => {
   return (
     <View>
@@ -30,13 +30,13 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
         <Text style={styles.font}>Interested in</Text>
         <RadioButton
           value='male'
-          status={interestGender === 'male' ? 'checked' : 'unchecked'}
-          onPress={() => setInterestGender('male')}
+          status={genderPreference === 'male' ? 'checked' : 'unchecked'}
+          onPress={() => setGenderPreference('male')}
         />
         <RadioButton
           value='female'
-          status={interestGender === 'female' ? 'checked' : 'unchecked'}
-          onPress={() => setInterestGender('female')}
+          status={genderPreference === 'female' ? 'checked' : 'unchecked'}
+          onPress={() => setGenderPreference('female')}
         />
       </View>
 

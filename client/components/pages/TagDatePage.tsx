@@ -17,7 +17,7 @@ const ADD_ACTIVITY = gql`
 }
 `;
 
-const TagDatePage = () => {
+const TagDatePage = (props) => {
   const [dateDescription, setDateDescription] = useState(''); //Date description
   const [tag, setTag] = useState(''); //Tag
   const [addActivity, { error, data }] = useMutation(ADD_ACTIVITY, {variables: {
@@ -31,6 +31,7 @@ const TagDatePage = () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
     addActivity();
+     props.navigation.replace('MatchPage');
   };
 
   return (

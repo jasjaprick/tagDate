@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LoginSuccessPage from '../pages/LoginSuccessPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
-import LocationPage from '../pages/LocationPage';
+import LocationPage from '../organisms/Location';
 
 import colors from '../../helpers/colors';
 
@@ -18,7 +18,6 @@ function LoginNavigator() {
         headerTintColor: colors.violet,
       }}>
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
-      <Menu.Screen name='LocationPage' component={LocationPage} />
       <Menu.Screen name='LoginPage' component={LoginPage} />
       <Menu.Screen name='LoginSuccessPage' component={LoginSuccessPage} />
     </Menu.Navigator>

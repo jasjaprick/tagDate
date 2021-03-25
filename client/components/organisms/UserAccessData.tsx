@@ -10,7 +10,7 @@ interface IProps {
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: number | null;
-  setPassword: React.Dispatch<React.SetStateAction<number | null>>;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const UserAccessData: React.FC<IProps> = ({
@@ -28,7 +28,7 @@ const UserAccessData: React.FC<IProps> = ({
 
       <InputFieldShort
         onChangeText={(password: string) => {
-          setPassword(+password);
+          setPassword(password);
         }}
         placeholder={'Password'}
         value={password?.toString()}></InputFieldShort>

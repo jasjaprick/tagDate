@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -29,11 +30,19 @@ const TagDatePage = (props) => {
       },
     },
   });
+
+
+  const navigation = useNavigation();
+
+
+
   const HandleOnPress = () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
     addActivity();
-    props.navigation.replace('SwipePage');
+
+    navigation.navigate('SwipePage');
+
   };
 
   return (
@@ -52,7 +61,6 @@ const TagDatePage = (props) => {
 
       <TouchableOpacity onPress={HandleOnPress} style={styles.confirmButton}>
         <Ionicons name='md-checkmark-circle' size={32} color='green' />
-        {/* <Text>Confirm</Text> */}
       </TouchableOpacity>
     </View>
   );

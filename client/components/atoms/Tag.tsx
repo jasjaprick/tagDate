@@ -1,13 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-function Tag({ title }) {
+interface IProps {
+  tag: string
+}
+
+const Tag: React.FunctionComponent<IProps> = ({ tag }) => {
   return (
     <View style={styles.tagContainer}>
-      <Text>#Tag</Text>
+      <Text>{tag}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   tagContainer: {

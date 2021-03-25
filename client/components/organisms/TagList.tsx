@@ -2,24 +2,23 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Tag from '../atoms/Tag';
 
-function TagList(props) {
+interface IProps {
+  tags: string[]
+}
+
+const TagList: React.FunctionComponent<IProps> = ({tags}) => {
   return (
     <View style={styles.tagListContainer}>
       <Text style={styles.tagTitle}>Tags</Text>
 
       <View style={styles.tagList}>
-        <Tag />
-        <Tag />
-        <Tag />
-        <Tag />
-        <Tag />
-        <Tag />
-        <Tag />
-        <Tag />
+        {tags.map((tag) => (
+          <Tag key={tag} tag={tag} />
+        ))}
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   tagListContainer: {

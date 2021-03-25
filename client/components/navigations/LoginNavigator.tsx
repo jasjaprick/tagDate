@@ -6,8 +6,9 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import LocationPage from '../organisms/Location';
 
-
 import colors from '../../helpers/colors';
+import MatchSuccessPage from '../pages/MatchSuccessPage';
+import ChatPage from '../pages/ChatPage';
 
 const Menu = createStackNavigator();
 
@@ -17,10 +18,23 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: true,
         headerTintColor: colors.violet,
-
       }}
     >
-      <Menu.Screen name='LoginPage' component={LoginPage} />
+      <Menu.Screen
+        name='ChatPage'
+        component={ChatPage}
+        options={{ headerShown: false }}
+      />
+      <Menu.Screen
+        name='MatchSuccessPage'
+        component={MatchSuccessPage}
+        options={{ headerShown: false }}
+      />
+      <Menu.Screen
+        name='LoginPage'
+        component={LoginPage}
+        options={{ headerShown: false }}
+      />
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
 
       <Menu.Screen name='LoginSuccessPage' component={LoginSuccessPage} />

@@ -11,8 +11,6 @@ interface Props {
 
 const Match: React.FC<Props> = ({user, onLike, onNoLike}) => {
  
-
-// console.log('IMG:', image);
   return (
     <View style={styles.container}>
       <ImageBackground source={ {uri: user.pictures[0]} } style={styles.image}>

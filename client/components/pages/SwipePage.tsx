@@ -17,7 +17,7 @@ const MatchPage: React.FunctionComponent<Props> = () => {
   console.log(user, 'USER');
   const onLike = () => {setIndex(index+1);};
   const onNoLike = () => {setIndex(index+1);};
-// console.log('dbUser:', dbUser);
+
   return (
     <View>
       {dbUser[index] ? 

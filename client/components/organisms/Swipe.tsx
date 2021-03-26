@@ -21,7 +21,7 @@ const Swipe: React.FC<IProps> = ({ target, onLike, onNoLike }: IProps) => {
             onLike={onLike}
             onNoLike={onNoLike}
             name={target.user.profile.name}
-            age={target.user.profile.age}
+            dateOfBirth={target.user.profile.dateOfBirth}
             location={target.user.profile.location}
             activity={target.description}
           />

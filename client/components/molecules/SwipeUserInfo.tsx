@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface Props {
   name: string;
-  age: number;
+  dateOfBirth: string;
   location: string;
   activity: number;
   onLike: () => void;
@@ -12,7 +12,7 @@ interface Props {
 
 const SwipeUserInfo: React.FC<Props> = ({
   name,
-  age,
+  dateOfBirth,
   location,
   activity,
   onLike,
@@ -21,7 +21,7 @@ const SwipeUserInfo: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
-        {name}, {age}
+        {name}, {dateOfBirth}
       </Text>
       <Text style={styles.text}>{location}</Text>
       <Text style={styles.text}>Do you want to {activity}?</Text>

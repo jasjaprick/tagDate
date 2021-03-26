@@ -18,7 +18,7 @@ const GET_MATCHING_ACTIVITIES = gql`
         profile {
           name
           bio
-          age
+          dateOfBirth
           location
           profilePicture
         }

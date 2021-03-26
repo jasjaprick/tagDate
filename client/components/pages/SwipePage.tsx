@@ -24,6 +24,7 @@ const GET_MATCHING_ACTIVITIES = gql`
         }
       }
       tag
+      postedBy
     }
   }
 `;
@@ -57,18 +58,12 @@ const SwipePage: React.FunctionComponent<Props> = () => {
   const [likeUser] = useMutation(LIKE_USER);
   const [rejectUser] = useMutation(REJECT_USER);
 
-  // if(data) console.log('data', Object.keys(data));
-  if (data) console.log(data.findActivityByTag[0]);
-  
-  // If error in fetching data then console.log error
-  if(error) console.log(error);
-
   const onLike = () => {
-    likeUser({variables: {likeData: {UID1: 1, UID2: data.postedBy}}});
+    likeUser({variables: {likeData: {UID1: 1, UID2: data.findActivityByTag[index].postedBy}}});
     setIndex(index+1);
   };
   const onNoLike = () => {
-    rejectUser({variables: {ownId: 1, rejectedId: data.postedBy}});
+    rejectUser({variables: {ownId: 1, rejectedId: data.findActivityByTag[index].postedBy}});
     setIndex(index+1);};
 
   return (

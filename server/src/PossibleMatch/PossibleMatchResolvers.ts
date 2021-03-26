@@ -49,10 +49,10 @@ export class PossibleMatchResolvers {
   // Get all confirmed matches for loggedIn user
   @Query((returns) => [PossibleMatch])
   async getConfirmedMatches(@Arg('id') id: number, @Ctx() ctx: Context) {
-    await ctx.prisma.possibleMatch.findMany({
+    return await ctx.prisma.possibleMatch.findMany({
       // find many matches where the match has been confirmed and where logged in user is present
       where: {
-        isMatch: true,
+        isMatch: false,
         OR: [{ UID1: id }, { UID2: id }],
       },
       // include

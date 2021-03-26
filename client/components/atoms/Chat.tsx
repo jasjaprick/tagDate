@@ -15,9 +15,9 @@ const Chat: React.FunctionComponent<IProps> = ({match})  => {
 
   // filter for the target user and display that user in the chat
   if (userOne.id === 1) {
-    userToDisplay = userTwo;
-  } else {
     userToDisplay = userOne;
+  } else {
+    userToDisplay = userTwo;
   }
 
   // Set array of random messages

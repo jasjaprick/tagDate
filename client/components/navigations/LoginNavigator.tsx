@@ -31,23 +31,21 @@ function LoginNavigator() {
 
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
 
-      {/* <Menu.Screen name='TagDatePage' component={TagDatePage} />
+      <Menu.Screen name='TagDatePage' component={TagDatePage} />
 
+      {/* <Menu.Screen name='SwipePage' component={SwipePage} /> */}
 
-      <Menu.Screen name='SwipePage' component={SwipePage} />
-
-
-      <Menu.Screen
+      {/* <Menu.Screen
         name='ChatPage'
         component={ChatPage}
         options={{ headerShown: false }}
-      />
+      /> */}
 
       <Menu.Screen
         name='MatchSuccessPage'
         component={MatchSuccessPage}
         options={{ headerShown: false }}
-      /> */}
+      />
     </Menu.Navigator>
   );
 }

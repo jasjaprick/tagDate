@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     // flex:1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
     resizeMode: 'contain'
   },
   image: {
@@ -53,6 +52,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     borderRadius: 20,
     color: '#ffffff',
+    marginLeft: '4%',
     // justifyContent: 'center',
     alignItems: 'center'
   }

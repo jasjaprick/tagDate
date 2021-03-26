@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import { yellow100 } from 'react-native-paper/lib/typescript/styles/colors';
 
 import colors from '../../helpers/colors';
 
@@ -50,26 +49,24 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
         </View>
       </View>
 
-      <>
-        <Text style={styles.font}>Age range</Text>
-        <View style={styles.AgeContainer}>
-          <InputAge
-            title={'From'}
-            onChangeText={(minAge: string) => {
-              setMinAge(+minAge);
-            }}
-            placeholder={''}
-            value={minAge?.toString()}></InputAge>
+      <Text style={styles.font}>Age range</Text>
+      <View style={styles.ageContainer}>
+        <InputAge
+          title={'From'}
+          onChangeText={(minAge: string) => {
+            setMinAge(+minAge);
+          }}
+          placeholder={''}
+          value={minAge?.toString()}></InputAge>
 
-          <InputAge
-            title={'to'}
-            onChangeText={(maxAge: string) => {
-              setMaxAge(+maxAge);
-            }}
-            placeholder={''}
-            value={maxAge?.toString()}></InputAge>
-        </View>
-      </>
+        <InputAge
+          title={'to'}
+          onChangeText={(maxAge: string) => {
+            setMaxAge(+maxAge);
+          }}
+          placeholder={''}
+          value={maxAge?.toString()}></InputAge>
+      </View>
     </View>
   );
 };
@@ -86,6 +83,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginLeft: '3%',
     flex: 1,
+  },
+  ageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
   },
 });
 

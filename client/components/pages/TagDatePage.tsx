@@ -18,7 +18,7 @@ const ADD_ACTIVITY = gql`
   }
 `;
 
-const TagDatePage = (props) => {
+const TagDatePage = () => {
   const [dateDescription, setDateDescription] = useState(''); //Date description
   const [tag, setTag] = useState(''); //Tag
   const [addActivity, { error, data }] = useMutation(ADD_ACTIVITY, {
@@ -31,10 +31,7 @@ const TagDatePage = (props) => {
     },
   });
 
-
   const navigation = useNavigation();
-
-
 
   const HandleOnPress = () => {
     console.log('dateDescription', dateDescription);
@@ -42,22 +39,19 @@ const TagDatePage = (props) => {
     addActivity();
 
     navigation.navigate('SwipePage');
-
   };
 
   return (
-    <View>
+    <View style={styles.TagDateContainer}>
       <InputFieldLarge
         onChangeText={setDateDescription}
         placeholder={'I want to...'}
-        value={dateDescription}
-      ></InputFieldLarge>
+        value={dateDescription}></InputFieldLarge>
 
       <InputFieldShort
         onChangeText={setTag}
         placeholder={'Choose your tag'}
-        value={tag}
-      ></InputFieldShort>
+        value={tag}></InputFieldShort>
 
       <TouchableOpacity onPress={HandleOnPress} style={styles.confirmButton}>
         <Ionicons name='md-checkmark-circle' size={32} color='green' />
@@ -67,7 +61,16 @@ const TagDatePage = (props) => {
 };
 
 const styles = StyleSheet.create({
-  confirmButton: {},
+  TagDateContainer: {
+    marginTop: '5%',
+    width: '90%',
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  confirmButton: {
+    alignSelf: 'flex-end',
+  },
 });
 
 export default TagDatePage;

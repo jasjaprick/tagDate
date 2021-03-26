@@ -8,6 +8,7 @@ interface IProps {
   onNoLike: () => void;
 }
 
+
 const Swipe: React.FC<IProps> = ({target, onLike, onNoLike}: IProps) => {
   console.log(target);
   return (
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
     // flex:1,
     alignItems: 'center',
     justifyContent: 'center',
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   image: {
     flex: 1,
@@ -52,9 +53,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     color: '#ffffff',
     marginLeft: '4%',
-    // justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+    marginBottom: 10,
+  },
 });
 
 export default Swipe;

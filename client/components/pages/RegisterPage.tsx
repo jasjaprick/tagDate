@@ -126,7 +126,7 @@ const RegisterPage = () => {
 
 const styles = StyleSheet.create({
   registerPageContainer: {
-    // flex: 1,
+    flex: 1,
     width: '90%',
     height: 'auto',
     alignItems: 'stretch',
@@ -142,8 +142,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.violet,
     padding: 20,
     borderRadius: 20,
-    margin: 20,
+    justifyContent: 'center',
     width: '60%',
+    alignSelf: 'center',
     alignItems: 'center',
   },
   buttonText: { fontSize: 20, color: 'white' },

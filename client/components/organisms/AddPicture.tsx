@@ -25,10 +25,14 @@ const styles = StyleSheet.create({
   pictureContainer: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: '10%',
   },
   font: { fontSize: 20, color: colors.grey },
   icons: {
     color: colors.grey,
+    alignSelf: 'center',
+    marginLeft: '20%',
   },
 });
 

@@ -28,38 +28,45 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
     <View>
       <View style={styles.genderContainer}>
         <Text style={styles.font}>Interested in</Text>
-        <RadioButton
-          value='male'
-          status={genderPreference === 'male' ? 'checked' : 'unchecked'}
-          onPress={() => setGenderPreference('male')}
-        />
-        <RadioButton
-          value='female'
-          status={genderPreference === 'female' ? 'checked' : 'unchecked'}
-          onPress={() => setGenderPreference('female')}
-        />
+
+        <View style={styles.iconContainer}>
+          <View>
+            <RadioButton
+              value='male'
+              status={genderPreference === 'male' ? 'checked' : 'unchecked'}
+              onPress={() => setGenderPreference('male')}
+            />
+            <Text style={styles.fontBtn}>Male</Text>
+          </View>
+          <View>
+            <RadioButton
+              value='female'
+              status={genderPreference === 'female' ? 'checked' : 'unchecked'}
+              onPress={() => setGenderPreference('female')}
+            />
+            <Text style={styles.fontBtn}>Female</Text>
+          </View>
+        </View>
       </View>
 
-      <>
-        <Text style={styles.font}>Age range</Text>
-        <View style={styles.AgeContainer}>
-          <InputAge
-            title={'From'}
-            onChangeText={(minAge: string) => {
-              setMinAge(+minAge);
-            }}
-            placeholder={''}
-            value={minAge?.toString()}></InputAge>
+      <Text style={styles.font}>Age range</Text>
+      <View style={styles.ageContainer}>
+        <InputAge
+          title={'From'}
+          onChangeText={(minAge: string) => {
+            setMinAge(+minAge);
+          }}
+          placeholder={''}
+          value={minAge?.toString()}></InputAge>
 
-          <InputAge
-            title={'to'}
-            onChangeText={(maxAge: string) => {
-              setMaxAge(+maxAge);
-            }}
-            placeholder={''}
-            value={maxAge?.toString()}></InputAge>
-        </View>
-      </>
+        <InputAge
+          title={'to'}
+          onChangeText={(maxAge: string) => {
+            setMaxAge(+maxAge);
+          }}
+          placeholder={''}
+          value={maxAge?.toString()}></InputAge>
+      </View>
     </View>
   );
 };
@@ -70,6 +77,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   font: { fontSize: 20, color: colors.grey },
+  fontBtn: { fontSize: 12, color: colors.grey },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginLeft: '3%',
+    flex: 1,
+  },
+  ageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
 });
 
 export default UserPreferences;

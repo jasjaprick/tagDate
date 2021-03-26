@@ -14,34 +14,36 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// import {
-//   useFonts,
-//   RobotoCondensed_400Regular,
-//   RobotoCondensed_400Regular_Italic
-// } from '@expo-google-fonts/roboto-condensed';
+import {
+  useFonts,
+  RobotoCondensed_400Regular,
+  RobotoCondensed_400Regular_Italic,
+} from '@expo-google-fonts/roboto-condensed';
 
 export default function App() {
-  //   const [fontsLoaded] = useFonts({
-  //     RobotoCondensed_400Regular,
-  //     RobotoCondensed_400Regular_Italic,
-  //   });
+  const [fontsLoaded] = useFonts({
+    RobotoCondensed_400Regular,
+    RobotoCondensed_400Regular_Italic,
+  });
 
-  //   if (!fontsLoaded) {
-  //   return <View style={[styles.container, styles.horizontal]}>
-  //   <ActivityIndicator />
-  //   </View>;
-  // } else {
-  return (
-    <ApolloProvider client={client}>
-      <AppScreen>
-        <NavigationContainer>
-          <LoginNavigator />
-        </NavigationContainer>
-      </AppScreen>
-    </ApolloProvider>
-  );
+  if (!fontsLoaded) {
+    return (
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator />
+      </View>
+    );
+  } else {
+    return (
+      <ApolloProvider client={client}>
+        <AppScreen>
+          <NavigationContainer>
+            <LoginNavigator />
+          </NavigationContainer>
+        </AppScreen>
+      </ApolloProvider>
+    );
+  }
 }
-// }
 
 const styles = StyleSheet.create({
   container: {

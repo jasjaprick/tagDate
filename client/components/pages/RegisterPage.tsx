@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import {
   View,
   Text,
@@ -18,6 +18,7 @@ import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
 import UserPreferences from '../organisms/UserPreferences';
 import InputFieldShort from '../atoms/InputFieldShort';
+import { Event } from '@react-native-community/datetimepicker';
 
 interface Iprops {
   onPress: (text: string) => void;
@@ -44,7 +45,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
-  const [age, setAge] = useState<number | null>(null); //Age
+  const [dob, setAge] = useState<Date>(new Date('01-01-1999')); //Age
   const [bio, setBio] = useState(''); //Bio
   const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
@@ -57,7 +58,7 @@ const RegisterPage = () => {
         email: email,
         password: password,
         name: name,
-        age: age,
+        dateOfBirth: dob,
         bio: bio,
         gender: userGender,
         interestedIn: genderPreference,
@@ -74,6 +75,10 @@ const RegisterPage = () => {
     navigation.navigate('TagDatePage');
   };
 
+  const onAgeSubmit = (_: Event, date?: Date | undefined) => {
+    if(date) setAge(date);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -88,8 +93,8 @@ const RegisterPage = () => {
           <PersonalDetails
             name={name}
             setName={setName}
-            age={age}
-            setAge={setAge}
+            dob={dob}
+            setAge={onAgeSubmit}
             userGender={userGender}
             setUserGender={setUserGender}
           />

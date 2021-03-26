@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.13",
     "@expo-google-fonts/roboto-condensed": "^0.1.0",
+    "@react-native-community/datetimepicker": "^3.4.3",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/native": "^5.9.3",

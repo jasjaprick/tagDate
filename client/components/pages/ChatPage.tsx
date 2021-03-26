@@ -5,6 +5,7 @@ import colors from '../../helpers/colors';
 import ChatList from '../organisms/ChatList';
 import TagList from '../organisms/TagList';
 import { useQuery, gql } from '@apollo/client';
+import QueryResult from '../organisms/QueryResult';
 
 // GQL Query definition
 const GET_MATCHES = gql`
@@ -42,38 +43,23 @@ const ChatPage: React.FunctionComponent = () => {
 
   console.log(data);
 
-  if (error) {
-    return (
-      <View style={styles.chatPageContainer}>
-        <Text style={styles.chatTitle}>Chat</Text>
-        <Text>{error.message}</Text>
-      </View>
-    );
-  } else if (loading) {
-    return (
-      <View style={styles.chatPageContainer}>
-        <Text style={styles.chatTitle}>Chat</Text>
-        <Text>Loading Matches</Text>
-      </View>
-    );
-  } else if (data && data.length > 0) {
-    const tags = [...data.userOneActivity.tag];
-    return (
-      <View style={styles.chatPageContainer}>
-        <Text style={styles.chatTitle}>Chat</Text>
-        {/* <Searchbar style={styles.searchbarContainer} /> */}
-        <TagList tags={tags} />
-        <ChatList matches={data} />
-      </View>
-    );
-  } else  {
-    return (
-      <View style={styles.chatPageContainer}>
-        <Text style={styles.chatTitle}>Chat</Text>
-        <Text>No matches for you</Text>
-      </View>
-    );
-  } 
+  return (
+    <QueryResult error={error} loading={loading} data={data}>
+      {data.length > 0 ? (
+        <View style={styles.chatPageContainer}>
+          <Text style={styles.chatTitle}>Chat</Text>
+          {/* <Searchbar style={styles.searchbarContainer} /> */}
+          <TagList tags={data.tags} />
+          <ChatList matches={data} />
+        </View>
+      ) : (
+        <View style={styles.chatPageContainer}>
+          <Text style={styles.chatTitle}>Chat</Text>
+          <Text>No matches for you</Text>
+        </View>
+      )}
+    </QueryResult>
+  );
 };
 
 const styles = StyleSheet.create({

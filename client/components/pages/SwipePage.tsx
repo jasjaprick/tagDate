@@ -39,11 +39,20 @@ const LIKE_USER = gql`
   }
 `;
 
+const REJECT_USER = gql`
+mutation RejectUserMutation($ownId: Float!, $rejectedId: Float!) {
+  rejectUser(rejectedId: $rejectedId, ownId: $ownId) {
+    
+  }
+}
+`;
+
 const SwipePage: React.FunctionComponent<Props> = () => {
   const [index, setIndex]  = useState(0);
 
   const {loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES);
   const [likeUser] = useMutation(LIKE_USER);
+  const [rejectUser] = useMutation(REJECT_USER);
   
   // If error in fetching data then console.log error
   if(error) console.log(error);
@@ -52,7 +61,9 @@ const SwipePage: React.FunctionComponent<Props> = () => {
     likeUser({variables: {likeData: {UID1: 1, UID2: data.postedBy}}});
     setIndex(index+1);
   };
-  const onNoLike = () => {setIndex(index+1);};
+  const onNoLike = () => {
+    rejectUser({variables: {ownId: 1, rejectedId: data.postedBy}});
+    setIndex(index+1);};
 
   return (
     <QueryResult error={error} loading={loading} data={data}>

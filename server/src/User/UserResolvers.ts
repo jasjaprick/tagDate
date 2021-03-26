@@ -24,7 +24,7 @@ export class AddUserInput {
   name: string;
 
   @Field()
-  age: number;
+  dateOfBirth: number;
 
   @Field()
   bio?: string;
@@ -81,7 +81,7 @@ export class UserResolver {
     await ctx.prisma.profile.create({
       data: {
         name: data.name,
-        age: data.age,
+        dateOfBirth: data.dateOfBirth,
         gender: data.gender,
         bio: data.bio,
         interestedIn: data.interestedIn,

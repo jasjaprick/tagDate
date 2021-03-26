@@ -22,7 +22,7 @@ export class AddProfileInput {
   name: string;
 
   @Field()
-  age: number;
+  dateOfBirth: number;
 
   @Field()
   gender: string;

@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     color: 'white',
     opacity: 1,
     fontSize: 18
-    // fontFamily: 'Roboto'
   },
   btn: {
     backgroundColor: '#725AC1',

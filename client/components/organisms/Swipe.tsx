@@ -1,4 +1,4 @@
-import  React, { useState, useEffect, Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
 import { IUsers } from '../../db';
 import SwipeUserInfo from '../molecules/SwipeUserInfo';
@@ -9,21 +9,20 @@ interface Props {
   onNoLike: () => void;
 }
 
-const Swipe: React.FC<Props> = ({user, onLike, onNoLike}: Props) => {
- 
+const Swipe: React.FC<Props> = ({ user, onLike, onNoLike }: Props) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={ {uri: user.pictures[0]} } style={styles.image}>
-      <View style={styles.infobox}>
-      <SwipeUserInfo  
-      onLike={onLike}
-      onNoLike={onNoLike}
-      name={user.name}
-      age={user.age}
-      location={user.location}
-      activity={user.activity}
-      />
-      </View>
+      <ImageBackground source={{ uri: user.pictures[0] }} style={styles.image}>
+        <View style={styles.infobox}>
+          <SwipeUserInfo
+            onLike={onLike}
+            onNoLike={onNoLike}
+            name={user.name}
+            age={user.age}
+            location={user.location}
+            activity={user.activity}
+          />
+        </View>
       </ImageBackground>
     </View>
   );
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
     // flex:1,
     alignItems: 'center',
     justifyContent: 'center',
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   image: {
     flex: 1,
@@ -53,9 +52,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     color: '#ffffff',
     marginLeft: '4%',
-    // justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+    marginBottom: 10,
+  },
 });
 
 export default Swipe;

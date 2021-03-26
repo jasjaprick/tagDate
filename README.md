@@ -55,7 +55,7 @@ npm run migrate
 
 **Seeding the DB**
 
-Optionally, run the following command to populate with six mock users
+Optionally, run the following command to populate with mock data
 
 ```
 npm run seed

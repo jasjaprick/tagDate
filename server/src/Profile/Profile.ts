@@ -10,7 +10,7 @@ name: string;
 bio: string | null;
 
 @Field()
-age: number;
+dateOfBirth: string;
 
 //   //TODO: TYPE GENDER(?)
 @Field()

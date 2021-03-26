@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const Swipe: React.FC<IProps> = ({target, onLike, onNoLike}: IProps) => {
- 
+  console.log(target);
   return (
     <View style={styles.container}>
       <ImageBackground source={ {uri: target.user.profile.profilePicture} } style={styles.image}>
@@ -20,7 +20,7 @@ const Swipe: React.FC<IProps> = ({target, onLike, onNoLike}: IProps) => {
       name={target.user.profile.name}
       age={target.user.profile.age}
       location={target.user.profile.location}
-      activity={target.user.profile.activity}
+      activity={target.description}
       />
       </View>
       </ImageBackground>

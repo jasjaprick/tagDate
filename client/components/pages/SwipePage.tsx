@@ -12,12 +12,8 @@ interface Props {
 // GraphQL definitions
 const GET_MATCHING_ACTIVITIES = gql`
   query Query($ownId: Float!, $tag: String!) {
-    findActivityByTag(
-      ownID: $findActivityByTagOwnId
-      tag: $findActivityByTagTag
-    ) {
+    findActivityByTag(ownID: $ownId, tag: $tag) {
       description
-      tag
       user {
         profile {
           name
@@ -27,6 +23,7 @@ const GET_MATCHING_ACTIVITIES = gql`
           profilePicture
         }
       }
+      tag
     }
   }
 `;
@@ -42,7 +39,7 @@ const LIKE_USER = gql`
 const REJECT_USER = gql`
 mutation RejectUserMutation($ownId: Float!, $rejectedId: Float!) {
   rejectUser(rejectedId: $rejectedId, ownId: $ownId) {
-    
+    id
   }
 }
 `;
@@ -50,9 +47,18 @@ mutation RejectUserMutation($ownId: Float!, $rejectedId: Float!) {
 const SwipePage: React.FunctionComponent<Props> = () => {
   const [index, setIndex]  = useState(0);
 
-  const {loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES);
+  const {loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES, {
+    variables: {
+      ownId: 1,
+      tag: 'beers'
+    }
+  });
+
   const [likeUser] = useMutation(LIKE_USER);
   const [rejectUser] = useMutation(REJECT_USER);
+
+  // if(data) console.log('data', Object.keys(data));
+  if (data) console.log(data.findActivityByTag[0]);
   
   // If error in fetching data then console.log error
   if(error) console.log(error);
@@ -68,8 +74,14 @@ const SwipePage: React.FunctionComponent<Props> = () => {
   return (
     <QueryResult error={error} loading={loading} data={data}>
       <View>
-        {data[index] ? (
-          <Swipe target={data[index]} onLike={onLike} onNoLike={onNoLike} />
+        {data &&
+        data.findActivityByTag.length >= 1 &&
+        index < data.findActivityByTag.length ? (
+          <Swipe
+            target={data.findActivityByTag[index]}
+            onLike={onLike}
+            onNoLike={onNoLike}
+          />
         ) : (
           <Text>NO MORE USERS!</Text>
         )}

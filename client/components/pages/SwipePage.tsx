@@ -49,8 +49,8 @@ const SwipePage: React.FunctionComponent<Props> = () => {
 
   const {loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES, {
     variables: {
-      ownId: 1,
-      tag: 'beers'
+      ownId: 5,
+      tag: 'fish'
     }
   });
 

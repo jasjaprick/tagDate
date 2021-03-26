@@ -45,12 +45,12 @@ const ChatPage: React.FunctionComponent = () => {
 
   return (
     <QueryResult error={error} loading={loading} data={data}>
-      {data.length > 0 ? (
+      {data && data.getConfirmedMatches.length > 0 ? (
         <View style={styles.chatPageContainer}>
           <Text style={styles.chatTitle}>Chat</Text>
           {/* <Searchbar style={styles.searchbarContainer} /> */}
-          <TagList tags={data.tags} />
-          <ChatList matches={data} />
+          {/* {<TagList tags={data.tags} />} */}
+          <ChatList matches={data.getConfirmedMatches} />
         </View>
       ) : (
         <View style={styles.chatPageContainer}>

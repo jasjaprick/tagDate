@@ -38,7 +38,7 @@ const TagDatePage = () => {
     console.log('tag', tag);
     addActivity();
 
-    navigation.navigate('SwipePage');
+    navigation.navigate('MenuNavigator');
   };
 
   return (
@@ -46,12 +46,14 @@ const TagDatePage = () => {
       <InputFieldLarge
         onChangeText={setDateDescription}
         placeholder={'I want to...'}
-        value={dateDescription}></InputFieldLarge>
+        value={dateDescription}
+      ></InputFieldLarge>
 
       <InputFieldShort
         onChangeText={setTag}
         placeholder={'Choose your tag'}
-        value={tag}></InputFieldShort>
+        value={tag}
+      ></InputFieldShort>
 
       <TouchableOpacity onPress={HandleOnPress} style={styles.confirmButton}>
         <Ionicons name='md-checkmark-circle' size={32} color='green' />

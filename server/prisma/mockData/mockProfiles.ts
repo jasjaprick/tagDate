@@ -63,7 +63,7 @@ export const mockProfilesData: Prisma.ProfileUncheckedCreateInput[] = [
   },
   {
     name: 'Gino',
-    age: 28,
+    dateOfBirth: '1984-08-20',
     gender: 'male',
     interestedIn: 'all',
     location: 'Barcelona',

@@ -24,7 +24,7 @@ export class AddUserInput {
   name: string;
 
   @Field()
-  dateOfBirth: number;
+  dateOfBirth: Date;
 
   @Field()
   bio?: string;

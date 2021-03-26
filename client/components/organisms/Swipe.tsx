@@ -1,27 +1,26 @@
-import  React, { useState, useEffect, Component } from 'react';
+import  React from 'react';
 import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
-import { IUsers } from '../../db';
 import SwipeUserInfo from '../molecules/SwipeUserInfo';
 
-interface Props {
-  user: IUsers;
+interface IProps {
+  target: any;
   onLike: () => void;
   onNoLike: () => void;
 }
 
-const Swipe: React.FC<Props> = ({user, onLike, onNoLike}: Props) => {
- 
+const Swipe: React.FC<IProps> = ({target, onLike, onNoLike}: IProps) => {
+  console.log(target);
   return (
     <View style={styles.container}>
-      <ImageBackground source={ {uri: user.pictures[0]} } style={styles.image}>
+      <ImageBackground source={ {uri: target.user.profile.profilePicture} } style={styles.image}>
       <View style={styles.infobox}>
       <SwipeUserInfo  
       onLike={onLike}
       onNoLike={onNoLike}
-      name={user.name}
-      age={user.age}
-      location={user.location}
-      activity={user.activity}
+      name={target.user.profile.name}
+      age={target.user.profile.age}
+      location={target.user.profile.location}
+      activity={target.description}
       />
       </View>
       </ImageBackground>

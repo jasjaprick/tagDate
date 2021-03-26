@@ -5,7 +5,6 @@ import { TextInput } from 'react-native';
 import PrimaryButton from '../atoms/PrimaryButton';
 import SecondaryButton from '../atoms/SecondaryButton';
 import colors from '../../helpers/colors';
-console.log('env', process.env.LOCAL_IP);
 
 function Login() {
   const [username, setUsername] = useState('');

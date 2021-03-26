@@ -7,10 +7,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import MenuNavigator from './components/navigations/MenuNavigator';
+// import MenuNavigator from './components/navigations/MenuNavigator';
+
+const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+  uri: `http://${LOCAL_IP}:4000`,
   cache: new InMemoryCache(),
 });
 

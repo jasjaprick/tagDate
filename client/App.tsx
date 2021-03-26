@@ -26,11 +26,11 @@ export default function App() {
   //     RobotoCondensed_400Regular_Italic,
   //   });
 
-    if (!fontsLoaded) {
-    return <View style={[styles.container, styles.horizontal]}>
-    <ActivityIndicator />
-    </View>;
-  } else {
+  //   if (!fontsLoaded) {
+  //   return <View style={[styles.container, styles.horizontal]}>
+  //   <ActivityIndicator />
+  //   </View>;
+  // } else {
   return (
     <ApolloProvider client={client}>
       <AppScreen>
@@ -40,18 +40,17 @@ export default function App() {
       </AppScreen>
     </ApolloProvider>
   );
-  }
 }
+// }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   horizontal: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 10
-  }
+    padding: 10,
+  },
 });
-

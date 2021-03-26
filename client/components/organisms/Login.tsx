@@ -15,9 +15,7 @@ function Login() {
   const navigation = useNavigation();
 
   const handleLogin = () => {
-
-    props.navigation.replace('MenuNavigator');
-
+    navigation.replace('MenuNavigator');
   };
 
   return (

@@ -21,12 +21,10 @@ function LoginNavigator() {
         headerTintColor: colors.violet,
       }}
     >
+      <Menu.Screen name='LoginPage' component={LoginPage} />
+
       <Menu.Screen name='MenuNavigator' component={MenuNavigator} />
-      <Menu.Screen
-        name='LoginPage'
-        component={LoginPage}
-        // options={{ headerShown: false }}
-      />
+
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
 
       <Menu.Screen name='TagDatePage' component={TagDatePage} />

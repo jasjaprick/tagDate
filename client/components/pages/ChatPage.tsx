@@ -6,6 +6,7 @@ import ChatList from '../organisms/ChatList';
 import TagList from '../organisms/TagList';
 import { useQuery, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
+import TextTitle from '../atoms/TextTitle';
 
 // GQL Query definition
 const GET_MATCHES = gql`
@@ -47,7 +48,8 @@ const ChatPage: React.FunctionComponent = () => {
     <QueryResult error={error} loading={loading} data={data}>
       {data && data.getConfirmedMatches.length > 0 ? (
         <View style={styles.chatPageContainer}>
-          <Text style={styles.chatTitle}>Chat</Text>
+          {/* <Text style={styles.chatTitle}>Chat</Text> */}
+          <TextTitle>Chat</TextTitle>
           {/* <Searchbar style={styles.searchbarContainer} /> */}
           {/* {<TagList tags={data.tags} />} */}
           <ChatList matches={data.getConfirmedMatches} />
@@ -68,10 +70,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  chatTitle: {
-    fontSize: 30,
-    color: colors.violet,
-  },
+  // chatTitle: {
+  //   fontSize: 30,
+  //   color: colors.violet,
+  // },
   searchbarContainer: {
     width: '80%',
     borderRadius: 10,

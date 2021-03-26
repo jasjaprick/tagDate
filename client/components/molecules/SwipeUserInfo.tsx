@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import SecondaryButton from '../atoms/SecondaryButton';
 
 interface Props {
   name: string;
@@ -28,7 +27,7 @@ const SwipeUserInfo: React.FC<Props> = ({
       <Text style={styles.text}>Do you want to {activity}?</Text>
       <View style={styles.btnFlex}>
         <TouchableOpacity
-          style={[styles.btn, styles.dislikeBtn]}
+          style={styles.btn}
           onPress={() => {
             onNoLike();
           }}
@@ -36,7 +35,7 @@ const SwipeUserInfo: React.FC<Props> = ({
           <Text style={styles.text}>Nope!</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.btn, styles.likeBtn]}
+          style={styles.btn}
           onPress={() => {
             onLike();
           }}
@@ -51,11 +50,11 @@ const SwipeUserInfo: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    minWidth: '90%',
     backgroundColor: 'rgba(114,90,193, 0.4)',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    padding: 10,
   },
   text: {
     color: 'white',
@@ -68,12 +67,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     minWidth: 70,
-  },
-  likeBtn: {
-    left: '90%',
-  },
-  dislikeBtn: {
-    right: '90%',
+    marginLeft: 10,
+    marginRight: 10,
   },
   btnFlex: {
     display: 'flex',

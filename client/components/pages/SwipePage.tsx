@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import {useQuery, useMutation, gql} from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
+import Carousel from 'react-native-snap-carousel';
 
 interface Props {
   dbUser: IUsers[]

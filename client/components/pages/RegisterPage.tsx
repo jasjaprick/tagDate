@@ -45,7 +45,6 @@ const RegisterPage = () => {
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
-  const [dob, setAge] = useState<Date>(new Date('01-01-1999')); //Age
   const [bio, setBio] = useState(''); //Bio
   const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
@@ -58,7 +57,6 @@ const RegisterPage = () => {
         email: email,
         password: password,
         name: name,
-        dateOfBirth: dob,
         bio: bio,
         gender: userGender,
         interestedIn: genderPreference,
@@ -93,8 +91,6 @@ const RegisterPage = () => {
           <PersonalDetails
             name={name}
             setName={setName}
-            dob={dob}
-            setAge={onAgeSubmit}
             userGender={userGender}
             setUserGender={setUserGender}
           />

@@ -1,5 +1,5 @@
-import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
-import React from 'react';
+import { DatePicker } from '../atoms/DatePicker';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
@@ -9,8 +9,7 @@ import InputFieldShort from '../atoms/InputFieldShort';
 interface IProps {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
-  dob: Date;
-  setAge: (_: Event, date?: Date | undefined) => void;
+  // setAge: (_: Event, date?: Date | undefined) => void;
   userGender: string;
   setUserGender: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -18,8 +17,6 @@ interface IProps {
 const PersonalDetails: React.FC<IProps> = ({
   name,
   setName,
-  dob,
-  setAge,
   userGender,
   setUserGender,
 }) => {
@@ -28,16 +25,12 @@ const PersonalDetails: React.FC<IProps> = ({
       <InputFieldShort
         onChangeText={setName}
         placeholder={'Name'}
-        value={name}></InputFieldShort>
-      
+        value={name}
+      ></InputFieldShort>
 
-    <DateTimePicker mode={'date'} onChange={setAge} value={dob}/>
-      {/* <InputFieldShort
-        onChangeDate={(dob: Date) => {
-          setAge(dob.toDateString());
-        }}
-        placeholder={'Age'}
-        value={age?.toString()}></InputFieldShort> */}
+      <View>
+        <DatePicker></DatePicker>
+      </View>
 
       <View style={styles.genderContainer}>
         <Text style={styles.font}>Gender</Text>

@@ -17,6 +17,8 @@ model User {
   possibleMatches PossibleMatch[] @relation("PossibleMatch") // Relational reference 
   likedByUser     PossibleMatch[] @relation("LikedByUser") // Relational reference
   profile         Profile?        @relation("userProfile") //Relational reference
+  chats           Chat[]          @relation("chat") //Relational reference
+  chatsAsUserTwo  Chat[]          @relation("userTwoChat")
 }
 
 //Model for the profile
@@ -57,4 +59,26 @@ model PossibleMatch {
   myActivity      Int // relational scalar field
   partnerActivity Int // relational scalar field
   isMatch         Boolean  @default(false)
+}
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  messages  Message[] @relation("chatMessages")
+  userOne   User      @relation("chat", fields: [userOneId], references: [id]) //Relational reference
+  userOneId Int
+  //users       Int[] //Relational scalar field
+  userTwo   User      @relation("userTwoChat", fields: [userTwoId], references: [id])
+  userTwoId Int //Relational scalar field
+  // receiver Int       @unique
+
+
+}
+
+model Message {
+  id       Int     @id @default(autoincrement())
+  chat     Chat    @relation("chatMessages", fields: [chatId], references: [id]) //Relational reference
+  chatId   Int //Relational scalar field
+  content  String?
+  senderId Int //the id of the sender in order to determine who is sending it
+
 }

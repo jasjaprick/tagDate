@@ -9,11 +9,7 @@ import { useMutation, gql } from '@apollo/client';
 const ADD_ACTIVITY = gql`
   mutation AddActivityMutation($addActivityData: AddActivityInput!) {
     addActivity(data: $addActivityData) {
-      tag
-      description
-      user {
-        id
-      }
+      id
     }
   }
 `;

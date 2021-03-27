@@ -17,14 +17,14 @@ const GET_MATCHES = gql`
         id
         profile {
           name
-          age
+          dateOfBirth
         }
       }
       userTwo {
         id
         profile {
           name
-          age
+          dateOfBirth
         }
       }
       userOneActivity {

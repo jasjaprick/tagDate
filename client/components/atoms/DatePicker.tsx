@@ -5,7 +5,7 @@ import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 interface IProps {
   showMode: () => void;
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
-  minAge: Date;
+  //minAge: Date;
   show: boolean;
   age: Date;
 }
@@ -13,10 +13,30 @@ interface IProps {
 export const DatePicker: React.FunctionComponent<IProps> = ({
   showMode,
   onAgeChange,
-  minAge,
+  //minAge,
   show,
   age,
 }) => {
+  // Getting the age of 18 years ago so only 18+ users can register
+  function getMaximumDate(): Date {
+    const eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setTime(
+      eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000
+    );
+
+    return new Date(eighteenYearsAgo);
+  }
+
+  // Maximum age
+  function getMinimumDate(): Date {
+    const eightyYearsAgo = new Date();
+    eightyYearsAgo.setTime(
+      eightyYearsAgo.valueOf() - 80 * 365 * 24 * 60 * 60 * 1000
+    );
+
+    return new Date(eightyYearsAgo);
+  }
+
   return (
     <View>
       <View>
@@ -28,7 +48,8 @@ export const DatePicker: React.FunctionComponent<IProps> = ({
           mode={'date'}
           display='default'
           onChange={onAgeChange}
-          maximumDate={minAge}
+          minimumDate={getMinimumDate()}
+          maximumDate={getMaximumDate()}
         />
       )}
     </View>

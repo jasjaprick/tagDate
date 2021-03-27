@@ -48,7 +48,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
   const [bio, setBio] = useState(''); //Bio
-  const [age, setAge] = useState(getMaximumDate());
+  const [age, setAge] = useState<Date | string>('1992-12-10T00:00:00.000Z');
   const [show, setShow] = useState(false);
   const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
@@ -71,7 +71,7 @@ const RegisterPage = () => {
   });
 
   const onAgeChange = (_: Event, selectedAge: Date | undefined) => {
-    const currentAge: Date | undefined = selectedAge || age;
+    const currentAge: Date | string = selectedAge || age;
     setShow(Platform.OS === 'ios');
     setAge(currentAge);
     console.log(age);
@@ -89,6 +89,8 @@ const RegisterPage = () => {
 
     return new Date(eighteenYearsAgo);
   }
+
+  console.log(getMaximumDate());
 
   const navigation = useNavigation();
 
@@ -125,7 +127,7 @@ const RegisterPage = () => {
             setUserGender={setUserGender}
             showMode={showMode}
             onAgeChange={onAgeChange}
-            minAge={getMaximumDate()}
+            //minAge={getMaximumDate()}
             show={show}
             age={age}
           />

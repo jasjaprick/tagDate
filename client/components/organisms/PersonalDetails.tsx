@@ -14,7 +14,6 @@ interface IProps {
   showMode: () => void;
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
   age: Date;
-  minAge: Date;
   show: boolean;
 }
 
@@ -25,7 +24,6 @@ const PersonalDetails: React.FC<IProps> = ({
   setUserGender,
   showMode,
   onAgeChange,
-  minAge,
   show,
   age
 }) => {
@@ -41,7 +39,6 @@ const PersonalDetails: React.FC<IProps> = ({
         <DatePicker
           showMode={showMode}
           onAgeChange={onAgeChange}
-          minAge={minAge}
           show={show}
           age={age}
         ></DatePicker>

@@ -2,36 +2,21 @@ import React, { useState } from 'react';
 import { View, Button, Platform } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 
-export const DatePicker: React.FunctionComponent = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [show, setShow] = useState(false);
+interface IProps {
+  showMode: () => void;
+  onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
+  minAge: Date;
+  show: boolean;
+  age: Date;
+}
 
-  const onChange = (_: Event, selectedDate: Date | undefined) => {
-    const currentDate: Date | undefined = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-    console.log(date);
-  };
-
-//  const eighteenYearsAgo: Date = new Date(eighteenYearsAgo.setTime(
-//    eighteenYearsAgo.valueOf() - ;
-
-
-  const getMaximumDate = (): Date => {
-    const eighteenYearsAgo = new Date();
-    eighteenYearsAgo.setTime(
-      eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000
-    );
-
-    return new Date(eighteenYearsAgo);
-  };
-
-
-  const showMode = () => {
-    setShow(true);
-  };
-
-
+export const DatePicker: React.FunctionComponent<IProps> = ({
+  showMode,
+  onAgeChange,
+  minAge,
+  show,
+  age,
+}) => {
   return (
     <View>
       <View>
@@ -39,12 +24,11 @@ export const DatePicker: React.FunctionComponent = () => {
       </View>
       {show && (
         <DateTimePicker
-          value={date}
+          value={age}
           mode={'date'}
-          is24Hour={true}
           display='default'
-          onChange={onChange}
-          maximumDate={getMaximumDate()}
+          onChange={onAgeChange}
+          maximumDate={minAge}
         />
       )}
     </View>

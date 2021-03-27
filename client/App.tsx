@@ -9,8 +9,11 @@ import LoginNavigator from './components/navigations/LoginNavigator';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import MenuNavigator from './components/navigations/MenuNavigator';
 
+const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
+console.log(`LOCAL_IP`, LOCAL_IP);
+
 const client = new ApolloClient({
-  uri: 'http://192.168.1.165:4000',
+  uri: `http://${LOCAL_IP}:4000`,
   cache: new InMemoryCache(),
 });
 

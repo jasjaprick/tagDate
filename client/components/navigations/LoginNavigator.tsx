@@ -10,6 +10,8 @@ import colors from '../../helpers/colors';
 import MatchSuccessPage from '../pages/MatchSuccessPage';
 import ChatPage from '../pages/ChatPage';
 import MenuNavigator from './MenuNavigator';
+import IndividualChatPage from '../pages/IndividualChatPage';
+import Chat from '../atoms/Chat';
 
 const Menu = createStackNavigator();
 
@@ -21,6 +23,8 @@ function LoginNavigator() {
         headerTintColor: colors.violet,
       }}
     >
+      {/* <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} /> */}
+
       <Menu.Screen name='LoginPage' component={LoginPage} />
 
       <Menu.Screen name='MenuNavigator' component={MenuNavigator} />

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
@@ -42,21 +43,25 @@ const ADD_USER = gql`
 //TODO: CHECK TYPE PASSWORD
 
 const RegisterPage = () => {
+  // States
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
   const [bio, setBio] = useState(''); //Bio
+  const [age, setAge] = useState<Date | string>('1992-12-10T00:00:00.000Z');
+  const [show, setShow] = useState(false);
   const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
   const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
   const [userGender, setUserGender] = React.useState('male');
   const [genderPreference, setGenderPreference] = React.useState('male');
   const [location, setLocation] = useState(''); //Name
-  const [addUser, { error, data }] = useMutation(ADD_USER, {
+  const [addUser] = useMutation(ADD_USER, {
     variables: {
       addUserData: {
         email: email,
         password: password,
         name: name,
+        dateOfBirth: age.toString(),
         bio: bio,
         gender: userGender,
         interestedIn: genderPreference,
@@ -65,16 +70,43 @@ const RegisterPage = () => {
     },
   });
 
+  const onAgeChange = (_: Event, selectedAge: Date | undefined) => {
+    const currentAge: Date | string = selectedAge || age;
+    setShow(Platform.OS === 'ios');
+    setAge(currentAge);
+    console.log(age);
+  };
+
+  const showMode = () => {
+    setShow(true);
+  };
+
+  function getMaximumDate(): Date {
+    const eighteenYearsAgo = new Date();
+    eighteenYearsAgo.setTime(
+      eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000
+    );
+
+    return new Date(eighteenYearsAgo);
+  }
+
+  console.log(getMaximumDate());
+
   const navigation = useNavigation();
 
   const handleOnPress = () => {
-    console.log('-------it has been called');
+    console.log({
+        email: email,
+        password: password,
+        name: name,
+        dateOfBirth: age.toString(),
+        bio: bio,
+        gender: userGender,
+        interestedIn: genderPreference,
+        location: location,
+      });
     addUser();
     navigation.navigate('TagDatePage');
-  };
-
-  const onAgeSubmit = (_: Event, date?: Date | undefined) => {
-    if(date) setAge(date);
   };
 
   return (
@@ -93,6 +125,11 @@ const RegisterPage = () => {
             setName={setName}
             userGender={userGender}
             setUserGender={setUserGender}
+            showMode={showMode}
+            onAgeChange={onAgeChange}
+            //minAge={getMaximumDate()}
+            show={show}
+            age={age}
           />
 
           <BioInfo bio={bio} setBio={setBio} />
@@ -113,7 +150,8 @@ const RegisterPage = () => {
                 setLocation(location);
               }}
               placeholder={'Location'}
-              value={location}></InputFieldShort>
+              value={location}
+            ></InputFieldShort>
           </View>
 
           <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>

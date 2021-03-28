@@ -2,16 +2,19 @@ import { DatePicker } from '../atoms/DatePicker';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-
+import { Event } from '@react-native-community/datetimepicker';
 import colors from '../../helpers/colors';
 import InputFieldShort from '../atoms/InputFieldShort';
 
 interface IProps {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
-  // setAge: (_: Event, date?: Date | undefined) => void;
   userGender: string;
   setUserGender: React.Dispatch<React.SetStateAction<string>>;
+  showMode: () => void;
+  onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
+  age: Date;
+  show: boolean;
 }
 
 const PersonalDetails: React.FC<IProps> = ({
@@ -19,6 +22,10 @@ const PersonalDetails: React.FC<IProps> = ({
   setName,
   userGender,
   setUserGender,
+  showMode,
+  onAgeChange,
+  show,
+  age
 }) => {
   return (
     <View>
@@ -29,7 +36,12 @@ const PersonalDetails: React.FC<IProps> = ({
       ></InputFieldShort>
 
       <View>
-        <DatePicker></DatePicker>
+        <DatePicker
+          showMode={showMode}
+          onAgeChange={onAgeChange}
+          show={show}
+          age={age}
+        ></DatePicker>
       </View>
 
       <View style={styles.genderContainer}>

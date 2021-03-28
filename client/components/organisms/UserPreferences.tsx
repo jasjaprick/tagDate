@@ -1,17 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-
+import { AgePrefSelector } from '../atoms/AgePrefSelector';
 import colors from '../../helpers/colors';
-
-import InputAge from '../atoms/InputAge';
 
 //TODO: ADD STYLE
 interface IPropsPreferences {
-  minAge: number | null;
-  setMinAge: React.Dispatch<React.SetStateAction<number | null>>;
-  maxAge: number | null;
-  setMaxAge: React.Dispatch<React.SetStateAction<number | null>>;
+  minAge: number;
+  setMinAge: React.Dispatch<React.SetStateAction<number>>;
+  maxAge: number;
+  setMaxAge: React.Dispatch<React.SetStateAction<number>>;
   genderPreference: string;
   setGenderPreference: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -48,24 +46,20 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
           </View>
         </View>
       </View>
-
       <Text style={styles.font}>Age range</Text>
       <View style={styles.ageContainer}>
-        <InputAge
-          title={'From'}
-          onChangeText={(minAge: string) => {
-            setMinAge(+minAge);
-          }}
-          placeholder={''}
-          value={minAge?.toString()}></InputAge>
-
-        <InputAge
-          title={'to'}
-          onChangeText={(maxAge: string) => {
-            setMaxAge(+maxAge);
-          }}
-          placeholder={''}
-          value={maxAge?.toString()}></InputAge>
+        <AgePrefSelector
+        initialValue={18} 
+          age={minAge}
+          title={'Minimum Age'}
+          onChange={setMinAge}
+        />
+        <AgePrefSelector
+        initialValue={70} 
+          age={maxAge}
+          title={'Maximum Age'}
+          onChange={setMaxAge}
+        />
       </View>
     </View>
   );
@@ -85,8 +79,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   ageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    width: '100%',
+    flexDirection: 'column',
+    alignContent: 'center',
+    marginLeft: '8%'
   },
 });
 

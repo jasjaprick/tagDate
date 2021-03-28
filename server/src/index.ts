@@ -7,18 +7,27 @@ import { context } from './context';
 import { ActivityResolvers } from './Activity/ActivityResolvers';
 import { AuthResolver } from './Auth/AuthResolver';
 import { PossibleMatchResolvers } from './PossibleMatch/PossibleMatchResolvers';
-import { ChatResolvers, messageResolver } from './Chat/ChatAndMessageResolvers'
+import  { ChatResolvers, messageResolver } from './Chat/ChatAndMessageResolvers'
 const app = async () => {
   const schema = await tq.buildSchema({
-    resolvers: [UserResolver, ActivityResolvers, PossibleMatchResolvers, ChatResolvers, messageResolver, AuthResolver],
+    resolvers: [UserResolver, ActivityResolvers, PossibleMatchResolvers, ChatResolvers, messageResolver, AuthResolver, ],
   });
 
-  new ApolloServer({ schema, context: context }).listen({ port: 4000 }, () =>
+ const server =  new ApolloServer({ schema, context: context, subscriptions: {
+    path: '/subscriptions',
+    onConnect: () => console.log('Client connected for subscriptions'),
+  } })
+  
+  server.listen({ port: 4000 }, () =>
     console.log(`
   🚀 Server is running!
   🔊 Listening on port 4000
   📭 Query at https://studio.apollographql.com/dev`)
-  );
+ 
+  // console.log(
+  //   `Subscriptions ready at ws://localhost:4000${apolloServer.subscriptionsPath}`
+  // );
+   );
 };
 
 app();

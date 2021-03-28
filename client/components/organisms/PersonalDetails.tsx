@@ -14,6 +14,7 @@ interface IProps {
   showMode: () => void;
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
   age: Date;
+
   show: boolean;
 }
 

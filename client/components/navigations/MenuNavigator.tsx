@@ -6,7 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../../helpers/colors';
 import ChatPage from '../pages/ChatPage';
 import SwipePage from '../pages/SwipePage';
-import LoginNavigator from './LoginNavigator';
+import ChatNavigator from './ChatNavigator';
+import IndividualChatPage from '../pages/IndividualChatPage';
 
 const Menu = createBottomTabNavigator();
 
@@ -18,6 +19,7 @@ function MenuNavigator() {
         inactiveBackgroundColor: colors.violet,
         activeTintColor: 'white',
         inactiveTintColor: 'white',
+        keyboardHidesTabBar: true,
       }}
     >
       <Menu.Screen
@@ -29,7 +31,7 @@ function MenuNavigator() {
       />
       <Menu.Screen
         name='Chat'
-        component={ChatPage}
+        component={ChatNavigator}
         options={{
           tabBarIcon: () => (
             <Ionicons name='chatbox-ellipses-sharp' size={24} color='white' />

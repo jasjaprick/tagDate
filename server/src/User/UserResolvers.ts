@@ -140,6 +140,7 @@ export class UserResolver {
         },
       },
       where: { id: ownId },
+      include: {profile: true}
     });
   }
 }

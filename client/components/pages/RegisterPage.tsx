@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -18,6 +18,7 @@ import UserAccessData from '../organisms/UserAccessData';
 import UserPreferences from '../organisms/UserPreferences';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { Event } from '@react-native-community/datetimepicker';
+import useAppState from '../interfaces/AppState';
 
 interface Iprops {
   onPress: (text: string) => void;
@@ -43,29 +44,23 @@ const ADD_USER = gql`
 const RegisterPage = () => {
   const initialDate: Date = new Date('12-10-1992');
   // States
-  const [email, setEmail] = useState(''); //Email
-  const [password, setPassword] = useState(''); //Password
+  // const [email, setEmail] = useState(''); //Email
+  // const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
   const [bio, setBio] = useState(''); //Bio
-  const [age, setAge] = useState<Date>(getDate(28));
+  const [age, setAge] = useState<Date>(new Date('1992-12-10T00:00:00.000Z'));
   const [show, setShow] = useState(false);
   const [minAge, setMinAge] = useState<number>(18); //Minimun age
   const [maxAge, setMaxAge] = useState<number>(70); //Minimun age
   const [userGender, setUserGender] = React.useState('male');
   const [genderPreference, setGenderPreference] = React.useState('male');
   const [location, setLocation] = useState(''); //Name
-  const [addUser, { data }] = useMutation(ADD_USER, {
+
+  const [appState] = useAppState();
+
+  const [addUser] = useMutation(ADD_USER, {
     variables: {
-      addUserData: {
-        email: email,
-        password: password,
-        name: name,
-        dateOfBirth: age.toString(),
-        bio: bio,
-        gender: userGender,
-        interestedIn: genderPreference,
-        location: location,
-      },
+      addUserData: appState,
     },
   });
 
@@ -104,30 +99,16 @@ const RegisterPage = () => {
   const navigation = useNavigation();
 
   const handleOnPress = () => {
-    console.log({
-      email: email,
-      password: password,
-      name: name,
-      dateOfBirth: age.toString(),
-      bio: bio,
-      gender: userGender,
-      interestedIn: genderPreference,
-      location: location,
-    });
     addUser();
     navigation.navigate('TagDatePage');
   };
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View >
-          <UserAccessData
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-          />
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.registerPageContainer}>
+          <UserAccessData />
+
           <PersonalDetails
             name={name}
             setName={setName}
@@ -154,8 +135,7 @@ const RegisterPage = () => {
                 setLocation(location);
               }}
               placeholder={'Location'}
-              value={location}
-            ></InputFieldShort>
+              value={location}></InputFieldShort>
           </View>
           <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
             <Text style={styles.buttonText}>Next</Text>

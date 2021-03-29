@@ -1,20 +1,19 @@
 import React from 'react';
 import * as Font from 'expo-font';
-// import { useFonts } from 'expo-font';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import MenuNavigator from './components/navigations/MenuNavigator';
+import { ApolloClient, ApolloProvider } from '@apollo/client';
+import cache from './cache';
 
 const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
 console.log('LOCAL_IP', LOCAL_IP);
 
 const client = new ApolloClient({
   uri: `http://${LOCAL_IP}:4000`,
-  cache: new InMemoryCache(),
+  cache,
 });
 
 import {

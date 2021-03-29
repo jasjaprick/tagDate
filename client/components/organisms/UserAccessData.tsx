@@ -1,41 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { RadioButton } from 'react-native-paper';
-
-import colors from '../../helpers/colors';
+import { View } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
+import useAppState from '../interfaces/AppState';
 
-//TODO: CHECK TYPE PASSWORD
-interface IProps {
-  email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
-  password: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const UserAccessData: React.FC<IProps> = ({
-  email,
-  setEmail,
-  password,
-  setPassword,
-}) => {
+const UserAccessData: React.FC = () => {
+  const [appState, updateState] = useAppState();
   return (
     <View>
       <InputFieldShort
-        onChangeText={setEmail}
+        onChangeText={(email: string) =>
+          updateState({ ...appState, email: email })
+        }
         placeholder={'E-mail'}
-        value={email}></InputFieldShort>
-
+        value={appState.email}></InputFieldShort>
+      {console.log('aps', appState)}
       <InputFieldShort
         onChangeText={(password: string) => {
-          setPassword(password);
+          updateState({ ...appState, password: password });
         }}
         placeholder={'Password'}
-        value={password?.toString()}></InputFieldShort>
+        value={appState.password?.toString()}></InputFieldShort>
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default UserAccessData;

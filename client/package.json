@@ -16,6 +16,7 @@
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
     "@types/react-native-snap-carousel": "^3.8.2",
+    "apollo-cache-inmemory": "^1.6.6",
     "babel-plugin-inline-dotenv": "^1.6.0",
     "expo": "~40.0.0",
     "expo-font": "~8.4.0",

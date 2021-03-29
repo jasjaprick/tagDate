@@ -3,25 +3,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { AgePrefSelector } from '../atoms/AgePrefSelector';
 import { colors } from '../../helpers/styles';
+import InputAge from '../atoms/InputAge';
+import useAppState from '../interfaces/AppState';
 
-//TODO: ADD STYLE
-interface IPropsPreferences {
-  minAge: number;
-  setMinAge: React.Dispatch<React.SetStateAction<number>>;
-  maxAge: number;
-  setMaxAge: React.Dispatch<React.SetStateAction<number>>;
-  genderPreference: string;
-  setGenderPreference: React.Dispatch<React.SetStateAction<string>>;
-}
+const UserPreferences: React.FC = () => {
+  const [appState, updateState] = useAppState();
 
-const UserPreferences: React.FC<IPropsPreferences> = ({
-  minAge,
-  setMinAge,
-  maxAge,
-  setMaxAge,
-  genderPreference,
-  setGenderPreference,
-}) => {
   return (
     <View>
       <View style={styles.genderContainer}>
@@ -31,16 +18,18 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
           <View>
             <RadioButton
               value='male'
-              status={genderPreference === 'male' ? 'checked' : 'unchecked'}
-              onPress={() => setGenderPreference('male')}
+              status={appState.userGender === 'male' ? 'checked' : 'unchecked'}
+              onPress={() => updateState({ ...appState, userGender: 'male' })}
             />
             <Text style={styles.fontBtn}>Male</Text>
           </View>
           <View>
             <RadioButton
               value='female'
-              status={genderPreference === 'female' ? 'checked' : 'unchecked'}
-              onPress={() => setGenderPreference('female')}
+              status={
+                appState.userGender === 'female' ? 'checked' : 'unchecked'
+              }
+              onPress={() => updateState({ ...appState, userGender: 'female' })}
             />
             <Text style={styles.fontBtn}>Female</Text>
           </View>
@@ -48,18 +37,21 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
       </View>
       <Text style={styles.font}>Age range</Text>
       <View style={styles.ageContainer}>
-        <AgePrefSelector
-          initialValue={18}
-          age={minAge}
-          title={'Minimum Age'}
-          onChange={setMinAge}
-        />
-        <AgePrefSelector
-          initialValue={70}
-          age={maxAge}
-          title={'Maximum Age'}
-          onChange={setMaxAge}
-        />
+        <InputAge
+          title={'From'}
+          onChangeText={(minAge: string) =>
+            updateState({ ...appState, minAge: +minAge })
+          }
+          placeholder={''}
+          value={appState.minAge?.toString()}></InputAge>
+
+        <InputAge
+          title={'to'}
+          onChangeText={(maxAge: string) =>
+            updateState({ ...appState, maxAge: +maxAge })
+          }
+          placeholder={''}
+          value={appState.maxAge?.toString()}></InputAge>
       </View>
     </View>
   );

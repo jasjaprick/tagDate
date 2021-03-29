@@ -13,6 +13,7 @@ export interface IAppState {
   userGender: string, 
   genderPreference: string,
   location: string,
+  
 } 
 
 export const InitialAppState: IAppState = {
@@ -44,10 +45,13 @@ export const getState = gql`
       userGender
       genderPreference
       location
+      
     }
   }
 `;
 
+//GET USER ID REGISTER
+export const currentUserRegistrationId = makeVar<number | null>(null);
 
 export default function useAppState() {
   const { data: { appState }} = useQuery(getState);

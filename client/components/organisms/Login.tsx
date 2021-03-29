@@ -21,7 +21,7 @@ function Login() {
 
   return (
     <View style={styles.loginContainer}>
-      <MainLogo width={400} />
+      {/* <MainLogo width={400} /> */}
       <TextInput
         style={styles.textInput}
         placeholder='username'

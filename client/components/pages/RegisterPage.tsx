@@ -18,7 +18,7 @@ import UserAccessData from '../organisms/UserAccessData';
 import UserPreferences from '../organisms/UserPreferences';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { Event } from '@react-native-community/datetimepicker';
-import useAppState from '../interfaces/AppState';
+import useAppState, { currentUserRegistrationId } from '../interfaces/AppState';
 
 interface Iprops {
   onPress: (text: string) => void;
@@ -90,8 +90,10 @@ const RegisterPage = () => {
 
   const navigation = useNavigation();
 
-  const handleOnPress = () => {
-    addUser();
+  const handleOnPress = async () => {
+    const result = await addUser();
+    console.log('result', result);
+    currentUserRegistrationId(+result?.data.addUser.id);
     navigation.navigate('TagDatePage');
   };
 

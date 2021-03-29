@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Font from 'expo-font';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import AppScreen from './components/tools/AppScreen';

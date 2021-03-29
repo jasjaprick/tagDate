@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
-
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import PersonalDetails from '../organisms/PersonalDetails';
 import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
@@ -41,6 +40,7 @@ const ADD_USER = gql`
 //TODO: FIX SCROLLVIEWnpm start
 
 const RegisterPage = () => {
+  const initialDate: Date = new Date('12-10-1992');
   // States
   const [location, setLocation] = useState('');
 
@@ -60,6 +60,14 @@ const RegisterPage = () => {
       },
     },
   });
+
+  // Maximum age
+  function getDate(diff: number): Date {
+    const returnDate = new Date();
+    returnDate.setTime(returnDate.valueOf() - diff * 365 * 24 * 60 * 60 * 1000);
+
+    return new Date(returnDate);
+  }
 
   const onAgeChange = (_: Event, selectedAge: Date | undefined) => {
     const currentAge: Date | string = selectedAge || appState.age;
@@ -104,7 +112,6 @@ const RegisterPage = () => {
               placeholder={'Location'}
               value={location}></InputFieldShort>
           </View>
-
           <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
             <Text style={styles.buttonText}>Next</Text>
           </TouchableOpacity>

@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { Event } from '@react-native-community/datetimepicker';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
 import useAppState from '../interfaces/AppState';
 

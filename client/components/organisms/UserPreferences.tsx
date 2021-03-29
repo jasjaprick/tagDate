@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
-
-import colors from '../../helpers/colors';
-
+import { AgePrefSelector } from '../atoms/AgePrefSelector';
+import { colors } from '../../helpers/styles';
 import InputAge from '../atoms/InputAge';
 import useAppState from '../interfaces/AppState';
 
@@ -36,7 +35,6 @@ const UserPreferences: React.FC = () => {
           </View>
         </View>
       </View>
-
       <Text style={styles.font}>Age range</Text>
       <View style={styles.ageContainer}>
         <InputAge
@@ -73,8 +71,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   ageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    width: '100%',
+    flexDirection: 'column',
+    alignContent: 'center',
+    marginLeft: '8%',
   },
 });
 

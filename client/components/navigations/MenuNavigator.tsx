@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import ChatPage from '../pages/ChatPage';
 import SwipePage from '../pages/SwipePage';
 import ChatNavigator from './ChatNavigator';

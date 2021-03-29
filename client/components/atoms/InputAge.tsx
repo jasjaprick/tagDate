@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput, View, Text } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 interface IPropsAge {
   title: string;
@@ -24,7 +24,8 @@ const InputAge: React.FC<IPropsAge> = ({
         style={styles.inputAge}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        value={value}></TextInput>
+        value={value}
+      ></TextInput>
     </View>
   );
 };

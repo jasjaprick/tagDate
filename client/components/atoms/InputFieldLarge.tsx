@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 interface IPropsInput {
   placeholder: string;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { colors } from '../../helpers/styles';
 import { View } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
 import useAppState from '../interfaces/AppState';

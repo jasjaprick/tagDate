@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 function SecondaryButton({ title, action }) {
   return (

@@ -28,14 +28,16 @@ export const DatePicker: React.FunctionComponent<IProps> = ({
   }
 
   // Maximum age
-  function getMinimumDate(): Date {
-    const eightyYearsAgo = new Date();
-    eightyYearsAgo.setTime(
-      eightyYearsAgo.valueOf() - 80 * 365 * 24 * 60 * 60 * 1000
+  function getDate(diff: number): Date {
+    const returnDate = new Date();
+    returnDate.setTime(
+      returnDate.valueOf() - diff * 365 * 24 * 60 * 60 * 1000
     );
 
-    return new Date(eightyYearsAgo);
+    return new Date(returnDate);
   }
+
+
 
   return (
     <View>
@@ -44,12 +46,12 @@ export const DatePicker: React.FunctionComponent<IProps> = ({
       </View>
       {show && (
         <DateTimePicker
-          value={age}
+          value={new Date(age)}
           mode={'date'}
           display='default'
           onChange={onAgeChange}
-          minimumDate={getMinimumDate()}
-          maximumDate={getMaximumDate()}
+          minimumDate={getDate(80)}
+          maximumDate={getDate(18)}
         />
       )}
     </View>

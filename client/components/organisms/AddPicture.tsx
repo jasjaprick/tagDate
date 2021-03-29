@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 const AddPicture = () => {
   return (

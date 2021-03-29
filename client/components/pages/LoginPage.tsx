@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import Login from '../organisms/Login';
 
 function LoginPage({ navigation }) {

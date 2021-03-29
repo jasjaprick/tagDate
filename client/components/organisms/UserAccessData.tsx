@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
 
 //TODO: CHECK TYPE PASSWORD
@@ -24,14 +24,16 @@ const UserAccessData: React.FC<IProps> = ({
       <InputFieldShort
         onChangeText={setEmail}
         placeholder={'E-mail'}
-        value={email}></InputFieldShort>
+        value={email}
+      ></InputFieldShort>
 
       <InputFieldShort
         onChangeText={(password: string) => {
           setPassword(password);
         }}
         placeholder={'Password'}
-        value={password?.toString()}></InputFieldShort>
+        value={password?.toString()}
+      ></InputFieldShort>
     </View>
   );
 };

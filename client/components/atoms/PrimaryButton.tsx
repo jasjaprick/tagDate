@@ -1,25 +1,28 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors, boxShadow } from '../../helpers/styles';
+import styled from 'styled-components/native';
+
+// Styles
+const Button = styled.TouchableOpacity`
+  background-color: ${colors.violet}
+  padding: 10px 40px;
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+  box-shadow: ${boxShadow}
+`;
+
+const ButtonText = styled.Text`
+  color: ${colors.white};
+`;
 
 function PrimaryButton({ title, action }) {
   return (
-    <TouchableOpacity onPress={action} style={styles.mainButton}>
-      <Text style={styles.buttonText}>{title}</Text>
-    </TouchableOpacity>
+    <Button onPress={action}>
+      <ButtonText>{title}</ButtonText>
+    </Button>
   );
 }
-
-const styles = StyleSheet.create({
-  mainButton: {
-    backgroundColor: colors.violet,
-    padding: 10,
-    borderRadius: 10,
-    margin: 10,
-    width: '60%',
-    alignItems: 'center',
-  },
-  buttonText: { fontSize: 20, color: 'white' },
-});
 
 export default PrimaryButton;

@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native';
 import PrimaryButton from '../atoms/PrimaryButton';
 import SecondaryButton from '../atoms/SecondaryButton';
-import colors from '../../helpers/colors';
+import MainLogo from '../../assets/logo-main.svg';
+import { colors } from '../../helpers/styles';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -20,6 +21,7 @@ function Login() {
 
   return (
     <View style={styles.loginContainer}>
+      <MainLogo width={400} />
       <TextInput
         style={styles.textInput}
         placeholder='username'

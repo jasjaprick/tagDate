@@ -1,59 +1,44 @@
 import { DatePicker } from '../atoms/DatePicker';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { Event } from '@react-native-community/datetimepicker';
 import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
 import styled from 'styled-components/native';
+import useAppState from '../interfaces/AppState';
 
 
 // Props
 interface IProps {
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  userGender: string;
-  setUserGender: React.Dispatch<React.SetStateAction<string>>;
   showMode: () => void;
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
-  age: Date;
-
-  show: boolean;
 }
 
-// styles
 const Container = styled.View`
   width: 80%;
   margin: 5px auto;
 `;
 
+const PersonalDetails: React.FC<IProps> = ({ showMode, onAgeChange }) => {
+  const [appState, updateState] = useAppState();
 
-const PersonalDetails: React.FC<IProps> = ({
-  name,
-  setName,
-  userGender,
-  setUserGender,
-  showMode,
-  onAgeChange,
-  show,
-  age,
-}) => {
   return (
     <Container>
       <InputFieldShort
-      isFluid={true}
-        onChangeText={setName}
+        onChangeText={(name: string) =>
+          updateState({ ...appState, name: name })
+        }
         placeholder={'Name'}
-        value={name}
-      ></InputFieldShort>
+        isFluid={true}
+        value={appState.name}></InputFieldShort>
 
       <View>
         <DatePicker
           showMode={showMode}
           onAgeChange={onAgeChange}
-          show={show}
-          age={age}
-        ></DatePicker>
+          show={appState.show}
+          age={appState.age}></DatePicker>
       </View>
 
       <View>
@@ -63,17 +48,18 @@ const PersonalDetails: React.FC<IProps> = ({
           {/* <View>
             <RadioButton
               value='male'
-              status={userGender === 'male' ? 'checked' : 'unchecked'}
-              onPress={() => setUserGender('male')}
+              status={appState.userGender === 'male' ? 'checked' : 'unchecked'}
+              onPress={() => updateState({ ...appState, userGender: 'male' })}
             />
             <Text>Male</Text>
           </View>
-
           <View>
             <RadioButton
               value='female'
-              status={userGender === 'female' ? 'checked' : 'unchecked'}
-              onPress={() => setUserGender('female')}
+              status={
+                appState.userGender === 'female' ? 'checked' : 'unchecked'
+              }
+              onPress={() => updateState({ ...appState, userGender: 'female' })}
             />
             <Text >Female</Text>
           </View> */}

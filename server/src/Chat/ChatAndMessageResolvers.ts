@@ -12,18 +12,14 @@ import {
   Subscription,
   PubSub,
   PubSubEngine,
-  Root
+  Root,
+  Args,
+  ArgsType
 } from 'type-graphql';
-//import { PubSub} from'graphql-subscriptions';
 import { Context } from '../context';
 import { Chat } from './Chat';
 import { Message } from './Message';
-// import {User} from '../User/User'
-// import { Prisma } from '@prisma/client';
 
-const chats: Chat[] = [];
-const channel = "CHAT_CHANNEL"
-//const pubsub = new PubSub();
 
 
  @InputType()
@@ -53,22 +49,14 @@ export class ChatResolvers {
   }
 
 
-  @Subscription(returns=> Chat, {topics: channel})
-  async getAllMessagesForChat(
+  @Query(returns=> Chat,)
+  async getAllMessagesForChat(@PubSub() pubsub: PubSubEngine,
   @Arg("chatId") chatId: number, @Ctx() ctx: Context) {
-    const chat = await  ctx.prisma.chat.findUnique({where: {id: chatId}, include:{messages: true}}); 
-    // const payload = chat;
-    // await pubsub.publish(channel, payload)
-    return chat;
+    return await  ctx.prisma.chat.findUnique({where: {id: chatId}, include:{messages: true}}); 
   }
 
 
-  //  @Subscription({  topics: channel})
-  //   messageSent(@): Chat {
-  //       return 
-  //   }   
-
-
+  
 }
 
 
@@ -77,31 +65,37 @@ export class messageResolver {
   //The only resolver needed for message, it also stores it in a chat
   @Mutation(returns => Message)
   async sendMessage(@Arg('data') data: createMessageInput, @Ctx() ctx: Context ) {
-
+    
     return await ctx.prisma.message.create({
       data: {
         senderId: data.senderId,
         content: data.content,
         chat: {connect: {id: data.chatId}}
       }, include: {chat: {include: {messages: true, userOne: true, userTwo: true}}} }
-    )
-  }
-  @Mutation(returns => Message)
-  async messageSent(@PubSub() pubsub: PubSubEngine, @Arg('data')  data: createMessageInput, @Ctx() ctx: Context ): Promise <Message> { 
-    const message=  await ctx.prisma.message.create({
-      data: {
-        senderId: data.senderId,
-        content: data.content,
-        chat: {connect: {id: data.chatId}}
-      }, include: {chat: {include: {messages: true, userOne: true, userTwo: true}}} }
-    )
-  const payload = message;
-    await pubsub.publish(channel, payload);
-    console.log('done')
-  return message;
-}
-}
-  // @Subscription({topics: channel})
-  // }
-
-//include: {chat: {include: {messages: true, userOne: true, userTwo: true}}}
+      )
+    }
+    @Mutation(returns => Message )
+    async messageSent(@PubSub() pubsub: PubSubEngine, @Arg('data')  data: createMessageInput, @Ctx() ctx: Context ): Promise <Message> { 
+      const message=  await ctx.prisma.message.create({
+        data: {
+          senderId: data.senderId,
+          content: data.content,
+          chat: {connect: {id: data.chatId}}
+        }, include: {chat: {include: {messages: true, userOne: true, userTwo: true}}} }
+        )
+        const payload = message;
+        await pubsub.publish(data.chatId.toString(),  payload);
+        return message;
+      }
+      @Subscription( {topics: 
+        ({ args }) =>{ 
+        console.log('CREATING ARGS!!!', args)
+        return args.args.toString()
+      }}
+      )
+       listenMessages(@Root()  payload: Message,  @Arg('args') args: number ): Message {
+        return payload;
+      }
+      
+    }
+    

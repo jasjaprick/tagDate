@@ -7,7 +7,7 @@ interface Props {
   location: string;
   activity: number;
   onLike: () => void;
-  onNoLike: () => void;
+  onDislike: () => void;
 }
 
 const SwipeUserInfo: React.FC<Props> = ({
@@ -16,7 +16,7 @@ const SwipeUserInfo: React.FC<Props> = ({
   location,
   activity,
   onLike,
-  onNoLike,
+  onDislike,
 }: Props) => {
   return (
     <View style={styles.container}>
@@ -29,7 +29,7 @@ const SwipeUserInfo: React.FC<Props> = ({
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
-            onNoLike();
+            onDislike();
           }}
         >
           <Text style={styles.text}>Nope!</Text>
@@ -37,6 +37,7 @@ const SwipeUserInfo: React.FC<Props> = ({
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
+            console.log("LIKE onpress");
             onLike();
           }}
         >

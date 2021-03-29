@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { dbUser, IUsers } from '../../db';
-import { Text, View,  SafeAreaView, Dimensions } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import {useQuery, useMutation, gql} from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
@@ -47,7 +47,7 @@ mutation RejectUserMutation($ownId: Float!, $rejectedId: Float!) {
 `;
 
 const SwipePage: React.FunctionComponent<Props> = () => {
-  const [index, setIndex]  = useState(0);
+  // const [index, setIndex]  = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
  
   const [likeUser] = useMutation(LIKE_USER);
@@ -62,23 +62,34 @@ const SwipePage: React.FunctionComponent<Props> = () => {
   const [carouselItems, setCarouslItems] = useState([]);
 
   useEffect(() => {
-    // console.log("DATA", data.findActivityByTag);
+    // console.log('DATA', data.findActivityByTag);
     if (data?.findActivityByTag){
       setCarouslItems(data.findActivityByTag);
     }
   }, [data]);
 
+  useEffect(() => {
+   console.log('ACTIVE INDEX', activeIndex);
+
+  }, [activeIndex]);
+
   const windowWidth = Math.round(Dimensions.get('window').width); 
+  const buttonRef = useRef<any>();
 
   const onLike = () => {
-    const UID2 = data?.findActivityByTag[index] ? data.findActivityByTag[index].postedBy : 0;
+    console.log('LIKE', activeIndex);
+  
+    const UID2 = data?.findActivityByTag[activeIndex] ? data.findActivityByTag[activeIndex].postedBy : 0;
     likeUser({variables: {likeData: {UID1: 1, UID2 }}});
-    setIndex(index+1);
+    setActiveIndex(activeIndex+1);
+    buttonRef.current?.snapToNext(true);
   };
-  const onNoLike = () => {
-    const rejectedId = data?.findActivityByTag[index] ? data.findActivityByTag[index].postedBy : 0;
+  const onDislike = () => {
+    const rejectedId = data?.findActivityByTag[activeIndex] ? data.findActivityByTag[activeIndex].postedBy : 0;
     rejectUser({variables: {ownId: 1, rejectedId }});
-    setIndex(index+1);};
+    setActiveIndex(activeIndex+1);
+    buttonRef.current?.snapToNext(true);
+  };
 
     const  _renderItem = ({item, indexRender}) => {
       
@@ -91,7 +102,7 @@ const SwipePage: React.FunctionComponent<Props> = () => {
               <Swipe
                 target={item}
                 onLike={onLike}
-                onNoLike={onNoLike}
+                onDislike={onDislike}
               />
               ) : (
                 <Text>NO MORE USERS!</Text>
@@ -101,11 +112,16 @@ const SwipePage: React.FunctionComponent<Props> = () => {
        </QueryResult>
       );
   }; 
+  // const onSnap = (index: number) => {
+  //   setActiveIndex(index);
+  //   onLike();
+  // };
 
   return (
     <View style={{flex: 1 }}>
     <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
         <Carousel
+          ref={buttonRef}
           layout={"tinder"}
           data={carouselItems}
           sliderWidth={300}

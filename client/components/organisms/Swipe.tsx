@@ -5,11 +5,10 @@ import SwipeUserInfo from '../molecules/SwipeUserInfo';
 interface IProps {
   target: any;
   onLike: () => void;
-  onNoLike: () => void;
+  onDislike: () => void;
 }
 
-const Swipe: React.FC<IProps> = ({ target, onLike, onNoLike }: IProps) => {
-  console.log(target);
+const Swipe: React.FC<IProps> = ({ target, onLike, onDislike }: IProps) => {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -19,7 +18,7 @@ const Swipe: React.FC<IProps> = ({ target, onLike, onNoLike }: IProps) => {
         <View style={styles.infobox}>
           <SwipeUserInfo
             onLike={onLike}
-            onNoLike={onNoLike}
+            onDislike={onDislike}
             name={target.user.profile.name}
             dateOfBirth={target.user.profile.dateOfBirth}
             location={target.user.profile.location}

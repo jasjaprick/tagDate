@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { colors } from '../../helpers/styles';
 import Login from '../organisms/Login';
-import Background from '../../assets/bcg.svg';
+import Background from '../../assets/img/bcg.svg';
 
 
 function LoginPage({ navigation }) {

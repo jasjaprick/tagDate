@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
@@ -14,15 +14,15 @@ const client = new ApolloClient({
   cache,
 });
 
+const LexendDeca_400Regular = require('./assets/fonts/LexendDeca-Regular.ttf'); 
+
 import {
   useFonts,
   RobotoCondensed_400Regular,
   RobotoCondensed_400Regular_Italic,
 } from '@expo-google-fonts/roboto-condensed';
 
-import { 
-  LexendDeca_400Regular 
-} from '@expo-google-fonts/lexend-deca';
+
 
 
 

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { TextInput } from 'react-native';
 import PrimaryButton from '../atoms/PrimaryButton';
-import MainLogo from '../../assets/logo-main.svg';
+import MainLogo from '../../assets/img/logo-main.svg';
 import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
 

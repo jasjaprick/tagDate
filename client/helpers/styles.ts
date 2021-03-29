@@ -6,12 +6,13 @@ interface IColors {
   violet200: string;
 }
 
-const colors: IColors = {
-  violet: '#725AC1',
-  green: '#37FF34',
+export const colors: IColors = {
+  violet: '#422261',
+  green: '#37BA83',
   grey: '#A19E9E',
   white: '#FFFFFF',
   violet200: '#6247ba',
 };
 
-export default colors;
+export const boxShadow = '0px 0px 7px #9f9f9f';
+

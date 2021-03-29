@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
-import colors from '../../helpers/colors';
+import {colors} from '../../helpers/styles';
 import PersonalDetails from '../organisms/PersonalDetails';
 import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';

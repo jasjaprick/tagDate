@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Searchbar } from 'react-native-paper';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import ChatList from '../organisms/ChatList';
 import TagList from '../organisms/TagList';
 import { useQuery, gql } from '@apollo/client';

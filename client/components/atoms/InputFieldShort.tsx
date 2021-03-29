@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 interface IProps {
   placeholder: string;
@@ -18,7 +18,8 @@ const InputFieldShort: React.FC<IProps> = ({
       style={styles.input}
       onChangeText={onChangeText}
       placeholder={placeholder}
-      value={value}></TextInput>
+      value={value}
+    ></TextInput>
   );
 };
 

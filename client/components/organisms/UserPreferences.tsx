@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { AgePrefSelector } from '../atoms/AgePrefSelector';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 //TODO: ADD STYLE
 interface IPropsPreferences {
@@ -49,13 +49,13 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
       <Text style={styles.font}>Age range</Text>
       <View style={styles.ageContainer}>
         <AgePrefSelector
-        initialValue={18} 
+          initialValue={18}
           age={minAge}
           title={'Minimum Age'}
           onChange={setMinAge}
         />
         <AgePrefSelector
-        initialValue={70} 
+          initialValue={70}
           age={maxAge}
           title={'Maximum Age'}
           onChange={setMaxAge}
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'column',
     alignContent: 'center',
-    marginLeft: '8%'
+    marginLeft: '8%',
   },
 });
 

@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { RadioButton } from 'react-native-paper';
-
 import { colors } from '../../helpers/styles';
+import { View } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
 import useAppState from '../interfaces/AppState';
 

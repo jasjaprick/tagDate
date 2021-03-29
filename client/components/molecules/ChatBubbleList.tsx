@@ -4,22 +4,31 @@ import { ScrollView } from 'react-native';
 import ChatBubble from '../atoms/ChatBubble';
 
 interface IProps {
-  data:any
+  data: any;
 }
 
+const ChatBubbleList: React.FC<IProps> = (props) => {
+  if (props.data === '') {
+    return <View></View>;
+  }
 
-const ChatBubbleList:React.FC<IProps> = (props) => {
-  console.log('list', props.data?.getAllMessagesForChat.messages);
-  const messages:any[] = props.data?.getAllMessagesForChat.messages
-  
+  console.log('listBubbleList', props.data?.messages);
+  const messages: any[] = props.data?.messages;
+
   return (
     <View style={styles.chatBubbleListContainer}>
       <ScrollView>
-        {messages?.map(message => <ChatBubble key={message.id} message={message.content} location='flex-end' />)}
+        {messages?.map((message) => (
+          <ChatBubble
+            key={message.id}
+            message={message.content}
+            location='flex-end'
+          />
+        ))}
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   scrollview: { flex: 1 },

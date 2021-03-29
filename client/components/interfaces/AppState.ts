@@ -16,7 +16,7 @@ export interface IAppState {
 } 
 
 export const InitialAppState: IAppState = {
-  email: 'email@email',
+  email: '',
   password: '',
   name:'',
   bio: '',
@@ -47,6 +47,7 @@ export const getState = gql`
     }
   }
 `;
+
 
 export default function useAppState() {
   const { data: { appState }} = useQuery(getState);

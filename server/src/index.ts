@@ -7,7 +7,7 @@ import { context } from './context';
 import { ActivityResolvers } from './Activity/ActivityResolvers';
 import { AuthResolver } from './Auth/AuthResolver';
 import { PossibleMatchResolvers } from './PossibleMatch/PossibleMatchResolvers';
-import  { ChatResolvers, messageResolver } from './Chat/ChatAndMessageResolvers'
+import  { ChatResolvers, messageResolver,  } from './Chat/ChatAndMessageResolvers'
 const app = async () => {
   const schema = await tq.buildSchema({
     resolvers: [UserResolver, ActivityResolvers, PossibleMatchResolvers, ChatResolvers, messageResolver, AuthResolver, ],
@@ -15,7 +15,7 @@ const app = async () => {
 
  const server =  new ApolloServer({ schema, context: context, subscriptions: {
     path: '/subscriptions',
-    onConnect: () => console.log('Client connected for subscriptions'),
+    onConnect: (connectionParams, websocket, context) => console.log('Client connected for subscriptions'),
   } })
   
   server.listen({ port: 4000 }, () =>

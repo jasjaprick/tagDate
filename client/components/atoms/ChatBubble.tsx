@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 function ChatBubble({ message, location }) {
   return (

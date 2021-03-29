@@ -14,5 +14,5 @@ export const colors: IColors = {
   violet200: '#6247ba',
 };
 
-export const boxShadow = '0px 0px 7px 1px #0000ff';
+export const boxShadow = '0px 0px 7px #9f9f9f';
 

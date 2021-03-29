@@ -16,7 +16,6 @@ const UserAccessData: React.FC = () => {
         }
         placeholder={'E-mail'}
         value={appState.email}></InputFieldShort>
-      {console.log('aps', appState)}
       <InputFieldShort
         onChangeText={(password: string) => {
           updateState({ ...appState, password: password });

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import colors from '../../helpers/colors';
 import PersonalDetails from '../organisms/PersonalDetails';
@@ -20,6 +19,7 @@ import UserAccessData from '../organisms/UserAccessData';
 import UserPreferences from '../organisms/UserPreferences';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { Event } from '@react-native-community/datetimepicker';
+import useAppState from '../interfaces/AppState';
 
 interface Iprops {
   onPress: (text: string) => void;
@@ -39,46 +39,36 @@ const ADD_USER = gql`
 `;
 
 //TODO: FIX SCROLLVIEWnpm start
-//TODO: ADD STYLE
-//TODO: CHECK TYPE PASSWORD
 
 const RegisterPage = () => {
   // States
-  const [email, setEmail] = useState(''); //Email
-  const [password, setPassword] = useState(''); //Password
-  const [name, setName] = useState(''); //Name
-  const [bio, setBio] = useState(''); //Bio
-  const [age, setAge] = useState<Date | string>('1992-12-10T00:00:00.000Z');
-  const [show, setShow] = useState(false);
-  const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
-  const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
-  const [userGender, setUserGender] = React.useState('male');
-  const [genderPreference, setGenderPreference] = React.useState('male');
-  const [location, setLocation] = useState(''); //Name
+  const [location, setLocation] = useState('');
+
+  const [appState, updateState] = useAppState();
+
   const [addUser] = useMutation(ADD_USER, {
     variables: {
       addUserData: {
-        email: email,
-        password: password,
-        name: name,
-        dateOfBirth: age.toString(),
-        bio: bio,
-        gender: userGender,
-        interestedIn: genderPreference,
+        email: appState.email,
+        password: appState.password,
+        name: appState.name,
+        bio: appState.bio,
+        dateOfBirth: appState.age,
+        gender: appState.userGender,
+        interestedIn: appState.genderPreference,
         location: location,
       },
     },
   });
 
   const onAgeChange = (_: Event, selectedAge: Date | undefined) => {
-    const currentAge: Date | string = selectedAge || age;
-    setShow(Platform.OS === 'ios');
-    setAge(currentAge);
-    console.log(age);
+    const currentAge: Date | string = selectedAge || appState.age;
+    updateState({ ...appState, show: Platform.OS === 'ios' });
+    updateState({ ...appState, age: currentAge });
   };
 
   const showMode = () => {
-    setShow(true);
+    updateState({ ...appState, show: true });
   };
 
   function getMaximumDate(): Date {
@@ -90,68 +80,29 @@ const RegisterPage = () => {
     return new Date(eighteenYearsAgo);
   }
 
-  console.log(getMaximumDate());
-
   const navigation = useNavigation();
 
   const handleOnPress = () => {
-    console.log({
-        email: email,
-        password: password,
-        name: name,
-        dateOfBirth: age.toString(),
-        bio: bio,
-        gender: userGender,
-        interestedIn: genderPreference,
-        location: location,
-      });
     addUser();
     navigation.navigate('TagDatePage');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+    <SafeAreaView>
+      <ScrollView>
         <View style={styles.registerPageContainer}>
-          <UserAccessData
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-          />
-
-          <PersonalDetails
-            name={name}
-            setName={setName}
-            userGender={userGender}
-            setUserGender={setUserGender}
-            showMode={showMode}
-            onAgeChange={onAgeChange}
-            //minAge={getMaximumDate()}
-            show={show}
-            age={age}
-          />
-
-          <BioInfo bio={bio} setBio={setBio} />
+          <UserAccessData />
+          <PersonalDetails showMode={showMode} onAgeChange={onAgeChange} />
+          <BioInfo />
           <AddPicture />
-
-          <UserPreferences
-            minAge={minAge}
-            setMinAge={setMinAge}
-            maxAge={maxAge}
-            setMaxAge={setMaxAge}
-            genderPreference={genderPreference}
-            setGenderPreference={setGenderPreference}
-          />
-
-          <View style={styles.locationPageContainer}>
+          <UserPreferences />
+          <View>
             <InputFieldShort
               onChangeText={(location: string) => {
                 setLocation(location);
               }}
               placeholder={'Location'}
-              value={location}
-            ></InputFieldShort>
+              value={location}></InputFieldShort>
           </View>
 
           <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>

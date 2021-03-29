@@ -5,25 +5,11 @@ import { RadioButton } from 'react-native-paper';
 import colors from '../../helpers/colors';
 
 import InputAge from '../atoms/InputAge';
+import useAppState from '../interfaces/AppState';
 
-//TODO: ADD STYLE
-interface IPropsPreferences {
-  minAge: number | null;
-  setMinAge: React.Dispatch<React.SetStateAction<number | null>>;
-  maxAge: number | null;
-  setMaxAge: React.Dispatch<React.SetStateAction<number | null>>;
-  genderPreference: string;
-  setGenderPreference: React.Dispatch<React.SetStateAction<string>>;
-}
+const UserPreferences: React.FC = () => {
+  const [appState, updateState] = useAppState();
 
-const UserPreferences: React.FC<IPropsPreferences> = ({
-  minAge,
-  setMinAge,
-  maxAge,
-  setMaxAge,
-  genderPreference,
-  setGenderPreference,
-}) => {
   return (
     <View>
       <View style={styles.genderContainer}>
@@ -33,16 +19,18 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
           <View>
             <RadioButton
               value='male'
-              status={genderPreference === 'male' ? 'checked' : 'unchecked'}
-              onPress={() => setGenderPreference('male')}
+              status={appState.userGender === 'male' ? 'checked' : 'unchecked'}
+              onPress={() => updateState({ ...appState, userGender: 'male' })}
             />
             <Text style={styles.fontBtn}>Male</Text>
           </View>
           <View>
             <RadioButton
               value='female'
-              status={genderPreference === 'female' ? 'checked' : 'unchecked'}
-              onPress={() => setGenderPreference('female')}
+              status={
+                appState.userGender === 'female' ? 'checked' : 'unchecked'
+              }
+              onPress={() => updateState({ ...appState, userGender: 'female' })}
             />
             <Text style={styles.fontBtn}>Female</Text>
           </View>
@@ -53,19 +41,19 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
       <View style={styles.ageContainer}>
         <InputAge
           title={'From'}
-          onChangeText={(minAge: string) => {
-            setMinAge(+minAge);
-          }}
+          onChangeText={(minAge: string) =>
+            updateState({ ...appState, minAge: +minAge })
+          }
           placeholder={''}
-          value={minAge?.toString()}></InputAge>
+          value={appState.minAge?.toString()}></InputAge>
 
         <InputAge
           title={'to'}
-          onChangeText={(maxAge: string) => {
-            setMaxAge(+maxAge);
-          }}
+          onChangeText={(maxAge: string) =>
+            updateState({ ...appState, maxAge: +maxAge })
+          }
           placeholder={''}
-          value={maxAge?.toString()}></InputAge>
+          value={appState.maxAge?.toString()}></InputAge>
       </View>
     </View>
   );

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { useMutation, gql } from '@apollo/client';
+import PrimaryButton from '../atoms/PrimaryButton';
 const ADD_ACTIVITY = gql`
   mutation AddActivityMutation($addActivityData: AddActivityInput!) {
     addActivity(data: $addActivityData) {
@@ -29,7 +28,7 @@ const TagDatePage = () => {
 
   const navigation = useNavigation();
 
-  const HandleOnPress = () => {
+  const handleOnPress = () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
     addActivity();
@@ -39,21 +38,21 @@ const TagDatePage = () => {
 
   return (
     <View style={styles.TagDateContainer}>
-      <InputFieldLarge
+      <InputFieldShort
         onChangeText={setDateDescription}
         placeholder={'I want to...'}
         value={dateDescription}
-      ></InputFieldLarge>
+        isFluid={false}
+      ></InputFieldShort>
 
       <InputFieldShort
         onChangeText={setTag}
         placeholder={'Choose your tag'}
         value={tag}
+        isFluid={false}
       ></InputFieldShort>
 
-      <TouchableOpacity onPress={HandleOnPress} style={styles.confirmButton}>
-        <Ionicons name='md-checkmark-circle' size={32} color='green' />
-      </TouchableOpacity>
+      <PrimaryButton title='Date!' action={handleOnPress} isPrimary={true} />
     </View>
   );
 };

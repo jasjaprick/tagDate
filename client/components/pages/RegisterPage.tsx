@@ -10,11 +10,12 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
-import {colors} from '../../helpers/styles';
+import { colors } from '../../helpers/styles';
 import PersonalDetails from '../organisms/PersonalDetails';
 import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
+import PrimaryButton from '../atoms/PrimaryButton';
 import UserPreferences from '../organisms/UserPreferences';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { Event } from '@react-native-community/datetimepicker';
@@ -60,7 +61,7 @@ const RegisterPage = () => {
         email: email,
         password: password,
         name: name,
-        dateOfBirth: age.toString(),
+        dateOfBirth: '10-12-1992',
         bio: bio,
         gender: userGender,
         interestedIn: genderPreference,
@@ -69,16 +70,7 @@ const RegisterPage = () => {
     },
   });
 
-  console.log(data);
-
-  // Maximum age
-  function getDate(diff: number): Date {
-    const returnDate = new Date();
-    returnDate.setTime(returnDate.valueOf() - diff * 365 * 24 * 60 * 60 * 1000);
-
-    return new Date(returnDate);
-  }
-
+  // fn passed down to datepicker through personal details that handles the DOB select event
   const onAgeChange = (_: Event, selectedAge: Date | undefined) => {
     const currentAge: Date = selectedAge || age;
     setShow(Platform.OS === 'ios');
@@ -86,34 +78,22 @@ const RegisterPage = () => {
     console.log(age);
   };
 
+  // fn passed down to datepicker through personal details that handles the visibility of the
   const showMode = () => {
     setShow(true);
   };
 
-  function getMaximumDate(): Date {
-    const eighteenYearsAgo = new Date();
-    eighteenYearsAgo.setTime(
-      eighteenYearsAgo.valueOf() - 18 * 365 * 24 * 60 * 60 * 1000
-    );
+  // fn that gets the date for use in datepicker and dob state
+  function getDate(diff: number): Date {
+    const returnDate = new Date();
+    returnDate.setTime(returnDate.valueOf() - diff * 365 * 24 * 60 * 60 * 1000);
 
-    return new Date(eighteenYearsAgo);
+    return new Date(returnDate);
   }
-
-  console.log(getMaximumDate());
 
   const navigation = useNavigation();
 
   const handleOnPress = () => {
-    console.log({
-      email: email,
-      password: password,
-      name: name,
-      dateOfBirth: age.toString(),
-      bio: bio,
-      gender: userGender,
-      interestedIn: genderPreference,
-      location: location,
-    });
     addUser();
     navigation.navigate('TagDatePage');
   };
@@ -121,7 +101,7 @@ const RegisterPage = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <View >
+        <View>
           <UserAccessData
             email={email}
             setEmail={setEmail}
@@ -138,7 +118,12 @@ const RegisterPage = () => {
             show={show}
             age={age}
           />
-          <BioInfo bio={bio} setBio={setBio} />
+          <InputFieldShort
+            isFluid={false}
+            placeholder={'Describe yourself in 140 characters...'}
+            value={bio}
+            onChangeText={(bio: string) => setBio(bio)}
+          />
           <AddPicture />
           <UserPreferences
             minAge={minAge}
@@ -153,43 +138,16 @@ const RegisterPage = () => {
               onChangeText={(location: string) => {
                 setLocation(location);
               }}
+              isFluid={false}
               placeholder={'Location'}
               value={location}
             ></InputFieldShort>
           </View>
-          <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
-            <Text style={styles.buttonText}>Next</Text>
-          </TouchableOpacity>
+          <PrimaryButton title='Next' action={handleOnPress} isPrimary={true} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  registerPageContainer: {
-    flex: 1,
-    width: '90%',
-    height: 'auto',
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    flexDirection: 'column',
-    backgroundColor: colors.white,
-    position: 'relative',
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  nextButton: {
-    backgroundColor: colors.violet,
-    padding: 20,
-    borderRadius: 20,
-    justifyContent: 'center',
-    width: '60%',
-    alignSelf: 'center',
-    alignItems: 'center',
-  },
-  buttonText: { fontSize: 20, color: 'white' },
-});
 
 export default RegisterPage;

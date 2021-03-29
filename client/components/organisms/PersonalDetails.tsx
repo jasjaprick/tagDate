@@ -5,7 +5,10 @@ import { RadioButton } from 'react-native-paper';
 import { Event } from '@react-native-community/datetimepicker';
 import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
+import styled from 'styled-components/native';
 
+
+// Props
 interface IProps {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
@@ -18,6 +21,13 @@ interface IProps {
   show: boolean;
 }
 
+// styles
+const Container = styled.View`
+  width: 80%;
+  margin: 5px auto;
+`;
+
+
 const PersonalDetails: React.FC<IProps> = ({
   name,
   setName,
@@ -29,8 +39,9 @@ const PersonalDetails: React.FC<IProps> = ({
   age,
 }) => {
   return (
-    <View>
+    <Container>
       <InputFieldShort
+      isFluid={true}
         onChangeText={setName}
         placeholder={'Name'}
         value={name}
@@ -45,17 +56,17 @@ const PersonalDetails: React.FC<IProps> = ({
         ></DatePicker>
       </View>
 
-      <View style={styles.genderContainer}>
-        <Text style={styles.font}>Gender</Text>
+      <View>
+        <Text >Gender</Text>
 
-        <View style={styles.iconContainer}>
-          <View>
+        <View >
+          {/* <View>
             <RadioButton
               value='male'
               status={userGender === 'male' ? 'checked' : 'unchecked'}
               onPress={() => setUserGender('male')}
             />
-            <Text style={styles.fontBtn}>Male</Text>
+            <Text>Male</Text>
           </View>
 
           <View>
@@ -64,27 +75,12 @@ const PersonalDetails: React.FC<IProps> = ({
               status={userGender === 'female' ? 'checked' : 'unchecked'}
               onPress={() => setUserGender('female')}
             />
-            <Text style={styles.fontBtn}>Female</Text>
-          </View>
+            <Text >Female</Text>
+          </View> */}
         </View>
       </View>
-    </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  genderContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  font: { fontSize: 20, color: colors.grey },
-  fontBtn: { fontSize: 12, color: colors.grey },
-  iconContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginLeft: '18%',
-    flex: 1,
-  },
-});
 
 export default PersonalDetails;

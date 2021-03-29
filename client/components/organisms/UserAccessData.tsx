@@ -1,8 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { RadioButton } from 'react-native-paper';
-
-import { colors } from '../../helpers/styles';
+import { View } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
 
 //TODO: CHECK TYPE PASSWORD
@@ -25,6 +22,7 @@ const UserAccessData: React.FC<IProps> = ({
         onChangeText={setEmail}
         placeholder={'E-mail'}
         value={email}
+        isFluid={false}
       ></InputFieldShort>
 
       <InputFieldShort
@@ -33,11 +31,10 @@ const UserAccessData: React.FC<IProps> = ({
         }}
         placeholder={'Password'}
         value={password?.toString()}
+        isFluid={false}
       ></InputFieldShort>
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default UserAccessData;

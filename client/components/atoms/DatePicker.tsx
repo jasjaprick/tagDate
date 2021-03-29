@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { View, Button, Platform } from 'react-native';
+import React from 'react';
+import { View, Button } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 
+
+
+//Props
 interface IProps {
   showMode: () => void;
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
-  //minAge: Date;
   show: boolean;
   age: Date;
 }
@@ -13,7 +15,6 @@ interface IProps {
 export const DatePicker: React.FunctionComponent<IProps> = ({
   showMode,
   onAgeChange,
-  //minAge,
   show,
   age,
 }) => {
@@ -30,20 +31,15 @@ export const DatePicker: React.FunctionComponent<IProps> = ({
   // Maximum age
   function getDate(diff: number): Date {
     const returnDate = new Date();
-    returnDate.setTime(
-      returnDate.valueOf() - diff * 365 * 24 * 60 * 60 * 1000
-    );
+    returnDate.setTime(returnDate.valueOf() - diff * 365 * 24 * 60 * 60 * 1000);
 
     return new Date(returnDate);
   }
 
-
-
   return (
     <View>
-      <View>
-        <Button onPress={showMode} title="What's your date of birth?" />
-      </View>
+      <Button onPress={showMode} title={'When is your birthday?'} />
+  
       {show && (
         <DateTimePicker
           value={new Date(age)}

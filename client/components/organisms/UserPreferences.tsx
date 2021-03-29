@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { AgePrefSelector } from '../atoms/AgePrefSelector';
 import { colors } from '../../helpers/styles';
+import styled from 'styled-components/native';
 
-//TODO: ADD STYLE
 interface IPropsPreferences {
   minAge: number;
   setMinAge: React.Dispatch<React.SetStateAction<number>>;
@@ -13,6 +13,11 @@ interface IPropsPreferences {
   genderPreference: string;
   setGenderPreference: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const Container = styled.View`
+  width: 80%;
+  margin: 5px auto;
+`;
 
 const UserPreferences: React.FC<IPropsPreferences> = ({
   minAge,
@@ -23,18 +28,18 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
   setGenderPreference,
 }) => {
   return (
-    <View>
-      <View style={styles.genderContainer}>
-        <Text style={styles.font}>Interested in</Text>
+    <Container>
+      <View>
+        <Text>Interested in</Text>
 
-        <View style={styles.iconContainer}>
+        <View>
           <View>
             <RadioButton
               value='male'
               status={genderPreference === 'male' ? 'checked' : 'unchecked'}
               onPress={() => setGenderPreference('male')}
             />
-            <Text style={styles.fontBtn}>Male</Text>
+            <Text>Male</Text>
           </View>
           <View>
             <RadioButton
@@ -42,12 +47,12 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
               status={genderPreference === 'female' ? 'checked' : 'unchecked'}
               onPress={() => setGenderPreference('female')}
             />
-            <Text style={styles.fontBtn}>Female</Text>
+            <Text>Female</Text>
           </View>
         </View>
       </View>
-      <Text style={styles.font}>Age range</Text>
-      <View style={styles.ageContainer}>
+      <Text>Age range</Text>
+      <View>
         <AgePrefSelector
           initialValue={18}
           age={minAge}
@@ -61,29 +66,9 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
           onChange={setMaxAge}
         />
       </View>
-    </View>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  genderContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  font: { fontSize: 20, color: colors.grey },
-  fontBtn: { fontSize: 12, color: colors.grey },
-  iconContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginLeft: '3%',
-    flex: 1,
-  },
-  ageContainer: {
-    width: '100%',
-    flexDirection: 'column',
-    alignContent: 'center',
-    marginLeft: '8%',
-  },
-});
 
 export default UserPreferences;

@@ -1,13 +1,10 @@
 import React from 'react';
-import * as Font from 'expo-font';
-// import { useFonts } from 'expo-font';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import MenuNavigator from './components/navigations/MenuNavigator';
+
 
 const LOCAL_IP = process.env.LOCAL_IP_CODEWORKS;
 console.log('LOCAL_IP', LOCAL_IP);
@@ -23,15 +20,22 @@ import {
   RobotoCondensed_400Regular_Italic,
 } from '@expo-google-fonts/roboto-condensed';
 
+import { 
+  LexendDeca_400Regular 
+} from '@expo-google-fonts/lexend-deca';
+
+
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     RobotoCondensed_400Regular,
     RobotoCondensed_400Regular_Italic,
+    LexendDeca_400Regular
   });
 
   if (!fontsLoaded) {
     return (
-      <View style={[styles.container, styles.horizontal]}>
+      <View>
         <ActivityIndicator />
       </View>
     );
@@ -48,14 +52,3 @@ export default function App() {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
-});

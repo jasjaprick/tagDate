@@ -8,9 +8,9 @@ function IndividualChatSend(props) {
   return (
     <View style={styles.IndividualChatSendContainer}>
       <View style={styles.IndividualChatSendInput}>
-        <InputFieldLarge />
+        <InputFieldLarge onChangeText={props.setTextContent} value={props.textContent} />
       </View>
-      <SendMessageIcon />
+      <SendMessageIcon sendingAMessage={props.sendingAMessage}/>
     </View>
   );
 }

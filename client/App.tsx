@@ -6,22 +6,43 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, split, HttpLink } from '@apollo/client';
 import MenuNavigator from './components/navigations/MenuNavigator';
+import { WebSocketLink } from '@apollo/client/link/ws';
 
 const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
 console.log('LOCAL_IP', LOCAL_IP);
 
-const client = new ApolloClient({
-  uri: `http://${LOCAL_IP}:4000`,
-  cache: new InMemoryCache(),
+const httpLink = new HttpLink({
+  uri: `http://${LOCAL_IP}:4000`
 });
-
-import {
+const wsLink = new WebSocketLink({
+  uri: `ws://${LOCAL_IP}:4000/subscriptions`,
+  options: {
+    reconnect: true
+  }
+});
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+      );
+    },
+    wsLink,
+    httpLink,
+    );
+    const client = new ApolloClient({
+      link: splitLink,
+      cache: new InMemoryCache(),
+    });
+    import {
   useFonts,
   RobotoCondensed_400Regular,
   RobotoCondensed_400Regular_Italic,
 } from '@expo-google-fonts/roboto-condensed';
+import { getMainDefinition } from '@apollo/client/utilities';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

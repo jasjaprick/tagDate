@@ -54,7 +54,7 @@ const SwipePage: React.FunctionComponent<Props> = () => {
       tag: 'fish'
     }
   });
-
+  console.log(data);
   const [likeUser] = useMutation(LIKE_USER);
   const [rejectUser] = useMutation(REJECT_USER);
 

@@ -4,13 +4,14 @@ import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import colors from '../../helpers/colors';
 
-function SendMessageIcon() {
+function SendMessageIcon(props) {
   const sendMessage = () => {
     console.log('sending message...');
+    props.sendingAMessage()
   };
   return (
     <View style={styles.SendMessageIconContainer}>
-      <TouchableOpacity onPress={sendMessage}>
+      <TouchableOpacity onPress={sendMessage }>
         <FontAwesome name='send-o' size={24} color='white' />
       </TouchableOpacity>
     </View>

@@ -33,6 +33,7 @@
     "react-native-screens": "~2.15.2",
     "react-native-swipe-cards-deck": "^0.2.19",
     "react-native-web": "~0.13.12",
+    "subscriptions-transport-ws": "^0.9.18",
     "typescript": "^4.2.3"
   },
   "devDependencies": {

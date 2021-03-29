@@ -3,31 +3,19 @@ import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native';
 import ChatBubble from '../atoms/ChatBubble';
 
-function ChatBubbleList() {
+interface IProps {
+  data:any
+}
+
+
+const ChatBubbleList:React.FC<IProps> = (props) => {
+  console.log('list', props.data?.getAllMessagesForChat.messages);
+  const messages:any[] = props.data?.getAllMessagesForChat.messages
+  
   return (
     <View style={styles.chatBubbleListContainer}>
       <ScrollView>
-        <ChatBubble message='Hey' location='flex-end' />
-        <ChatBubble message='Hey hows it going?' location='flex-start' />
-        <ChatBubble
-          message='Wanna go for netflix and chill?'
-          location='flex-end'
-        />
-        <ChatBubble message='Sounds good to me' location='flex-start' />
-        {/* <ChatBubble message='Hey' location='flex-end' />
-        <ChatBubble message='Hey hows it going?' location='flex-start' />
-        <ChatBubble
-          message='Wanna go for netflix and chill?'
-          location='flex-end'
-        />
-        <ChatBubble message='Sounds good to me' location='flex-start' />
-        <ChatBubble message='Hey' location='flex-end' />
-        <ChatBubble message='Hey hows it going?' location='flex-start' />
-        <ChatBubble
-          message='Wanna go for netflix and chill?'
-          location='flex-end'
-        />
-        <ChatBubble message='Sounds good to me' location='flex-start' /> */}
+        {messages?.map(message => <ChatBubble key={message.id} message={message.content} location='flex-end' />)}
       </ScrollView>
     </View>
   );

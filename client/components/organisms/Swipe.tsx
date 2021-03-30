@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Button, Text } from 'react-native';
+import { View, StyleSheet, ImageBackground } from 'react-native';
 import SwipeUserInfo from '../molecules/SwipeUserInfo';
 
 interface IProps {

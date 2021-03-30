@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { DrawerActions } from 'react-navigation-drawer';
 import { IUsers } from '../../db';
-import { Text, View, Button } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
-import { NavigationContainer } from '@react-navigation/native';
-import MenuNavigator from '../navigations/MenuNavigator';
+
+import { useNavigation } from '@react-navigation/core';
+import TitleHeader from '../molecules/TitleHeader';
+
 import {
   currentUserRegistrationId,
   currentUserTag,
 } from '../interfaces/AppState';
+
 
 interface Props {
   dbUser: IUsers[];
@@ -54,6 +57,7 @@ const REJECT_USER = gql`
 `;
 
 const SwipePage: React.FunctionComponent<Props> = () => {
+  const navigation = useNavigation();
   const [index, setIndex] = useState(0);
 
   const userId = currentUserRegistrationId();
@@ -90,27 +94,22 @@ const SwipePage: React.FunctionComponent<Props> = () => {
   };
 
   return (
-    <View>
-      <Button
-        onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-        title='Btn'
-      />
-      <QueryResult error={error} loading={loading} data={data}>
-        <View>
-          {data &&
-          data.findActivityByTag.length >= 1 &&
-          index < data.findActivityByTag.length ? (
-            <Swipe
-              target={data.findActivityByTag[index]}
-              onLike={onLike}
-              onNoLike={onNoLike}
-            />
-          ) : (
-            <Text>NO MORE USERS!</Text>
-          )}
-        </View>
-      </QueryResult>
-    </View>
+    <QueryResult error={error} loading={loading} data={data}>
+      <TitleHeader>Swipe</TitleHeader>
+      <View>
+        {data &&
+        data.findActivityByTag.length >= 1 &&
+        index < data.findActivityByTag.length ? (
+          <Swipe
+            target={data.findActivityByTag[index]}
+            onLike={onLike}
+            onNoLike={onNoLike}
+          />
+        ) : (
+          <Text>NO MORE USERS!</Text>
+        )}
+      </View>
+    </QueryResult>
   );
 };
 

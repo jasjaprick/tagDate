@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PrimaryButton from '../atoms/PrimaryButton';
-import SecondaryButton from '../atoms/SecondaryButton';
+
 
 function MatchSuccessPage(props) {
   return (
@@ -9,10 +9,11 @@ function MatchSuccessPage(props) {
       <Text style={styles.MatchSuccessPageTitle}>Match!</Text>
       <View style={styles.imageContainer}></View>
       <PrimaryButton
+      isPrimary={true}
         title="Let's Talk!"
-        action={() => console.log("Let's talk!")}
+        action={() => console.log('Let\'s talk!')}
       />
-      <SecondaryButton title='Later' action={() => console.log('Later')} />
+      <PrimaryButton isPrimary={false} title='Later' action={() => console.log('Later')} />
     </View>
   );
 }

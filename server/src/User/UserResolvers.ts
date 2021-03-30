@@ -38,7 +38,7 @@ export class AddUserInput {
   @Field()
   location: string;
 
-  @Field(type => String, {nullable : true})
+  @Field((type) => String, { nullable: true })
   profilePicture?: string;
 }
 
@@ -50,9 +50,24 @@ export class UserResolver {
   @Query((returns) => User, { nullable: true })
   async getUserById(@Arg('id', (type) => Int) id: number, @Ctx() ctx: Context) {
     return await ctx.prisma.user.findUnique({
-      where: { id: id }, include: {
-        profile: true
-      }
+      where: { id: id },
+      include: {
+        profile: true,
+      },
+    });
+  }
+
+  // Get user by ID
+  @Query((returns) => User, { nullable: true })
+  async getUserByEmail(
+    @Arg('email', (type) => String) email: String,
+    @Ctx() ctx: Context
+  ) {
+    return await ctx.prisma.user.findUnique({
+      where: { email: email },
+      include: {
+        profile: true,
+      },
     });
   }
 
@@ -87,7 +102,7 @@ export class UserResolver {
         interestedIn: data.interestedIn,
         location: data.location,
         userId: newUser.id,
-        profilePicture: data.profilePicture
+        profilePicture: data.profilePicture,
       },
     });
     console.log('User Added 🥳');
@@ -140,7 +155,7 @@ export class UserResolver {
         },
       },
       where: { id: ownId },
-      include: {profile: true}
+      include: { profile: true },
     });
   }
 }

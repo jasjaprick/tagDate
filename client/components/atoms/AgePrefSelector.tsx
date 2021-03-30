@@ -4,16 +4,18 @@ import {View, Text} from 'react-native';
 
 interface IProps {
   title: string;
-  initialValue: number;
-  onChange: Dispatch<SetStateAction<number>>;
   age: number | undefined;
+  setAge: (value: number) => void;
 }
 
 // Component that renders the age range for the user's preferences and sends state up to the register page
-export const AgePrefSelector: React.FunctionComponent<IProps> = ({title, age, onChange}) => {
+export const AgePrefSelector: React.FunctionComponent<IProps> = ({title, age, setAge}) => {
+
   return (
     <View>
-      <Text>{title}: {age}</Text>
+      <Text>
+        {title}: {age}
+      </Text>
       <Slider
         style={{ width: 280, height: 40 }}
         minimumValue={18}
@@ -22,7 +24,7 @@ export const AgePrefSelector: React.FunctionComponent<IProps> = ({title, age, on
         value={age}
         minimumTrackTintColor='#000000'
         maximumTrackTintColor='#000000'
-        onValueChange={onChange}
+        onValueChange={value => setAge(value)}
       />
     </View>
   );

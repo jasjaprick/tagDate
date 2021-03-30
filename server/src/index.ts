@@ -21,12 +21,21 @@ const app = async () => {
     ],
   });
 
-  new ApolloServer({ schema, context: context }).listen({ port: 4000 }, () =>
+ const server =  new ApolloServer({ schema, context: context, subscriptions: {
+    path: '/subscriptions',
+    onConnect: (connectionParams, websocket, context) => console.log('Client connected for subscriptions'),
+  } });
+  
+  server.listen({ port: 4000 }, () =>
     console.log(`
   🚀 Server is running!
   🔊 Listening on port 4000
   📭 Query at https://studio.apollographql.com/dev`)
-  );
+ 
+  // console.log(
+  //   `Subscriptions ready at ws://localhost:4000${apolloServer.subscriptionsPath}`
+  // );
+   );
 };
 
 app();

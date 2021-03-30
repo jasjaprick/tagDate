@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Searchbar } from 'react-native-paper';
 import { colors } from '../../helpers/styles';
 import ChatList from '../organisms/ChatList';
 import TagList from '../organisms/TagList';
 import { useQuery, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
 import TextTitle from '../atoms/TextTitle';
+import TitleHeader from '../molecules/TitleHeader';
 
 // GQL Query definition
 const GET_MATCHES = gql`
@@ -48,15 +48,12 @@ const ChatPage: React.FunctionComponent = () => {
     <QueryResult error={error} loading={loading} data={data}>
       {data && data.getConfirmedMatches.length > 0 ? (
         <View style={styles.chatPageContainer}>
-          {/* <Text style={styles.chatTitle}>Chat</Text> */}
-          <TextTitle>Chat</TextTitle>
-          {/* <Searchbar style={styles.searchbarContainer} /> */}
-          {/* {<TagList tags={data.tags} />} */}
+          <TitleHeader isPrimary={true} title={'Chats'} />
           <ChatList matches={data.getConfirmedMatches} />
         </View>
       ) : (
         <View style={styles.chatPageContainer}>
-          <Text style={styles.chatTitle}>Chat</Text>
+          <TitleHeader title={'Chat'} isPrimary={true} />
           <Text>No matches for you</Text>
         </View>
       )}
@@ -69,15 +66,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flex: 1,
     alignItems: 'center',
-  },
-  // chatTitle: {
-  //   fontSize: 30,
-  //   color: colors.violet,
-  // },
-  searchbarContainer: {
-    width: '80%',
-    borderRadius: 10,
-    margin: 20,
   },
 });
 

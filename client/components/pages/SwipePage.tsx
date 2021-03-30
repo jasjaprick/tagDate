@@ -15,6 +15,7 @@ import {
   currentUserRegistrationId,
   currentUserTag,
 } from '../interfaces/AppState';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 interface Props {
   dbUser: IUsers[];
@@ -188,6 +189,9 @@ const SwipePage: React.FC<Props> = () => {
     velocityThreshold: 0.3,
     directionalOffsetThreshold: 80,
   };
+
+  // const tag = data.findActivityByTag[0].tag;
+
   const renderUsers = () => {
     if (users.length === 0 || activeIndex >= users.length)
       return <Text>NO MORE USERS!</Text>;
@@ -261,7 +265,7 @@ const SwipePage: React.FC<Props> = () => {
                 <View>
                   <Swipe
                     target={users[activeIndex]}
-                    tag={data.findActivityByTag[0].tag}
+                    tag={data.findActivityByTag[i].tag}
                     onLike={onLike}
                     onDislike={onDislike}
                   />
@@ -335,6 +339,7 @@ const SwipePage: React.FC<Props> = () => {
               <QueryResult error={error} loading={loading} data={users}>
                 <View>
                   <Swipe
+                    tag={data.findActivityByTag[i].tag}
                     target={users[activeIndex + 1]}
                     onLike={onLike}
                     onDislike={onDislike}

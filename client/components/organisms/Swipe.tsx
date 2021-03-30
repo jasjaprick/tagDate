@@ -12,7 +12,9 @@ interface IProps {
 }
 
 const Swipe: React.FC<IProps> = ({ target, tag, onLike, onDislike }: IProps) => {
+
   const  birthday = (new Date()).getFullYear() - (new Date(target.user.profile.dateOfBirth)).getFullYear();
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -37,6 +39,7 @@ const Swipe: React.FC<IProps> = ({ target, tag, onLike, onDislike }: IProps) => 
     </View>
   );
 };
+
 const windowWidth = Math.round(Dimensions.get('window').width); 
 
 const styles = StyleSheet.create({
@@ -51,7 +54,10 @@ const styles = StyleSheet.create({
     opacity: 1,
     fontSize: 40,
     alignSelf: 'center',
-    bottom: 340
+    bottom: 340,
+    textShadowColor: 'rgba(0, 0, 0, 0.9)',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 10
   },
   image: {
     flex: 1,

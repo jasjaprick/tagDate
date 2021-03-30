@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import heart from 'client/assets/heart.png';
 
 interface Props {
   name: string;
@@ -31,7 +30,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             onDislike();
           }}
         >
-          <Image source={require('../../assets/x-mark.png')} style={styles.imageSize}/>
+          <Image source={require('../../assets/x-mark-32.png')} style={styles.imageSize}/>
           {/* <Text style={styles.text}>Nope!</Text> */}
         </TouchableOpacity>
         <TouchableOpacity
@@ -68,7 +67,6 @@ const styles = StyleSheet.create({
     height: 35
   },
   btn: {
-    // backgroundColor: '#725AC1',
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 10,

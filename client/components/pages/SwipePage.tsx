@@ -151,10 +151,6 @@ const SwipePage: React.FC<Props> = () => {
     },
   }), []);
 
-  const userID = () =>  {
-    return Math.floor(Math.random()  * Math.floor(30));
-  };
-
   const onLike = () => {
     const UID2 = users[activeIndex] ? users[activeIndex].postedBy : 0;
     likeUser({variables: {likeData: {UID1: 1, UID2 }}});
@@ -246,12 +242,8 @@ const SwipePage: React.FC<Props> = () => {
 
   return (
     <View >
-      <View>
-      </View>
       <View >
         {renderUsers()}
-      </View>
-      <View >
       </View>
     </View>
   );

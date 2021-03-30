@@ -5,16 +5,11 @@ import {
   View,
   Dimensions,
   Animated,
-  Button,
   PanResponder,
-  Image,
-  ImageBackground,
-  StyleSheet,
 } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
-import { Users } from '../interfaces/users.interface';
 import { Activities } from '../interfaces/activities.interface';
 import {
   currentUserRegistrationId,
@@ -81,7 +76,7 @@ const SwipePage: React.FC<Props> = () => {
     },
   });
   const [users, setUsers] = useState<Activities[]>([]);
-  //start
+
   const position = useRef(new Animated.ValueXY()).current;
 
   useEffect(() => {

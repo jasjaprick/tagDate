@@ -4,11 +4,24 @@ import { RadioButton } from 'react-native-paper';
 import { AgePrefSelector } from '../atoms/AgePrefSelector';
 import { colors } from '../../helpers/styles';
 import InputAge from '../atoms/InputAge';
-import useAppState from '../interfaces/AppState';
 
-const UserPreferences: React.FC = () => {
-  const [appState, updateState] = useAppState();
+interface IPropsPreferences {
+  minAge: number | null;
+  setMinAge: React.Dispatch<React.SetStateAction<number | null>>;
+  maxAge: number | null;
+  setMaxAge: React.Dispatch<React.SetStateAction<number | null>>;
+  genderPreference: string;
+  setGenderPreference: React.Dispatch<React.SetStateAction<string>>;
+}
 
+const UserPreferences: React.FC<IPropsPreferences> = ({
+  minAge,
+  setMinAge,
+  maxAge,
+  setMaxAge,
+  genderPreference,
+  setGenderPreference,
+}) => {
   return (
     <View>
       <View style={styles.genderContainer}>
@@ -18,40 +31,39 @@ const UserPreferences: React.FC = () => {
           <View>
             <RadioButton
               value='male'
-              status={appState.userGender === 'male' ? 'checked' : 'unchecked'}
-              onPress={() => updateState({ ...appState, userGender: 'male' })}
+              status={genderPreference === 'male' ? 'checked' : 'unchecked'}
+              onPress={() => setGenderPreference('male')}
             />
             <Text style={styles.fontBtn}>Male</Text>
           </View>
           <View>
             <RadioButton
               value='female'
-              status={
-                appState.userGender === 'female' ? 'checked' : 'unchecked'
-              }
-              onPress={() => updateState({ ...appState, userGender: 'female' })}
+              status={genderPreference === 'female' ? 'checked' : 'unchecked'}
+              onPress={() => setGenderPreference('female')}
             />
             <Text style={styles.fontBtn}>Female</Text>
           </View>
         </View>
       </View>
+
       <Text style={styles.font}>Age range</Text>
       <View style={styles.ageContainer}>
         <InputAge
           title={'From'}
-          onChangeText={(minAge: string) =>
-            updateState({ ...appState, minAge: +minAge })
-          }
+          onChangeText={(minAge: string) => {
+            setMinAge(+minAge);
+          }}
           placeholder={''}
-          value={appState.minAge?.toString()}></InputAge>
+          value={minAge?.toString()}></InputAge>
 
         <InputAge
           title={'to'}
-          onChangeText={(maxAge: string) =>
-            updateState({ ...appState, maxAge: +maxAge })
-          }
+          onChangeText={(maxAge: string) => {
+            setMaxAge(+maxAge);
+          }}
           placeholder={''}
-          value={appState.maxAge?.toString()}></InputAge>
+          value={maxAge?.toString()}></InputAge>
       </View>
     </View>
   );

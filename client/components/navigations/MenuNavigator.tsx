@@ -4,6 +4,7 @@ import ChatPage from '../pages/ChatPage';
 import SwipePage from '../pages/SwipePage';
 import ChatNavigator from './ChatNavigator';
 import TagDatePage from '../pages/TagDatePage';
+
 export type MenuParamList = {
   Date: undefined;
   Swipe: undefined;
@@ -19,6 +20,5 @@ const MenuNavigator = () => {
       <Menu.Screen name='Profile' component={ChatPage} />
     </Menu.Navigator>
   );
-};
 
 export default MenuNavigator;

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { DrawerActions } from 'react-navigation-drawer';
 import { IUsers } from '../../db';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Swipe from '../organisms/Swipe';
@@ -71,6 +73,7 @@ const SwipePage: React.FunctionComponent<Props> = () => {
 
   const [likeUser] = useMutation(LIKE_USER);
   const [rejectUser] = useMutation(REJECT_USER);
+  const navigation = useNavigation();
 
   const onLike = () => {
     likeUser({

@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { colors } from '../../helpers/styles';
 
@@ -10,11 +9,6 @@ const AddPicture = () => {
       <Text style={styles.font}>Add picture</Text>
       <TouchableOpacity>
         <View>
-          <MaterialCommunityIcons
-            name='camera-plus-outline'
-            size={24}
-            style={styles.icons}
-          />
         </View>
       </TouchableOpacity>
     </View>

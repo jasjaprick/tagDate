@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { DrawerActions } from 'react-navigation-drawer';
 import { IUsers } from '../../db';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
+import { NavigationContainer } from '@react-navigation/native';
+import MenuNavigator from '../navigations/MenuNavigator';
 import {
   currentUserRegistrationId,
   currentUserTag,
@@ -65,6 +69,7 @@ const SwipePage: React.FunctionComponent<Props> = () => {
 
   const [likeUser] = useMutation(LIKE_USER);
   const [rejectUser] = useMutation(REJECT_USER);
+  const navigation = useNavigation();
 
   const onLike = () => {
     likeUser({
@@ -85,21 +90,27 @@ const SwipePage: React.FunctionComponent<Props> = () => {
   };
 
   return (
-    <QueryResult error={error} loading={loading} data={data}>
-      <View>
-        {data &&
-        data.findActivityByTag.length >= 1 &&
-        index < data.findActivityByTag.length ? (
-          <Swipe
-            target={data.findActivityByTag[index]}
-            onLike={onLike}
-            onNoLike={onNoLike}
-          />
-        ) : (
-          <Text>NO MORE USERS!</Text>
-        )}
-      </View>
-    </QueryResult>
+    <View>
+      <Button
+        onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+        title='Btn'
+      />
+      <QueryResult error={error} loading={loading} data={data}>
+        <View>
+          {data &&
+          data.findActivityByTag.length >= 1 &&
+          index < data.findActivityByTag.length ? (
+            <Swipe
+              target={data.findActivityByTag[index]}
+              onLike={onLike}
+              onNoLike={onNoLike}
+            />
+          ) : (
+            <Text>NO MORE USERS!</Text>
+          )}
+        </View>
+      </QueryResult>
+    </View>
   );
 };
 

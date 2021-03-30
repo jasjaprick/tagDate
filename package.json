@@ -24,6 +24,7 @@
     "eslint-plugin-react": "^7.22.0"
   },
   "dependencies": {
+    "@expo-google-fonts/lexend-deca": "^0.1.0",
     "typescript": "^4.2.3"
   },
   "config": {

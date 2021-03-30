@@ -48,12 +48,12 @@ const ChatPage: React.FunctionComponent = () => {
     <QueryResult error={error} loading={loading} data={data}>
       {data && data.getConfirmedMatches.length > 0 ? (
         <View style={styles.chatPageContainer}>
-          <TitleHeader>Chat</TitleHeader>
+          <TitleHeader isPrimary={true} title={'Chats'} />
           <ChatList matches={data.getConfirmedMatches} />
         </View>
       ) : (
         <View style={styles.chatPageContainer}>
-          <TitleHeader>Chat</TitleHeader>
+          <TitleHeader title={'Chat'} isPrimary={true} />
           <Text>No matches for you</Text>
         </View>
       )}

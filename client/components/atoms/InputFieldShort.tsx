@@ -11,7 +11,6 @@ const TextField = styled.TextInput<ITheme>`
   border-radius: 10px;
   background: ${colors.white};
 `;
-
 // Props
 
 interface IProps {

@@ -14,6 +14,7 @@ import MenuNavigator from './components/navigations/MenuNavigator';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import cache from './cache';
 
+
 const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
 
 const httpLink = new HttpLink({
@@ -50,6 +51,10 @@ import {
   RobotoCondensed_400Regular_Italic,
 } from '@expo-google-fonts/roboto-condensed';
 import { getMainDefinition } from '@apollo/client/utilities';
+
+
+
+
 
 export default function App() {
   const [fontsLoaded] = useFonts({

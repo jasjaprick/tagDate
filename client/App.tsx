@@ -43,7 +43,7 @@ const client = new ApolloClient({
   cache,
 });
 
-const LexendDeca_400Regular = require('./assets/fonts/LexendDeca-Regular.ttf'); 
+const LexendDeca_400Regular = require('./assets/fonts/LexendDeca-Regular.ttf');
 
 import {
   useFonts,
@@ -60,7 +60,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     RobotoCondensed_400Regular,
     RobotoCondensed_400Regular_Italic,
-    LexendDeca_400Regular
+    LexendDeca_400Regular,
   });
 
   if (!fontsLoaded) {
@@ -81,4 +81,3 @@ export default function App() {
     );
   }
 }
-

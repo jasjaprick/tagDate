@@ -11,6 +11,7 @@ type MenuParamList = {
   Profile: undefined;
 };
 const Menu = createDrawerNavigator<MenuParamList>();
+
 const MenuNavigator = () => {
   return (
     <Menu.Navigator>

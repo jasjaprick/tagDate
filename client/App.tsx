@@ -7,7 +7,7 @@ import LoginNavigator from './components/navigations/LoginNavigator';
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import cache from './cache';
 
-const LOCAL_IP = process.env.LOCAL_IP_CODEWORKS;
+const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
 
 const client = new ApolloClient({
   uri: `http://${LOCAL_IP}:4000`,

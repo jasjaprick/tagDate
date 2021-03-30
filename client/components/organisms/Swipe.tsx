@@ -2,16 +2,17 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Dimensions, Text } from 'react-native';
 import { Activities } from '../interfaces/activities.interface';
-import { Users } from '../interfaces/users.interface';
 import SwipeUserInfo from '../molecules/SwipeUserInfo';
 
 interface IProps {
   target: Activities;
+  tag: string;
   onLike: () => void;
   onDislike: () => void;
 }
 
-const Swipe: React.FC<IProps> = ({ target, onLike, onDislike }: IProps) => {
+const Swipe: React.FC<IProps> = ({ target, tag, onLike, onDislike }: IProps) => {
+  const  birthday = (new Date()).getFullYear() - (new Date(target.user.profile.dateOfBirth)).getFullYear();
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -19,10 +20,11 @@ const Swipe: React.FC<IProps> = ({ target, onLike, onDislike }: IProps) => {
         style={styles.image}
       >
         <Text style={styles.text}>
-        {target.user.profile.name}, {target.user.profile.dateOfBirth}
+        {target.user.profile.name}, {birthday}
       </Text>
         <View style={styles.infobox}>
           <SwipeUserInfo
+            tag={tag}
             onLike={onLike}
             onDislike={onDislike}
             name={target.user.profile.name}
@@ -60,13 +62,14 @@ const styles = StyleSheet.create({
   infobox: {
     flex: 1,
     width: '90%',
+    minHeight: 180,
     position: 'absolute',
     bottom: 0,
     borderRadius: 20,
     color: '#ffffff',
     marginLeft: '4%',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
 });
 

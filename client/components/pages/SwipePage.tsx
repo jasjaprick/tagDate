@@ -261,6 +261,7 @@ const SwipePage: React.FC<Props> = () => {
                 <View>
                   <Swipe
                     target={users[activeIndex]}
+                    tag={data.findActivityByTag[0].tag}
                     onLike={onLike}
                     onDislike={onDislike}
                   />

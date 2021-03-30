@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import XButton from '../../assets/img/x-button.svg';
+import Like from '../../assets/img/like-btn.svg';
 
 interface Props {
   name: string;
+  tag: string;
   dateOfBirth: string;
   location: string;
   activity: string;
@@ -11,8 +14,7 @@ interface Props {
 }
 
 const SwipeUserInfo: React.FC<Props> = ({
-  name,
-  dateOfBirth,
+  tag,
   location,
   activity,
   onLike,
@@ -21,7 +23,7 @@ const SwipeUserInfo: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       
-      <Text style={styles.text}>{location}</Text>
+      <Text style={styles.text}>#{tag} {location}</Text>
       <Text style={styles.text}>Do you want to {activity}?</Text>
       <View style={styles.btnFlex}>
         <TouchableOpacity
@@ -30,7 +32,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             onDislike();
           }}
         >
-          <Image source={require('../../assets/x-mark-32.png')} style={styles.imageSize}/>
+          <XButton />
           {/* <Text style={styles.text}>Nope!</Text> */}
         </TouchableOpacity>
         <TouchableOpacity
@@ -39,8 +41,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             onLike();
           }}
         >
-          <Image source={require('../../assets/heart.png')} style={styles.imageSize}/>
-          {/* <Text style={styles.text}>Yep!</Text> */}
+          <Like />
         </TouchableOpacity>
       </View>
     </View>
@@ -67,8 +68,8 @@ const styles = StyleSheet.create({
     height: 35
   },
   btn: {
-    borderWidth: 1,
-    borderColor: 'white',
+    // borderWidth: 1,
+    // borderColor: 'white',
     borderRadius: 10,
     padding: 10,
     minWidth: 70,

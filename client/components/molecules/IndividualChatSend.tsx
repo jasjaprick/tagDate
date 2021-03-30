@@ -13,7 +13,7 @@ function IndividualChatSend(props) {
           value={props.textContent}
         />
       </View>
-      <SendMessageIcon sendingAMessage={props.sendingAMessage} />
+      <SendMessageIcon sendingAMessage={props.sendingAMessage}  />
     </View>
   );
 }

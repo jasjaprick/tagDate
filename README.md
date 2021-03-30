@@ -30,10 +30,18 @@ To initiate the database from a container, please run the following command:
 docker-compose up
 ```
 
+```
+docker-compose run postgres bash
+```
+
+```
+psql --username=USERNAME --host=HOST
+```
+
 To stop the db, run
 
 ```
-docker-compose up
+docker-compose down
 ```
 
 

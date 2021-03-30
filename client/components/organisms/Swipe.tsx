@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Dimensions, Text } from 'react-native';
 import { Activities } from '../interfaces/activities.interface';

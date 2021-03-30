@@ -1,15 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { dbUser, IUsers } from '../../db';
-import { Text, View, Dimensions, Animated, PanResponder, Image, ImageBackground, StyleSheet } from 'react-native';
+import { IUsers } from '../../db';
+import { Text, View, Dimensions, Animated,Button, PanResponder, Image, ImageBackground, StyleSheet } from 'react-native';
 import Swipe from '../organisms/Swipe';
-import {useQuery, useMutation, gql} from '@apollo/client';
+import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { Users } from '../interfaces/users.interface';
 import { Activities } from '../interfaces/activities.interface';
+import {
+  currentUserRegistrationId,
+  currentUserTag,
+} from '../interfaces/AppState';
 
 interface Props {
-  dbUser: IUsers[]
+  dbUser: IUsers[];
 }
 
 // GraphQL definitions
@@ -41,11 +45,11 @@ const LIKE_USER = gql`
 `;
 
 const REJECT_USER = gql`
-mutation RejectUserMutation($ownId: Float!, $rejectedId: Float!) {
-  rejectUser(rejectedId: $rejectedId, ownId: $ownId) {
-    id
+  mutation RejectUserMutation($ownId: Float!, $rejectedId: Float!) {
+    rejectUser(rejectedId: $rejectedId, ownId: $ownId) {
+      id
+    }
   }
-}
 `;
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -53,15 +57,19 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const SwipePage: React.FC<Props> = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const userId = currentUserRegistrationId();
  
   const [likeUser] = useMutation(LIKE_USER);
   const [rejectUser] = useMutation(REJECT_USER);
 
-  const {loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES, {
+  const currentTag = currentUserTag();
+
+  const { loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES, {
     variables: {
-      ownId: 5,
-      tag: 'fish'
-    }
+      ownId: userId,
+      tag: currentTag,
+    },
   });
   const [users, setUsers] = useState<Activities[]>([]);
   //start

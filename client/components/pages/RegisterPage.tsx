@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import {
   View,
   Text,
@@ -6,22 +6,62 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-
-import colors from '../../helpers/colors';
+import { boxShadow } from '../../helpers/styles';
 import PersonalDetails from '../organisms/PersonalDetails';
-import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
+import PrimaryButton from '../atoms/PrimaryButton';
 import UserPreferences from '../organisms/UserPreferences';
 import InputFieldShort from '../atoms/InputFieldShort';
+import { Event } from '@react-native-community/datetimepicker';
+import { currentUserRegistrationId } from '../interfaces/AppState';
+import styled from 'styled-components/native';
+import Background from '../../assets/img/bcg.svg';
 
 interface Iprops {
   onPress: (text: string) => void;
 }
+
+const OuterContainer = styled.View`
+width: 100%;
+height: 100%;
+position: absolute;
+background-color: white;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;`;
+
+const Container = styled.SafeAreaView`
+margin: 30px auto 0 auto;
+position: absolute;
+bottom: 0;
+left: 5%;
+right: 5%;
+background: white;
+border-top-left-radius: 10px
+border-top-right-radius: 10px;
+height: 85%;
+padding-top: 10px;
+box-shadow: ${boxShadow};
+`;
+
+const ButtonContainer = styled.View`
+position: relative;
+bottom: 10px`;
+
+const InnerContainer = styled.View`
+padding: 20px 0;
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+align-items: stretch;
+`;
 
 // Create user mutation
 // TODO: delete nested returns
@@ -37,27 +77,30 @@ const ADD_USER = gql`
 `;
 
 //TODO: FIX SCROLLVIEWnpm start
-//TODO: ADD STYLE
-//TODO: CHECK TYPE PASSWORD
 
 const RegisterPage = () => {
+  const initialDate: Date = getDate(28);
+  // States
+  const [renderPageIndex, setRenderPageIndex] = useState<number>(0);
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
-  const [age, setAge] = useState<number | null>(null); //Age
   const [bio, setBio] = useState(''); //Bio
-  const [minAge, setMinAge] = useState<number | null>(null); //Minimun age
-  const [maxAge, setMaxAge] = useState<number | null>(null); //Minimun age
+  const [age, setAge] = useState<Date>(getDate(28));
+  const [show, setShow] = useState(false);
+  const [minAge, setMinAge] = useState<number>(18); //Minimun age
+  const [maxAge, setMaxAge] = useState<number>(65); //Minimun age
   const [userGender, setUserGender] = React.useState('male');
   const [genderPreference, setGenderPreference] = React.useState('male');
   const [location, setLocation] = useState(''); //Name
-  const [addUser, { error, data }] = useMutation(ADD_USER, {
+
+  const [addUser] = useMutation(ADD_USER, {
     variables: {
       addUserData: {
         email: email,
         password: password,
         name: name,
-        age: age,
+        dateOfBirth: age.toString(),
         bio: bio,
         gender: userGender,
         interestedIn: genderPreference,
@@ -66,37 +109,72 @@ const RegisterPage = () => {
     },
   });
 
-  const navigation = useNavigation();
+  // fn passed down to datepicker through personal details that handles the DOB select event
+  // Maximum age
+  function getDate(diff: number): Date {
+    const returnDate = new Date();
+    returnDate.setTime(returnDate.valueOf() - diff * 365 * 24 * 60 * 60 * 1000);
 
-  const handleOnPress = () => {
-    console.log('-------it has been called');
-    addUser();
-    navigation.navigate('TagDatePage');
+    return new Date(returnDate);
+  }
+
+  const onAgeChange = (_: Event, selectedAge: Date | undefined) => {
+    const currentAge: Date | string = selectedAge || age;
+    setShow(Platform.OS === 'ios');
+    setAge(currentAge);
+    console.log(age);
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.registerPageContainer}>
-          <UserAccessData
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-          />
+  // fn passed down to datepicker through personal details that handles the visibility of the
+  const showMode = () => {
+    setShow(true);
+  };
 
+  const navigation = useNavigation();
+
+  const handleOnPress = async () => {
+    if (renderPageIndex < 2)
+      setRenderPageIndex((prevRenderPageIndex) => prevRenderPageIndex + 1);
+    else if (renderPageIndex === 2) {
+      const result = await addUser();
+      console.log('result', result);
+      currentUserRegistrationId(+result?.data.addUser.id);
+      navigation.navigate('TagDatePage');
+    } else setRenderPageIndex(0);
+  };
+
+  function renderPage() {
+    switch (renderPageIndex) {
+      case 0:
+        return (
+            <UserAccessData
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+            />
+        );
+      case 1:
+        return (
           <PersonalDetails
             name={name}
             setName={setName}
-            age={age}
-            setAge={setAge}
             userGender={userGender}
             setUserGender={setUserGender}
+            showMode={showMode}
+            onAgeChange={onAgeChange}
+            //minAge={getMaximumDate()}
+            show={show}
+            age={age}
+            bio={bio}
+            setBio={setBio}
+            // picture pending
+            location={location}
+            setLocation={setLocation}
           />
-
-          <BioInfo bio={bio} setBio={setBio} />
-          <AddPicture />
-
+        );
+      case 2:
+        return (
           <UserPreferences
             minAge={minAge}
             setMinAge={setMinAge}
@@ -105,49 +183,46 @@ const RegisterPage = () => {
             genderPreference={genderPreference}
             setGenderPreference={setGenderPreference}
           />
+        );
 
-          <View style={styles.locationPageContainer}>
-            <InputFieldShort
-              onChangeText={(location: string) => {
-                setLocation(location);
-              }}
-              placeholder={'Location'}
-              value={location}></InputFieldShort>
-          </View>
+      default:
+        return (
+            <UserAccessData
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+            />
+        );
+    }
+  }
 
-          <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
-            <Text style={styles.buttonText}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+  return (
+    <OuterContainer>
+      <Background
+        style={{
+          position: 'absolute',
+          width: '100%',
+          bottom: 0,
+          margin: 0,
+        }}
+      />
+      <Container>
+        <ScrollView>
+          <InnerContainer>
+            {renderPage()}
+            <ButtonContainer>
+              <PrimaryButton
+                action={handleOnPress}
+                title={'Next'}
+                isPrimary={true}
+              />
+            </ButtonContainer>
+          </InnerContainer>
+        </ScrollView>
+      </Container>
+    </OuterContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  registerPageContainer: {
-    flex: 1,
-    width: '90%',
-    height: 'auto',
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    flexDirection: 'column',
-    backgroundColor: colors.white,
-    position: 'relative',
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  nextButton: {
-    backgroundColor: colors.violet,
-    padding: 20,
-    borderRadius: 20,
-    justifyContent: 'center',
-    width: '60%',
-    alignSelf: 'center',
-    alignItems: 'center',
-  },
-  buttonText: { fontSize: 20, color: 'white' },
-});
 
 export default RegisterPage;

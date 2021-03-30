@@ -22,10 +22,6 @@ const LocationPage: React.FC<IPropsImage> = ({ source }: IPropsImage) => {
         }}
         placeholder={'Enter your Address'}
         value={location}></InputFieldShort>
-
-      {/* <ImageBackground
-        source={image}
-        style={styles.locationLogo}></ImageBackground> */}
     </View>
   );
 };

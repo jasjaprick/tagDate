@@ -1,52 +1,67 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AntDesign } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-
-import colors from '../../helpers/colors';
+import { createDrawerNavigator} from '@react-navigation/drawer';
 import ChatPage from '../pages/ChatPage';
 import SwipePage from '../pages/SwipePage';
-import LoginNavigator from './LoginNavigator';
+import ChatNavigator from './ChatNavigator';
+import TagDatePage from '../pages/TagDatePage';
 
-const Menu = createBottomTabNavigator();
+export type MenuParamList = {
+  Date: undefined,
+  Swipe: undefined,
+  Chat: undefined,
+  Profile: undefined
+}
 
-function MenuNavigator() {
+const Menu = createDrawerNavigator<MenuParamList>();
+
+const MenuNavigator = () => {
   return (
-    <Menu.Navigator
-      tabBarOptions={{
-        activeBackgroundColor: colors.violet200,
-        inactiveBackgroundColor: colors.violet,
-        activeTintColor: 'white',
-        inactiveTintColor: 'white',
-      }}
-    >
-      <Menu.Screen
-        name='Swipe'
-        component={SwipePage}
-        options={{
-          tabBarIcon: () => <AntDesign name='heart' size={24} color='white' />,
-        }}
-      />
-      <Menu.Screen
-        name='Chat'
-        component={ChatPage}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons name='chatbox-ellipses-sharp' size={24} color='white' />
-          ),
-        }}
-      />
-      <Menu.Screen
-        name='Profile'
-        component={ChatPage}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons name='person-circle-sharp' size={24} color='white' />
-          ),
-        }}
-      />
+    <Menu.Navigator >
+      <Menu.Screen name='Swipe' component={SwipePage} />
+      <Menu.Screen name='Chat' component={ChatNavigator} />
+      <Menu.Screen name='Profile' component={ChatPage} />
     </Menu.Navigator>
   );
-}
+}; 
+
+// function MenuNavigator() {
+//   return (
+//     <Menu.Navigator
+//       tabBarOptions={{
+//         activeBackgroundColor: colors.violet200,
+//         inactiveBackgroundColor: colors.violet,
+//         activeTintColor: 'white',
+//         inactiveTintColor: 'white',
+//         keyboardHidesTabBar: true,
+//       }}
+//     >
+//       <Menu.Screen
+//         name='Swipe'
+//         component={SwipePage}
+//         options={{
+//           tabBarIcon: () => <AntDesign name='heart' size={24} color='white' />,
+//         }}
+//       />
+//       <Menu.Screen
+//         name='Chat'
+//         component={ChatNavigator}
+//         options={{
+//           tabBarIcon: () => (
+//             <Ionicons name='chatbox-ellipses-sharp' size={24} color='white' />
+//           ),
+//         }}
+//       />
+//       <Menu.Screen
+//         name='Profile'
+//         component={ChatPage}
+//         options={{
+//           tabBarIcon: () => (
+//             <Ionicons name='person-circle-sharp' size={24} color='white' />
+//           ),
+//         }}
+//       />
+//     </Menu.Navigator>
+//   );
+// }
 
 export default MenuNavigator;

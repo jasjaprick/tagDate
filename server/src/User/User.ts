@@ -15,7 +15,7 @@ export class User {
 //   //TODO: Add object that can take latitude and longitude
 
   @Field(type => Profile)
-  profile?: Profile;
+  profile: Profile;
 
   @Field(type => [Number])
   rejections: number[]

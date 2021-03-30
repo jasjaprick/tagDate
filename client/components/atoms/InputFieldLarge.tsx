@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 interface IPropsInput {
   placeholder: string;
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 5,
     borderWidth: 0.5,
-    marginBottom: 10,
+    // marginBottom: 10,
     width: '100%',
     alignItems: 'center',
     fontSize: 20,

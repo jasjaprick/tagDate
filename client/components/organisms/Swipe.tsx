@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     opacity: 1,
-    fontSize: 26,
+    fontSize: 40,
     alignSelf: 'center',
-    bottom: 330
+    bottom: 340
   },
   image: {
     flex: 1,

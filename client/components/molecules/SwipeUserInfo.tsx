@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import XButton from '../../assets/img/x-button.svg';
 import Like from '../../assets/img/like-btn.svg';
+import Location from '../../assets/img/location.svg';
 
 interface Props {
   name: string;
@@ -23,7 +24,7 @@ const SwipeUserInfo: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       
-      <Text style={styles.text}>#{tag} {location}</Text>
+      <Text style={styles.text}>#{tag} <Location /> {location}</Text>
       <Text style={styles.text}>Do you want to {activity}?</Text>
       <View style={styles.btnFlex}>
         <TouchableOpacity
@@ -32,7 +33,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             onDislike();
           }}
         >
-          <XButton />
+          <XButton style={styles.svg}/>
           {/* <Text style={styles.text}>Nope!</Text> */}
         </TouchableOpacity>
         <TouchableOpacity
@@ -41,7 +42,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             onLike();
           }}
         >
-          <Like />
+          <Like style={styles.svg}/>
         </TouchableOpacity>
       </View>
     </View>
@@ -62,6 +63,9 @@ const styles = StyleSheet.create({
     opacity: 1,
     fontSize: 18,
     alignSelf: 'center',
+  },
+  svg: {
+    
   },
   imageSize: {
     width: 50,

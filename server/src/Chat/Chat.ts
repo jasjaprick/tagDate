@@ -8,12 +8,12 @@ export class Chat {
     @Field((type) => ID)
     id: number;
 
-    @Field(type => [Message])
-    messages: Message[];
+    @Field(type => [Message], {nullable: true})
+    messages?: Message[] | [];
 
-    @Field(type => [User])
+    @Field(type => [User], {nullable: true})
     @ArrayMaxSize(2)
-    users: User[];
+    users?: User[] | [];
 
     @Field()
   userOneId: number;

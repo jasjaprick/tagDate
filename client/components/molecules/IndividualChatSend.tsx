@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import SendMessageIcon from '../atoms/SendMessageIcon';
 

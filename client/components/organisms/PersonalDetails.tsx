@@ -3,9 +3,15 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { Event } from '@react-native-community/datetimepicker';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
+import styled from 'styled-components/native';
+import InputFieldLarge from '../atoms/InputFieldLarge';
+import AddPicture from './AddPicture';
+import { useNavigation } from '@react-navigation/native';
 
+
+// Props
 interface IProps {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
@@ -15,7 +21,16 @@ interface IProps {
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
   age: Date;
   show: boolean;
+  bio: string;
+  setBio: React.Dispatch<React.SetStateAction<string>>;
+  location: string;
+  setLocation: React.Dispatch<React.SetStateAction<string>>;
 }
+
+const Container = styled.View`
+  width: 80%;
+  margin: 5px auto;
+`;
 
 const PersonalDetails: React.FC<IProps> = ({
   name,
@@ -25,36 +40,45 @@ const PersonalDetails: React.FC<IProps> = ({
   showMode,
   onAgeChange,
   show,
-  age
+  age,
+  bio,
+  setBio,
+  location,
+  setLocation,
 }) => {
+  const navigation = useNavigation();
+
+  const handleOnPress = () => {
+    navigation.navigate('UserPreferences');
+  };
+
   return (
-    <View>
+    <Container>
       <InputFieldShort
         onChangeText={setName}
         placeholder={'Name'}
-        value={name}
-      ></InputFieldShort>
+        isFluid={true}
+        value={name}></InputFieldShort>
 
       <View>
         <DatePicker
           showMode={showMode}
           onAgeChange={onAgeChange}
           show={show}
-          age={age}
-        ></DatePicker>
+          age={age}></DatePicker>
       </View>
 
-      <View style={styles.genderContainer}>
-        <Text style={styles.font}>Gender</Text>
+      <View>
+        <Text >Gender</Text>
 
-        <View style={styles.iconContainer}>
+        <View>
           <View>
             <RadioButton
               value='male'
               status={userGender === 'male' ? 'checked' : 'unchecked'}
               onPress={() => setUserGender('male')}
             />
-            <Text style={styles.fontBtn}>Male</Text>
+            <Text>Male</Text>
           </View>
 
           <View>
@@ -63,27 +87,29 @@ const PersonalDetails: React.FC<IProps> = ({
               status={userGender === 'female' ? 'checked' : 'unchecked'}
               onPress={() => setUserGender('female')}
             />
-            <Text style={styles.fontBtn}>Female</Text>
-          </View>
+            <Text >Female</Text>
+          </View> 
         </View>
       </View>
-    </View>
+
+      <View>
+        <InputFieldShort
+          onChangeText={setBio}
+          placeholder={'Describe yourself in 140 characters'}
+          isFluid={true}
+          value={bio} />
+      </View>
+
+      <View>
+        <InputFieldShort
+          onChangeText={setLocation}
+          placeholder={'Where do you live?'}
+          isFluid={true}
+          value={location}/>
+      </View>
+      <AddPicture />
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  genderContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  font: { fontSize: 20, color: colors.grey },
-  fontBtn: { fontSize: 12, color: colors.grey },
-  iconContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginLeft: '18%',
-    flex: 1,
-  },
-});
 
 export default PersonalDetails;

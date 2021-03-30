@@ -1,25 +1,30 @@
+
 import React from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions, Text } from 'react-native';
+import { Activities } from '../interfaces/activities.interface';
+import { Users } from '../interfaces/users.interface';
 import SwipeUserInfo from '../molecules/SwipeUserInfo';
 
 interface IProps {
-  target: any;
+  target: Activities;
   onLike: () => void;
-  onNoLike: () => void;
+  onDislike: () => void;
 }
 
-const Swipe: React.FC<IProps> = ({ target, onLike, onNoLike }: IProps) => {
-  console.log(target);
+const Swipe: React.FC<IProps> = ({ target, onLike, onDislike }: IProps) => {
   return (
     <View style={styles.container}>
       <ImageBackground
         source={{ uri: target.user.profile.profilePicture }}
         style={styles.image}
       >
+        <Text style={styles.text}>
+        {target.user.profile.name}, {target.user.profile.dateOfBirth}
+      </Text>
         <View style={styles.infobox}>
           <SwipeUserInfo
             onLike={onLike}
-            onNoLike={onNoLike}
+            onDislike={onDislike}
             name={target.user.profile.name}
             dateOfBirth={target.user.profile.dateOfBirth}
             location={target.user.profile.location}
@@ -30,6 +35,7 @@ const Swipe: React.FC<IProps> = ({ target, onLike, onNoLike }: IProps) => {
     </View>
   );
 };
+const windowWidth = Math.round(Dimensions.get('window').width); 
 
 const styles = StyleSheet.create({
   container: {
@@ -38,9 +44,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     resizeMode: 'contain',
   },
+  text: {
+    color: 'white',
+    opacity: 1,
+    fontSize: 26,
+    alignSelf: 'center',
+    bottom: 330
+  },
   image: {
     flex: 1,
-    width: '100%',
+    width: windowWidth,
     resizeMode: 'contain',
     justifyContent: 'center',
   },

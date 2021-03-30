@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import colors from '../../helpers/colors';
+import { colors } from '../../helpers/styles';
 
 function SendMessageIcon(props) {
   const sendMessage = () => {

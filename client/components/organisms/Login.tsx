@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { TextInput } from 'react-native';
 import PrimaryButton from '../atoms/PrimaryButton';
-import SecondaryButton from '../atoms/SecondaryButton';
-import colors from '../../helpers/colors';
+import MainLogo from '../../assets/img/logo-main.svg';
+import { colors } from '../../helpers/styles';
+import InputFieldShort from '../atoms/InputFieldShort';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  console.log('username', username, 'password', password);
-
   const navigation = useNavigation();
-
   const handleLogin = () => {
     navigation.replace('MenuNavigator');
   };
 
   return (
     <View style={styles.loginContainer}>
-      <TextInput
-        style={styles.textInput}
-        placeholder='username'
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.textInput}
+      <MainLogo width={400} />
+      <InputFieldShort
+        value={username}
+        placeholder='email'
+        onChangeText={(username: string) => setUsername(username)}
+        isFluid={false} />
+      <InputFieldShort
+        value={password}
         placeholder='password'
-        onChangeText={setPassword}
-        secureTextEntry={true}
+        onChangeText={(password: string) => setPassword(password)}
+        isFluid={false}
       />
-      <PrimaryButton title='Login' action={handleLogin} />
+      <PrimaryButton isPrimary={true} title='Login' action={handleLogin} />
     </View>
   );
 }

@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import heart from 'client/assets/heart.png';
 
 interface Props {
   name: string;
   dateOfBirth: string;
   location: string;
-  activity: number;
+  activity: string;
   onLike: () => void;
   onDislike: () => void;
 }
@@ -20,9 +21,7 @@ const SwipeUserInfo: React.FC<Props> = ({
 }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>
-        {name}, {dateOfBirth}
-      </Text>
+      
       <Text style={styles.text}>{location}</Text>
       <Text style={styles.text}>Do you want to {activity}?</Text>
       <View style={styles.btnFlex}>
@@ -32,16 +31,17 @@ const SwipeUserInfo: React.FC<Props> = ({
             onDislike();
           }}
         >
-          <Text style={styles.text}>Nope!</Text>
+          <Image source={require('../../assets/x-mark.png')} style={styles.imageSize}/>
+          {/* <Text style={styles.text}>Nope!</Text> */}
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
-            console.log("LIKE onpress");
             onLike();
           }}
         >
-          <Text style={styles.text}>Yep!</Text>
+          <Image source={require('../../assets/heart.png')} style={styles.imageSize}/>
+          {/* <Text style={styles.text}>Yep!</Text> */}
         </TouchableOpacity>
       </View>
     </View>
@@ -63,13 +63,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignSelf: 'center',
   },
+  imageSize: {
+    width: 50,
+    height: 35
+  },
   btn: {
-    backgroundColor: '#725AC1',
-    borderRadius: 5,
+    // backgroundColor: '#725AC1',
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 10,
     padding: 10,
     minWidth: 70,
-    marginLeft: 10,
-    marginRight: 10,
+    marginTop: 10,
+    marginLeft: 50,
+    marginRight: 50,
   },
   btnFlex: {
     display: 'flex',

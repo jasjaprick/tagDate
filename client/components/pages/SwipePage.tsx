@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { IUsers } from '../../db';
-import { Text, View, Dimensions, Animated,Button, PanResponder, Image, ImageBackground, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
-import GestureRecognizer from 'react-native-swipe-gestures';
-import { Users } from '../interfaces/users.interface';
-import { Activities } from '../interfaces/activities.interface';
+import { useNavigation } from '@react-navigation/core';
+import TitleHeader from '../molecules/TitleHeader';
 import {
   currentUserRegistrationId,
   currentUserTag,
 } from '../interfaces/AppState';
+
 
 interface Props {
   dbUser: IUsers[];

@@ -101,19 +101,26 @@ export class PossibleMatchResolvers {
         },
         data: {
           isMatch: true,
-        }, 
+        },
       });
-    const newChat =  await ctx.prisma.chat.create({
+      const newChat = await ctx.prisma.chat.create({
         data: {
-          userOne:{ connect: {id: data.UID1}},
-          userTwo: { connect: {id: data.UID2}},
-          messages: undefined
-        }, include: {messages: true}
+          userOne: { connect: { id: data.UID1 } },
+          userTwo: { connect: { id: data.UID2 } },
+          messages: undefined,
+        },
+        include: { messages: true },
       });
       console.log(newChat);
-      return await ctx.prisma.possibleMatch.findUnique({where: {id: newMatch.id},
-        include: {userOne: true, userTwo: true, userOneActivity: true, userTwoActivity: true}
-      })
+      return await ctx.prisma.possibleMatch.findUnique({
+        where: { id: newMatch.id },
+        include: {
+          userOne: true,
+          userTwo: true,
+          userOneActivity: true,
+          userTwoActivity: true,
+        },
+      });
     } else {
       // If the other user is not into us yet, then we create the possible match
       // isMatch (match confirmation) will be set to default false
@@ -134,7 +141,13 @@ export class PossibleMatchResolvers {
           UID2: data.UID2,
           myActivity: myActivity.id,
           partnerActivity: partnerActivity.id,
-        }, include: {userOne: true, userTwo: true, userOneActivity:true, userTwoActivity: true}
+        },
+        include: {
+          userOne: true,
+          userTwo: true,
+          userOneActivity: true,
+          userTwoActivity: true,
+        },
       });
     }
   }

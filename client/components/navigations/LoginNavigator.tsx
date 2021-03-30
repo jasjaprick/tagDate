@@ -12,6 +12,7 @@ import ChatPage from '../pages/ChatPage';
 import MenuNavigator from './MenuNavigator';
 import IndividualChatPage from '../pages/IndividualChatPage';
 import Chat from '../atoms/Chat';
+import ImageUserPage from '../pages/ImageUserPage';
 
 const Menu = createStackNavigator();
 
@@ -29,6 +30,8 @@ function LoginNavigator() {
       <Menu.Screen name='MenuNavigator' component={MenuNavigator} />
 
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
+
+      <Menu.Screen name='ImageUserPage' component={ImageUserPage} />
 
       <Menu.Screen name='TagDatePage' component={TagDatePage} />
 

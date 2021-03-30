@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   registerButton: {
-    // backgroundColor: 'red',
     padding: 10,
   },
   registerText: {

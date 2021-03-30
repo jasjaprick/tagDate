@@ -1,6 +1,7 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../helpers/styles';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
 
 interface IProps {
@@ -16,6 +17,12 @@ const UserAccessData: React.FC<IProps> = ({
   password,
   setPassword,
 }) => {
+  const navigation = useNavigation();
+
+  const handleOnPress = () => {
+    navigation.navigate('PersonalDetails');
+  };
+
   return (
     <View>
       <InputFieldShort
@@ -33,5 +40,18 @@ const UserAccessData: React.FC<IProps> = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  nextButton: {
+    backgroundColor: colors.violet,
+    padding: 20,
+    borderRadius: 20,
+    justifyContent: 'center',
+    width: '60%',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  buttonText: { fontSize: 20, color: 'white' },
+});
 
 export default UserAccessData;

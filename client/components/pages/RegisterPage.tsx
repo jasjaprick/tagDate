@@ -12,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
 import { colors } from '../../helpers/styles';
 import PersonalDetails from '../organisms/PersonalDetails';
-import BioInfo from '../organisms/BioInfo';
 import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
 import PrimaryButton from '../atoms/PrimaryButton';
@@ -43,6 +42,7 @@ const ADD_USER = gql`
 const RegisterPage = () => {
   const initialDate: Date = getDate(28);
   // States
+  const [renderPageIndex, setRenderPageIndex] = useState<number>(0);
   const [email, setEmail] = useState(''); //Email
   const [password, setPassword] = useState(''); //Password
   const [name, setName] = useState(''); //Name
@@ -95,23 +95,29 @@ const RegisterPage = () => {
   const navigation = useNavigation();
 
   const handleOnPress = async () => {
-    const result = await addUser();
-    console.log('result', result);
-    currentUserRegistrationId(+result?.data.addUser.id);
-    navigation.navigate('TagDatePage');
+    if (renderPageIndex < 2)
+      setRenderPageIndex((prevRenderPageIndex) => prevRenderPageIndex + 1);
+    else if (renderPageIndex === 2) {
+      const result = await addUser();
+      console.log('result', result);
+      currentUserRegistrationId(+result?.data.addUser.id);
+      navigation.navigate('TagDatePage');
+    } else setRenderPageIndex(0);
   };
 
-  return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.registerPageContainer}>
+  function renderPage() {
+    switch (renderPageIndex) {
+      case 0:
+        return (
           <UserAccessData
             email={email}
             setEmail={setEmail}
             password={password}
             setPassword={setPassword}
           />
-
+        );
+      case 1:
+        return (
           <PersonalDetails
             name={name}
             setName={setName}
@@ -122,12 +128,15 @@ const RegisterPage = () => {
             //minAge={getMaximumDate()}
             show={show}
             age={age}
+            bio={bio}
+            setBio={setBio}
+            // picture pending
+            location={location}
+            setLocation={setLocation}
           />
-
-          <BioInfo bio={bio} setBio={setBio} />
-
-          <AddPicture />
-
+        );
+      case 2:
+        return (
           <UserPreferences
             minAge={minAge}
             setMinAge={setMinAge}
@@ -136,17 +145,28 @@ const RegisterPage = () => {
             genderPreference={genderPreference}
             setGenderPreference={setGenderPreference}
           />
+        );
 
-          <View>
-            <InputFieldShort
-              onChangeText={(location: string) => {
-                setLocation(location);
-              }}
-              isFluid={false}
-              placeholder={'Location'}
-              value={location}></InputFieldShort>
-          </View>
-          <PrimaryButton title='Next' action={handleOnPress} isPrimary={true} />
+      default:
+        return (
+          <UserAccessData
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
+        );
+    }
+  }
+
+  return (
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.registerPageContainer}>
+          {renderPage()}
+          <TouchableOpacity onPress={handleOnPress} style={styles.nextButton}>
+            <Text style={styles.buttonText}>Next</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

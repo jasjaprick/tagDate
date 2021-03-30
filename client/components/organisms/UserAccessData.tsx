@@ -1,27 +1,56 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../helpers/styles';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
-import useAppState from '../interfaces/AppState';
 
-const UserAccessData: React.FC = () => {
-  const [appState, updateState] = useAppState();
+interface IProps {
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  password: string;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const UserAccessData: React.FC<IProps> = ({
+  email,
+  setEmail,
+  password,
+  setPassword,
+}) => {
+  const navigation = useNavigation();
+
+  const handleOnPress = () => {
+    navigation.navigate('PersonalDetails');
+  };
+
   return (
     <View>
       <InputFieldShort
-        onChangeText={(email: string) =>
-          updateState({ ...appState, email: email })
-        }
+        onChangeText={setEmail}
         placeholder={'E-mail'}
-        value={appState.email}></InputFieldShort>
+        value={email}></InputFieldShort>
+
       <InputFieldShort
         onChangeText={(password: string) => {
-          updateState({ ...appState, password: password });
+          setPassword(password);
         }}
         placeholder={'Password'}
-        value={appState.password?.toString()}></InputFieldShort>
+        value={password?.toString()}></InputFieldShort>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  nextButton: {
+    backgroundColor: colors.violet,
+    padding: 20,
+    borderRadius: 20,
+    justifyContent: 'center',
+    width: '60%',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  buttonText: { fontSize: 20, color: 'white' },
+});
 
 export default UserAccessData;

@@ -21,8 +21,7 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: false,
         headerTintColor: colors.violet,
-      }}
-    >
+      }}>
       {/* <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} /> */}
 
       <Menu.Screen name='LoginPage' component={LoginPage} />

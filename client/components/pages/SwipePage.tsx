@@ -4,8 +4,15 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
+
 import { useNavigation } from '@react-navigation/core';
 import TitleHeader from '../molecules/TitleHeader';
+
+import {
+  currentUserRegistrationId,
+  currentUserTag,
+} from '../interfaces/AppState';
+
 
 interface Props {
   dbUser: IUsers[];
@@ -51,10 +58,14 @@ const SwipePage: React.FunctionComponent<Props> = () => {
   const navigation = useNavigation();
   const [index, setIndex] = useState(0);
 
+  const userId = currentUserRegistrationId();
+
+  const currentTag = currentUserTag();
+
   const { loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES, {
     variables: {
-      ownId: 5,
-      tag: 'fish',
+      ownId: userId,
+      tag: currentTag,
     },
   });
 

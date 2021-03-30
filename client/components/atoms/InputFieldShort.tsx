@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import { colors } from '../../helpers/styles';
+
 import styled from 'styled-components/native';
 // Styles
 const TextField = styled.TextInput<ITheme>`
@@ -12,20 +13,24 @@ const TextField = styled.TextInput<ITheme>`
   background: ${colors.white};
 `;
 // Props
+
 interface IProps {
   placeholder: string;
   onChangeText: (text: string) => void;
   value: string | undefined;
+
   isPassword?: boolean;
   isFluid: boolean;
 }
 interface ITheme {
   fluid: boolean;
 }
+
 const InputFieldShort: React.FC<IProps> = ({
   placeholder,
   onChangeText,
   value,
+
   isPassword,
   isFluid,
 }) => {
@@ -48,4 +53,5 @@ const InputFieldShort: React.FC<IProps> = ({
     ></TextField>
   );
 };
+
 export default InputFieldShort;

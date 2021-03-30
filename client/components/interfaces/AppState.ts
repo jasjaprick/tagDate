@@ -22,8 +22,8 @@ export const InitialAppState: IAppState = {
   bio: '',
   age: new Date('1992-12-10T00:00:00.000Z'),
   show: false,
-  minAge: null,  
-  maxAge: null,
+  minAge: 18,  
+  maxAge: 70,
   userGender: 'male', 
   genderPreference: 'male',
   location: ''

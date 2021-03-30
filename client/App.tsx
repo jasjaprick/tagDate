@@ -3,11 +3,11 @@ import { View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
+
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import cache from './cache';
 
-const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
-console.log('LOCAL_IP', LOCAL_IP);
+const LOCAL_IP = process.env.LOCAL_IP_CODEWORKS;
 
 const client = new ApolloClient({
   uri: `http://${LOCAL_IP}:4000`,

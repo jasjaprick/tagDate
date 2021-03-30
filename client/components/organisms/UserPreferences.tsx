@@ -7,10 +7,14 @@ import InputAge from '../atoms/InputAge';
 import useAppState from '../interfaces/AppState';
 import styled from 'styled-components/native';
 
-
-
 const UserPreferences: React.FC = () => {
   const [appState, updateState] = useAppState();
+
+  const UpdateMaxAge = (value: number): void =>
+    updateState({ ...appState, maxAge: value });
+
+  const updateMinAge = (value: number):void => 
+    updateState({...appState, minAge: value});
 
   const Container = styled.View`
     width: 80%;
@@ -23,7 +27,7 @@ const UserPreferences: React.FC = () => {
         <Text>Interested in</Text>
 
         <View>
-          <View>
+          {/* <View>
             <RadioButton
               value='male'
               status={appState.userGender === 'male' ? 'checked' : 'unchecked'}
@@ -40,30 +44,20 @@ const UserPreferences: React.FC = () => {
               onPress={() => updateState({ ...appState, userGender: 'female' })}
             />
             <Text>Female</Text>
-          </View>
+          </View> */}
         </View>
       </View>
       <Text>Age range</Text>
       <View>
-        <InputAge
-          title={'From'}
-          onChangeText={(minAge: string) =>
-            updateState({ ...appState, minAge: +minAge })
-          }
-          placeholder={''}
-          value={appState.minAge?.toString()}></InputAge>
-
-        <InputAge
-          title={'to'}
-          onChangeText={(maxAge: string) =>
-            updateState({ ...appState, maxAge: +maxAge })
-          }
-          placeholder={''}
-          value={appState.maxAge?.toString()}></InputAge>
+        <AgePrefSelector
+          initialValue={65}
+          age={appState.maxAge}
+          title={'Minimum age'}
+          setAge={updateMinAge}
+        />
       </View>
     </Container>
   );
 };
-
 
 export default UserPreferences;

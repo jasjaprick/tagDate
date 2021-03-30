@@ -16,7 +16,7 @@ import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
 import PrimaryButton from '../atoms/PrimaryButton';
 import UserPreferences from '../organisms/UserPreferences';
-import InputFieldShort from '../atoms/InputFieldShort';
+import RegisterHeader from '../molecules/RegisterHeader';
 import { Event } from '@react-native-community/datetimepicker';
 import { currentUserRegistrationId } from '../interfaces/AppState';
 import styled from 'styled-components/native';
@@ -43,7 +43,7 @@ bottom: 0;
 left: 5%;
 right: 5%;
 background: white;
-border-top-left-radius: 10px
+border-top-left-radius: 10px;
 border-top-right-radius: 10px;
 height: 85%;
 padding-top: 10px;
@@ -52,7 +52,7 @@ box-shadow: ${boxShadow};
 
 const ButtonContainer = styled.View`
 position: relative;
-bottom: 10px`;
+bottom: 10px;`;
 
 const InnerContainer = styled.View`
 padding: 20px 0;
@@ -207,6 +207,7 @@ const RegisterPage = () => {
           margin: 0,
         }}
       />
+        <RegisterHeader title={'Register'} />
       <Container>
         <ScrollView>
           <InnerContainer>

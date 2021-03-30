@@ -11,17 +11,6 @@ const TextField = styled.TextInput<ITheme>`
   border-radius: 10px;
   background: ${colors.white};
 `;
-
-import styled from 'styled-components/native';
-// Styles
-const TextField = styled.TextInput<ITheme>`
-  border: 1px solid ${colors.grey};
-  padding: 16px 8px;
-  width: ${(props) => (props.fluid ? '100%' : '80%')};
-  margin: 5px auto;
-  border-radius: 10px;
-  background: ${colors.white};
-`;
 // Props
 
 interface IProps {

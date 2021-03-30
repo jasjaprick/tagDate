@@ -5,6 +5,9 @@ import { RadioButton } from 'react-native-paper';
 import { Event } from '@react-native-community/datetimepicker';
 import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
+import InputFieldLarge from '../atoms/InputFieldLarge';
+import AddPicture from './AddPicture';
+import { useNavigation } from '@react-navigation/native';
 
 interface IProps {
   name: string;
@@ -15,6 +18,10 @@ interface IProps {
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
   age: Date | string;
   show: boolean;
+  bio: string;
+  setBio: React.Dispatch<React.SetStateAction<string>>;
+  location: string;
+  setLocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PersonalDetails: React.FC<IProps> = ({
@@ -26,7 +33,17 @@ const PersonalDetails: React.FC<IProps> = ({
   onAgeChange,
   show,
   age,
+  bio,
+  setBio,
+  location,
+  setLocation,
 }) => {
+  const navigation = useNavigation();
+
+  const handleOnPress = () => {
+    navigation.navigate('UserPreferences');
+  };
+
   return (
     <View>
       <InputFieldShort
@@ -65,6 +82,22 @@ const PersonalDetails: React.FC<IProps> = ({
           </View>
         </View>
       </View>
+
+      <View>
+        <InputFieldLarge
+          onChangeText={setBio}
+          placeholder={'Describe yourself in 140 characters'}
+          value={bio}></InputFieldLarge>
+      </View>
+
+      <View>
+        <InputFieldShort
+          onChangeText={setLocation}
+          placeholder={'Where do you live?'}
+          value={location}></InputFieldShort>
+      </View>
+
+      <AddPicture />
     </View>
   );
 };

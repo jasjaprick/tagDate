@@ -5,13 +5,14 @@ import SwipePage from '../pages/SwipePage';
 import ChatNavigator from './ChatNavigator';
 import TagDatePage from '../pages/TagDatePage';
 
-export type MenuParamList = {
+type MenuParamList = {
   Date: undefined;
   Swipe: undefined;
   Chat: undefined;
   Profile: undefined;
 };
 const Menu = createDrawerNavigator<MenuParamList>();
+
 const MenuNavigator = () => {
   return (
     <Menu.Navigator>
@@ -20,5 +21,7 @@ const MenuNavigator = () => {
       <Menu.Screen name='Profile' component={ChatPage} />
     </Menu.Navigator>
   );
+
+};
 
 export default MenuNavigator;

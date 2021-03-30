@@ -3,18 +3,25 @@ import { Text, View, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextTitle from '../atoms/TextTitle';
 import { useNavigation } from '@react-navigation/core';
+import MainLogo from '../../assets/img/logo-only-color.svg';
 
-function TitleHeader(props) {
+interface IProps {
+  title: string,
+  isPrimary: boolean
+}
+
+const TitleHeader: React.FC<IProps> = ({isPrimary, title}) => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.TitleHeaderContainer}>
+        <MainLogo />
+        <TextTitle>{title}</TextTitle>
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
-        <TextTitle>{props.children}</TextTitle>
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   TitleHeaderContainer: {

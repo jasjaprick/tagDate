@@ -19,7 +19,7 @@ interface IProps {
   setUserGender: React.Dispatch<React.SetStateAction<string>>;
   showMode: () => void;
   onAgeChange: (_: Event, selectedAge: Date | undefined) => void;
-  age: Date | string;
+  age: Date;
   show: boolean;
   bio: string;
   setBio: React.Dispatch<React.SetStateAction<string>>;
@@ -31,9 +31,6 @@ const Container = styled.View`
   width: 80%;
   margin: 5px auto;
 `;
-
-const PersonalDetails: React.FC<IProps> = ({ showMode, onAgeChange }) => {
-  const [appState, updateState] = useAppState();
 
 const PersonalDetails: React.FC<IProps> = ({
   name,
@@ -71,10 +68,10 @@ const PersonalDetails: React.FC<IProps> = ({
           age={age}></DatePicker>
       </View>
 
-      <View style={styles.genderContainer}>
-        <Text style={styles.font}>Gender</Text>
+      <View>
+        <Text >Gender</Text>
 
-        <View style={styles.iconContainer}>
+        <View>
           <View>
             <RadioButton
               value='male'
@@ -96,21 +93,22 @@ const PersonalDetails: React.FC<IProps> = ({
       </View>
 
       <View>
-        <InputFieldLarge
+        <InputFieldShort
           onChangeText={setBio}
           placeholder={'Describe yourself in 140 characters'}
-          value={bio}></InputFieldLarge>
+          isFluid={true}
+          value={bio} />
       </View>
 
       <View>
         <InputFieldShort
           onChangeText={setLocation}
           placeholder={'Where do you live?'}
-          value={location}></InputFieldShort>
+          isFluid={true}
+          value={location}/>
       </View>
-
       <AddPicture />
-    </View>
+    </Container>
   );
 };
 

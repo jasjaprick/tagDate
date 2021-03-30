@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '../../helpers/styles';
+import { colors, boxShadow } from '../../helpers/styles';
 import { View, StyleSheet } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
 
@@ -10,6 +10,7 @@ interface IProps {
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
 }
+
 
 const UserAccessData: React.FC<IProps> = ({
   email,
@@ -27,6 +28,7 @@ const UserAccessData: React.FC<IProps> = ({
     <View>
       <InputFieldShort
         onChangeText={setEmail}
+        isFluid={false}
         placeholder={'E-mail'}
         value={email}></InputFieldShort>
 
@@ -36,6 +38,7 @@ const UserAccessData: React.FC<IProps> = ({
           setPassword(password);
         }}
         placeholder={'Password'}
+        isPassword={true}
         value={password?.toString()}></InputFieldShort>
     </View>
   );

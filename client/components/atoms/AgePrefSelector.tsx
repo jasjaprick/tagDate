@@ -4,8 +4,6 @@ import {View, Text} from 'react-native';
 
 interface IProps {
   title: string;
-  initialValue: number;
-  //onChange: Dispatch<SetStateAction<number>>;
   age: number | undefined;
   setAge: (value: number) => void;
 }

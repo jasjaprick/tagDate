@@ -35,12 +35,18 @@ class createMessageInput {
   
 }
 
-
+//OR:[ , {userTwoId: userId}]}
 @Resolver(Chat)
 export class ChatResolvers {
   // Queries
+  //returns all the chats for the user based on its id
+  @Query(returns => [Chat]) //include: {userOne: true, userTwo:true, messages: true}  OR: [{userOneId: id},
+  async getChatByUserId(@Arg('id') id: number, @Ctx() ctx: Context) {
+    const chats = await ctx.prisma.chat.findMany({where:{ OR: [{userOneId: id}, {userTwoId: id}]}, include: {userOne: true, userTwo: true, messages: true}});
+    return chats;
+  }
+  
   //returns one chat based on its Id
-  //TODO: implement a query that gets all the chats for one user
   @Query(returns => Chat)
   async getSpecificChat(@Arg('chatId') chatId:number, @Ctx() ctx: Context) {
     return await ctx.prisma.chat.findUnique(

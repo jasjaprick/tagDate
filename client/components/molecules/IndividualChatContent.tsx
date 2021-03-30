@@ -2,10 +2,10 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import ChatBubbleList from './ChatBubbleList';
 
-function IndividualChatContent() {
+function IndividualChatContent({data}) {
   return (
     <View style={styles.IndividualChatContentContainer}>
-      <ChatBubbleList />
+      <ChatBubbleList data={data} />
     </View>
   );
 }

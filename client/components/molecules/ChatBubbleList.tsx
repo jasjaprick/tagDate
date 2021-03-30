@@ -10,7 +10,7 @@ import {
 interface IProps {
   data: any;
 }
-
+//SUBSCRIPTION IS IN THIS COMPONENT IN ORDER TO WATCH OUT FOR NEW MESSAGES
 const ChatBubbleList: React.FC<IProps> = (props) => {
   if (props.data === '') {
     return <View></View>;
@@ -24,21 +24,15 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
     }
   }
 `;
-// const messages = props.data? [...props.data] : [];
-  const [messages, setMessages] = useState(props.data || [])
-  //let messages =
 
-//console.log('listBubbleList', props.data?.messages);
-// let messages: any[] = props.data? props.data : ''
-//console.log(messages)
-let result = useSubscription(CHAT_SUBSCRIPTION, {
-    variables: { listenMessagesArgs: 1 }
+  const [messages, setMessages] = useState(props.data || [])
+
+  let result = useSubscription(CHAT_SUBSCRIPTION, {
+    variables: { listenMessagesArgs: 1 }  //this value is currently hardcoded and represents the chatID 
   });
-useEffect(() => {
+  //we watchout for new updates to the subscription with useEffect
+  useEffect(() => {             
   if (result.data) {
-    //console.log(result.data)
-     //messages.push(data.listenMessages);
-     console.log('happening') 
      const newMessage = result.data.listenMessages;
      setMessages([...messages, newMessage]);
      ;
@@ -49,7 +43,7 @@ useEffect(() => {
   return (
     <View style={styles.chatBubbleListContainer}>
       <ScrollView>
-        {messages?.map((message) => (
+        {messages?.map((message) => (   //need to implement interface for messages
           <ChatBubble
             key={message.id}
             message={message.content}

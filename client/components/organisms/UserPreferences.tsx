@@ -7,20 +7,28 @@ import InputAge from '../atoms/InputAge';
 import useAppState from '../interfaces/AppState';
 import styled from 'styled-components/native';
 
-const UserPreferences: React.FC = () => {
-  const [appState, updateState] = useAppState();
+interface IPropsPreferences {
+  minAge: number | null;
+  setMinAge: React.Dispatch<React.SetStateAction<number | null>>;
+  maxAge: number | null;
+  setMaxAge: React.Dispatch<React.SetStateAction<number | null>>;
+  genderPreference: string;
+  setGenderPreference: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const UpdateMaxAge = (value: number): void =>
-    updateState({ ...appState, maxAge: value });
+const Container = styled.View`
+  width: 80%;
+  margin: 5px auto;
+`;
 
-  const updateMinAge = (value: number):void => 
-    updateState({...appState, minAge: value});
-
-  const Container = styled.View`
-    width: 80%;
-    margin: 5px auto;
-  `;
-
+const UserPreferences: React.FC<IPropsPreferences> = ({
+  minAge,
+  setMinAge,
+  maxAge,
+  setMaxAge,
+  genderPreference,
+  setGenderPreference,
+}) => {
   return (
     <Container>
       <View>
@@ -30,31 +38,39 @@ const UserPreferences: React.FC = () => {
           {/* <View>
             <RadioButton
               value='male'
-              status={appState.userGender === 'male' ? 'checked' : 'unchecked'}
-              onPress={() => updateState({ ...appState, userGender: 'male' })}
+              status={genderPreference === 'male' ? 'checked' : 'unchecked'}
+              onPress={() => setGenderPreference('male')}
             />
             <Text>Male</Text>
           </View>
           <View>
             <RadioButton
               value='female'
-              status={
-                appState.userGender === 'female' ? 'checked' : 'unchecked'
-              }
-              onPress={() => updateState({ ...appState, userGender: 'female' })}
+              status={genderPreference === 'female' ? 'checked' : 'unchecked'}
+              onPress={() => setGenderPreference('female')}
             />
             <Text>Female</Text>
           </View> */}
         </View>
       </View>
-      <Text>Age range</Text>
-      <View>
-        <AgePrefSelector
-          initialValue={65}
-          age={appState.maxAge}
-          title={'Minimum age'}
-          setAge={updateMinAge}
-        />
+
+      <Text style={styles.font}>Age range</Text>
+      <View style={styles.ageContainer}>
+        <InputAge
+          title={'From'}
+          onChangeText={(minAge: string) => {
+            setMinAge(+minAge);
+          }}
+          placeholder={''}
+          value={minAge?.toString()}></InputAge>
+
+        <InputAge
+          title={'to'}
+          onChangeText={(maxAge: string) => {
+            setMaxAge(+maxAge);
+          }}
+          placeholder={''}
+          value={maxAge?.toString()}></InputAge>
       </View>
     </Container>
   );

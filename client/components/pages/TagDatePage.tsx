@@ -5,10 +5,16 @@ import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { useMutation, gql } from '@apollo/client';
 import PrimaryButton from '../atoms/PrimaryButton';
+import {
+  currentUserRegistrationId,
+  currentUserTag,
+} from '../interfaces/AppState';
+
 const ADD_ACTIVITY = gql`
   mutation AddActivityMutation($addActivityData: AddActivityInput!) {
     addActivity(data: $addActivityData) {
       id
+      tag
     }
   }
 `;
@@ -16,22 +22,25 @@ const ADD_ACTIVITY = gql`
 const TagDatePage = () => {
   const [dateDescription, setDateDescription] = useState(''); //Date description
   const [tag, setTag] = useState(''); //Tag
+  const userID = currentUserRegistrationId();
+
   const [addActivity, { error, data }] = useMutation(ADD_ACTIVITY, {
     variables: {
       addActivityData: {
         description: dateDescription,
-        tag: tag,
-        postedBy: 7,
+        tag: tag.toLowerCase(),
+        postedBy: userID,
       },
     },
   });
 
   const navigation = useNavigation();
 
-  const handleOnPress = () => {
+  const HandleOnPress = async () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
-    addActivity();
+    const activity = await addActivity();
+    currentUserTag(activity.data.addActivity.tag);
 
     navigation.navigate('MenuNavigator');
   };
@@ -52,7 +61,7 @@ const TagDatePage = () => {
         isFluid={false}
       ></InputFieldShort>
 
-      <PrimaryButton title='Date!' action={handleOnPress} isPrimary={true} />
+      <PrimaryButton title='Date!' action={HandleOnPress} isPrimary={true} />
     </View>
   );
 };

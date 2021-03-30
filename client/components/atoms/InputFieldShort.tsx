@@ -12,7 +12,6 @@ const TextField = styled.TextInput<ITheme>`
   background: ${colors.white};
 `;
 
-// Props
 interface IProps {
   placeholder: string;
   onChangeText: (text: string) => void;

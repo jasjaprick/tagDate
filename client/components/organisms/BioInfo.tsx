@@ -1,17 +1,19 @@
 import React from 'react';
 import { View } from 'react-native';
 import InputFieldLarge from '../atoms/InputFieldLarge';
-import useAppState from '../interfaces/AppState';
 
-const BioInfo: React.FC = () => {
-  const [appState, updateState] = useAppState();
+interface IPropsBio {
+  bio: string;
+  setBio: React.Dispatch<React.SetStateAction<string>>;
+}
 
+const BioInfo: React.FC<IPropsBio> = ({ bio, setBio }) => {
   return (
     <View>
       <InputFieldLarge
-        onChangeText={(bio: string) => updateState({ ...appState, bio: bio })}
+        onChangeText={setBio}
         placeholder={'Tell us about yourself...'}
-        value={appState.bio}></InputFieldLarge>
+        value={bio}></InputFieldLarge>
     </View>
   );
 };

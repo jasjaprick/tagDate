@@ -21,8 +21,7 @@ function Login() {
         value={username}
         placeholder='email'
         onChangeText={(username: string) => setUsername(username)}
-        isFluid={false}
-      />
+        isFluid={false} />
       <InputFieldShort
         value={password}
         placeholder='password'

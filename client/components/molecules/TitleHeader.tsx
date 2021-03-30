@@ -31,7 +31,7 @@ const TitleHeader: React.FC<IProps> = ({ isPrimary, title }) => {
 
   if (isPrimary)
     return (
-      <Header style={styles.TitleHeaderContainer}>
+      <Header>
         <MainLogo />
         <TextTitle>{title}</TextTitle>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -40,7 +40,7 @@ const TitleHeader: React.FC<IProps> = ({ isPrimary, title }) => {
       </Header>
     );
   return (
-    <Header style={styles.TitleHeaderContainer}>
+    <Header>
       <MainLogoWhite />
       <TextTitleWhite>{title}</TextTitleWhite>
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -50,12 +50,5 @@ const TitleHeader: React.FC<IProps> = ({ isPrimary, title }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  TitleHeaderContainer: {
-    alignContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
-});
 
 export default TitleHeader;

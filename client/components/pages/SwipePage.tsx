@@ -4,7 +4,10 @@ import { Text, View } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
-import { currentUserRegistrationId } from '../interfaces/AppState';
+import {
+  currentUserRegistrationId,
+  currentUserTag,
+} from '../interfaces/AppState';
 
 interface Props {
   dbUser: IUsers[];
@@ -48,14 +51,15 @@ const REJECT_USER = gql`
 
 const SwipePage: React.FunctionComponent<Props> = () => {
   const [index, setIndex] = useState(0);
+
   const userId = currentUserRegistrationId();
 
-  console.log('userId', userId);
+  const currentTag = currentUserTag();
 
   const { loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES, {
     variables: {
       ownId: userId,
-      tag: 'fish',
+      tag: currentTag,
     },
   });
 

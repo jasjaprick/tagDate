@@ -6,12 +6,16 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import InputFieldLarge from '../atoms/InputFieldLarge';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { useMutation, gql } from '@apollo/client';
-import useAppState, { currentUserRegistrationId } from '../interfaces/AppState';
+import {
+  currentUserRegistrationId,
+  currentUserTag,
+} from '../interfaces/AppState';
 
 const ADD_ACTIVITY = gql`
   mutation AddActivityMutation($addActivityData: AddActivityInput!) {
     addActivity(data: $addActivityData) {
       id
+      tag
     }
   }
 `;
@@ -19,15 +23,13 @@ const ADD_ACTIVITY = gql`
 const TagDatePage = () => {
   const [dateDescription, setDateDescription] = useState(''); //Date description
   const [tag, setTag] = useState(''); //Tag
-  const [appState, updateState] = useAppState();
   const userID = currentUserRegistrationId();
-  console.log('Tagd', userID);
 
   const [addActivity, { error, data }] = useMutation(ADD_ACTIVITY, {
     variables: {
       addActivityData: {
         description: dateDescription,
-        tag: tag,
+        tag: tag.toLowerCase(),
         postedBy: userID,
       },
     },
@@ -35,10 +37,11 @@ const TagDatePage = () => {
 
   const navigation = useNavigation();
 
-  const HandleOnPress = () => {
+  const HandleOnPress = async () => {
     console.log('dateDescription', dateDescription);
     console.log('tag', tag);
-    addActivity();
+    const activity = await addActivity();
+    currentUserTag(activity.data.addActivity.tag);
 
     navigation.navigate('MenuNavigator');
   };

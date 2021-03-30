@@ -2,24 +2,33 @@ import React from 'react';
 import { colors } from '../../helpers/styles';
 import { View } from 'react-native';
 import InputFieldShort from '../atoms/InputFieldShort';
-import useAppState from '../interfaces/AppState';
 
-const UserAccessData: React.FC = () => {
-  const [appState, updateState] = useAppState();
+interface IProps {
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  password: string;
+  setPassword: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const UserAccessData: React.FC<IProps> = ({
+  email,
+  setEmail,
+  password,
+  setPassword,
+}) => {
   return (
     <View>
       <InputFieldShort
-        onChangeText={(email: string) =>
-          updateState({ ...appState, email: email })
-        }
+        onChangeText={setEmail}
         placeholder={'E-mail'}
-        value={appState.email}></InputFieldShort>
+        value={email}></InputFieldShort>
+
       <InputFieldShort
         onChangeText={(password: string) => {
-          updateState({ ...appState, password: password });
+          setPassword(password);
         }}
         placeholder={'Password'}
-        value={appState.password?.toString()}></InputFieldShort>
+        value={password?.toString()}></InputFieldShort>
     </View>
   );
 };

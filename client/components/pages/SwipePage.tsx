@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { IUsers } from '../../db';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
+import { useNavigation } from '@react-navigation/core';
+import TitleHeader from '../molecules/TitleHeader';
 
 interface Props {
   dbUser: IUsers[];
@@ -46,6 +48,7 @@ const REJECT_USER = gql`
 `;
 
 const SwipePage: React.FunctionComponent<Props> = () => {
+  const navigation = useNavigation();
   const [index, setIndex] = useState(0);
 
   const { loading, error, data } = useQuery(GET_MATCHING_ACTIVITIES, {
@@ -78,6 +81,7 @@ const SwipePage: React.FunctionComponent<Props> = () => {
 
   return (
     <QueryResult error={error} loading={loading} data={data}>
+      <TitleHeader>Swipe</TitleHeader>
       <View>
         {data &&
         data.findActivityByTag.length >= 1 &&

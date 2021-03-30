@@ -81,7 +81,7 @@ const SwipePage: React.FC<Props> = () => {
     },
   });
   const [users, setUsers] = useState<Activities[]>([]);
-  //start
+
   const position = useRef(new Animated.ValueXY()).current;
 
   useEffect(() => {

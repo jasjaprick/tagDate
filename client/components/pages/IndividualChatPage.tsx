@@ -18,30 +18,7 @@ const CHAT_MESSAGES = gql`
   }
 `;
 
-// const SEND_MESSAGE = gql`
-//   mutation Mutation($messageSentData: createMessageInput!) {
-//     messageSent(data: $messageSentData) {
-//       content
-//       chat {
-//         messages {
-//           id
-//           content
-//         }
-//       }
-//     }
-//   }
-// `;
 function IndividualChatPage() {
-  // const [textContent, setTextContent] = useState('');
-  // const [sendMessage] = useMutation(SEND_MESSAGE, {
-  //   variables: {
-  //     messageSentData: {
-  //       content: textContent, //WHERE IS  CONTENT,
-  //       senderId: 1, //SENDERID ,
-  //       chatId: 1,
-  //     },
-  //   },
-  // });
   const result = useQuery(CHAT_MESSAGES, {
     variables: { chatId: 1 }, //value hardcoded
   });
@@ -52,14 +29,6 @@ function IndividualChatPage() {
     background-color: white;
   `;
 
-  // const sendingAMessage = () => {
-  //   sendMessage();
-  //   setTextContent('');
-  // };
-
-  // const changeTextHandler = (value: string):void => {
-  //   setTextContent(value);
-  // };
   return (
     <OuterContainer>
       <IndividualChatHeader

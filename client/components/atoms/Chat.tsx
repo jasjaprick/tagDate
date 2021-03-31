@@ -27,14 +27,6 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
     userToDisplay = userOne;
   }
 
-  // Set array of random messages
-  //TODO: remove and replace with chat function when it is ready
-  const randomMessages = [
-    'Hello, how are you?',
-    "Let's meet up later!",
-    'Cool that you also want to go fishing!',
-    'Our date was amazing!',
-  ];
   const lastMessage = match.messages[match.messages.length - 1]?.content;
 
   // set fn that gets a random number between 0-3 and retrieve a random message to display

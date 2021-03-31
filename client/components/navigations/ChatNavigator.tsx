@@ -17,8 +17,8 @@ function LoginNavigator() {
         animationEnabled: false
       }}
     >
-      <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} />
       <Menu.Screen name='ChatPage' component={ChatPage} />
+      <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} />
     </Menu.Navigator>
   );
 }

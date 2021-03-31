@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import XButton from '../../assets/img/x-button.svg';
+import XButton from '../../assets/img/xButton.svg';
 import Like from '../../assets/img/like-btn.svg';
 import Location from '../../assets/img/location.svg';
 
@@ -23,9 +23,11 @@ const SwipeUserInfo: React.FC<Props> = ({
 }: Props) => {
   return (
     <View style={styles.container}>
-      
-      <Text style={styles.topCorner}>#{tag} <Location style={styles.pin}/> {location}</Text>
-      <Text style={styles.text}>Do you want to {activity}?</Text>
+      <View style={styles.topContainer}>
+            <Text style={styles.tag}>#{tag}</Text> 
+            <Text style={styles.topCorner}><Location style={styles.location} /> {location}</Text>
+      </View>
+            <Text style={styles.text}>Do you want to {activity}?</Text>
       <View style={styles.btnFlex}>
         <TouchableOpacity
           style={styles.btn}
@@ -49,32 +51,48 @@ const SwipeUserInfo: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
+  topContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '2%',
+    width: '100%',
+    color: 'white'
+  },
   container: {
     flex: 1,
-    backgroundColor: 'rgba(114,90,193, 0.4)',
+    backgroundColor: 'rgba(114,90,193, 0.6)',
     alignItems: 'center',
     borderRadius: 10,
-    padding: 10,
+    padding: 5,
   },
   text: {
     color: 'white',
     opacity: 1,
     fontSize: 18,
     alignSelf: 'center',
-    top: 20
+    top: 10
   },
   topCorner: {
     color: 'white',
     opacity: 1,
     fontSize: 18,
-    alignSelf: 'center',
+    // alignSelf: 'center',
     fontWeight: '700'
   },
   svg: {
     
   },
-  pin: {
+  location: {
     marginLeft:40
+  },
+  tag: {
+    flex: 1,
+    alignItems: 'flex-start',
+    fontSize: 18,
+    fontWeight: '700',
+    color: 'white'
   },
   imageSize: {
     width: 50,
@@ -87,8 +105,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 50,
     marginRight: 50,
-    top: 40
-  },
+    top: 10
+    },
   btnFlex: {
     display: 'flex',
     flexDirection: 'row',

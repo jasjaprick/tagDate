@@ -17,6 +17,7 @@ const Swipe: React.FC<IProps> = ({ target, tag, onLike, onDislike }: IProps) => 
 
   return (
     <View style={styles.container}>
+      
       <ImageBackground
         source={{ uri: target.user.profile.profilePicture }}
         style={styles.image}
@@ -55,9 +56,9 @@ const styles = StyleSheet.create({
     fontSize: 40,
     alignSelf: 'center',
     bottom: 340,
-    textShadowColor: 'rgba(0, 0, 0, 0.9)',
-    textShadowOffset: {width: 1, height: 1},
-    textShadowRadius: 10
+    // textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    // textShadowOffset: {width: 1, height: 1},
+    // textShadowRadius: 10
   },
   image: {
     flex: 1,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginLeft: '4%',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 35,
   },
 });
 

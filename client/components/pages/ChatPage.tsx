@@ -17,12 +17,14 @@ const GET_CONFIRMED_CHATS = gql`
         senderId
       }
       userOne {
+        id
         profile {
           name
           profilePicture
         }
       }
       userTwo {
+        id
         profile {
           name
           profilePicture
@@ -32,30 +34,33 @@ const GET_CONFIRMED_CHATS = gql`
   }
 `;
 
-
 const ChatPage: React.FunctionComponent = () => {
   const userId = currentUserRegistrationId();
   const { loading, error, data } = useQuery(GET_CONFIRMED_CHATS, {
     variables: { id: userId }, //HARD CODED VALUE, NEEDS TO BE REPLACED BY THE LOGGEDIN USER ID
   });
 
-  console.log(userId);
+  if (userId) {
+    if (data && data.getChatByUserId.length > 0) {
+      return (
+        <QueryResult error={error} loading={loading} data={data}>
+          <View style={styles.chatPageContainer}>
+            <TitleHeader isPrimary={true} title={'Chats'} />
+            <ChatList matches={data.getChatByUserId} />
+          </View>
+        </QueryResult>
+      );
+    }
 
-  if(userId) return (
-    <QueryResult error={error} loading={loading} data={data}>
-      {data && data.getChatByUserId.length > 0 ? (
-        <View style={styles.chatPageContainer}>
-          <TitleHeader isPrimary={true} title={'Chats'} />
-          <ChatList matches={data.getChatByUserId} />
-        </View>
-      ) : (
+    return (
+      <QueryResult error={error} loading={loading} data={data}>
         <View style={styles.chatPageContainer}>
           <TitleHeader title={'Chat'} isPrimary={true} />
           <Text>No matches for you...</Text>
         </View>
-      )}
-    </QueryResult>
-  );
+      </QueryResult>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

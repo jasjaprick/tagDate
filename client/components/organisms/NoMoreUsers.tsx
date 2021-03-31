@@ -3,10 +3,9 @@ import { Image, View } from 'react-native';
 import styled from 'styled-components/native';
 import { boxShadow } from '../../helpers/styles';
 import Background from '../../assets/img/bcg.svg';
-import {colors} from '../../helpers/styles';
+import { colors } from '../../helpers/styles';
 import PrimaryButton from '../atoms/PrimaryButton';
 import TitleHeader from '../molecules/TitleHeader';
-
 
 const OuterContainer = styled.View`
   width: 100%;
@@ -35,10 +34,10 @@ const InnerContainer = styled.View`
 `;
 
 const Heading = styled.Text`
- font-size: 30px;
- color: ${colors.violet};
- margin-top: 90%;
- text-align: center;
+  font-size: 30px;
+  color: ${colors.violet};
+  margin-top: 90%;
+  text-align: center;
 `;
 
 const NoMoreUsers: React.FC = () => {
@@ -54,7 +53,7 @@ const NoMoreUsers: React.FC = () => {
           margin: 0,
         }}
       />
-        <TitleHeader title={'Oh no...'} isPrimary={true} />
+      <TitleHeader title={'Oh no...'} isPrimary={true} />
       <InnerContainer>
         <Image
           style={{
@@ -67,11 +66,7 @@ const NoMoreUsers: React.FC = () => {
         />
         <Heading>No more users...</Heading>
         <View>
-          <PrimaryButton
-            title={'Next'}
-            isPrimary={true}
-            action={console.log('Dohh')}
-          />
+          <PrimaryButton title={'Next'} isPrimary={true} action={} />
         </View>
       </InnerContainer>
     </OuterContainer>

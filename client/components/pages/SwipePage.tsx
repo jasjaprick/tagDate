@@ -164,12 +164,12 @@ const SwipePage: React.FC<Props> = () => {
 
   const onLike = () => {
     const UID2 = users[activeIndex] ? users[activeIndex].postedBy : 0;
-    likeUser({ variables: { likeData: { UID1: 1, UID2 } } });
+    likeUser({ variables: { likeData: { UID1: userId, UID2 } } });
     setActiveIndex(activeIndex + 1);
   };
   const onDislike = () => {
     const rejectedId = users[activeIndex] ? users[activeIndex].postedBy : 0;
-    rejectUser({ variables: { ownId: 1, rejectedId } });
+    rejectUser({ variables: { ownId: userId, rejectedId } });
     setActiveIndex(activeIndex + 1);
   };
 

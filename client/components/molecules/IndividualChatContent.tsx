@@ -12,8 +12,7 @@ function IndividualChatContent({data}) {
 
 const styles = StyleSheet.create({
   IndividualChatContentContainer: {
-    flex: 1,
-    backgroundColor: 'white',
+    flex: 1
   },
 });
 

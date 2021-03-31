@@ -1,30 +1,68 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import React, {useState} from 'react';
+import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { colors } from '../../helpers/styles';
 import InputFieldLarge from '../atoms/InputFieldLarge';
-import SendMessageIcon from '../atoms/SendMessageIcon';
+import SendButton from '../../assets/img/sendbutton.svg';
+import InputFieldShort from '../atoms/InputFieldShort';
+import { useMutation, gql } from '@apollo/client';
 
-function IndividualChatSend(props) {
+const SEND_MESSAGE = gql`
+  mutation Mutation($messageSentData: createMessageInput!) {
+    messageSent(data: $messageSentData) {
+      content
+      chat {
+        messages {
+          id
+          content
+        }
+      }
+    }
+  }
+`;
+
+
+
+const IndividualChatSend: React.FC = () => {
+  const [textContent, setTextContent] = useState('');
+  const [sendMessage] = useMutation(SEND_MESSAGE, {
+    variables: {
+      messageSentData: {
+        content: textContent, //WHERE IS  CONTENT,
+        senderId: 1, //SENDERID ,
+        chatId: 1,
+      },
+    },
+  });
+
+  const sendingAMessage = () => {
+    sendMessage();
+    setTextContent('');
+  };
+
   return (
     <View style={styles.IndividualChatSendContainer}>
       <View style={styles.IndividualChatSendInput}>
         <InputFieldLarge
-          onChangeText={props.setTextContent}
-          value={props.textContent}
+          onChangeText={(value: string) => setTextContent(value)}
+          value={textContent}
+          placeholder={'Send message...'}
         />
       </View>
-      <SendMessageIcon sendingAMessage={props.sendingAMessage}  />
+      <TouchableOpacity onPress={() => sendingAMessage()}>
+        <SendButton />
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   IndividualChatSendContainer: {
-    backgroundColor: colors.violet,
+    backgroundColor: colors.lightGrey,
     padding: 10,
     flexDirection: 'row',
     height: 80,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   },
   IndividualChatSendInput: { width: '85%' },
 });

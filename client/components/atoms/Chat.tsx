@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+import { colors, boxShadow } from '../../helpers/styles';
 
 interface IProps {
-  match: any
+  match: any;
 }
 
-const Chat: React.FunctionComponent<IProps> = ({match})  => {
+const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   // Retrieving both users from the match prop, where on is loggin in user and other is target user
   const { userOne, userTwo } = match;
 
@@ -22,11 +24,11 @@ const Chat: React.FunctionComponent<IProps> = ({match})  => {
 
   // Set array of random messages
   //TODO: remove and replace with chat function when it is ready
-    const randomMessages = [
+  const randomMessages = [
     'Hello, how are you?',
-    'Let\'s meet up later!',
+    "Let's meet up later!",
     'Cool that you also want to go fishing!',
-    'Our date was amazing!'
+    'Our date was amazing!',
   ];
 
   // set fn that gets a random number between 0-3 and retrieve a random message to display
@@ -34,40 +36,69 @@ const Chat: React.FunctionComponent<IProps> = ({match})  => {
     return Math.floor(Math.random() * Math.floor(4));
   };
 
-
   return (
-    <View style={styles.chatContainer}>
-      <View style={styles.photoContainer}></View>
-      <View style={styles.infoContainer}>
-        <Text style={styles.chatInfoName}>{userToDisplay.profile.name}</Text>
-        <Text>{randomMessages[getRandomMessageIndex()]}</Text>
-      </View>
-    </View>
+    <ChatContainer>
+      <PhotoContainer></PhotoContainer>
+      <InformationContainer>
+        <InformationContainerTop>
+          <ChatPersonName>{userToDisplay.profile.name}</ChatPersonName>
+          <DateTime>Today</DateTime>
+        </InformationContainerTop>
+        <LastMessageSent>
+          {randomMessages[getRandomMessageIndex()]}
+        </LastMessageSent>
+      </InformationContainer>
+    </ChatContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  chatContainer: {
-    backgroundColor: 'white',
-    margin: 10,
-    borderColor: 'lightgray',
-    borderWidth: 1,
-    flexDirection: 'row',
-  },
-  photoContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 50,
-    backgroundColor: 'dodgerblue',
-  },
-  infoContainer: {
-    flex: 1,
-    padding: 10,
-  },
-  chatInfoName: {
-    marginBottom: 10,
-    fontSize: 18,
-  },
-});
+const ChatContainer = styled.View`
+  background-color: white;
+  flex-direction: row;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: ${boxShadow};
+  border-width: 1px;
+  border-color: gray;
+`;
+
+const PhotoContainer = styled.View`
+  background-color: blue;
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+  margin: 10px;
+`;
+
+const ChatPersonName = styled.Text`
+  font-size: 18px;
+  color: ${colors.violet};
+  font-weight: bold;
+`;
+
+const InformationContainer = styled.View`
+  flex: 1;
+
+  justify-content: space-around;
+  padding-top: 10px;
+  padding-bottom: 10px;
+`;
+
+const InformationContainerTop = styled.View`
+  flex-direction: row;
+  width: 100%;
+  /* background-color: green; */
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const DateTime = styled.Text`
+  color: ${colors.violet};
+  margin-right: 10px;
+`;
+
+const LastMessageSent = styled.Text`
+  color: gray;
+`;
 
 export default Chat;

@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import XButton from '../../assets/img/xButton.svg';
+import Like from '../../assets/img/like-btn.svg';
+import Location from '../../assets/img/location.svg';
 
 interface Props {
   name: string;
+  tag: string;
   dateOfBirth: string;
   location: string;
   activity: string;
@@ -11,8 +15,7 @@ interface Props {
 }
 
 const SwipeUserInfo: React.FC<Props> = ({
-  name,
-  dateOfBirth,
+  tag,
   location,
   activity,
   onLike,
@@ -20,9 +23,11 @@ const SwipeUserInfo: React.FC<Props> = ({
 }: Props) => {
   return (
     <View style={styles.container}>
-      
-      <Text style={styles.text}>{location}</Text>
-      <Text style={styles.text}>Do you want to {activity}?</Text>
+      <View style={styles.topContainer}>
+            <Text style={styles.tag}>#{tag}</Text> 
+            <Text style={styles.topCorner}><Location style={styles.location} /> {location}</Text>
+      </View>
+            <Text style={styles.text}>Do you want to {activity}?</Text>
       <View style={styles.btnFlex}>
         <TouchableOpacity
           style={styles.btn}
@@ -30,8 +35,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             onDislike();
           }}
         >
-          <Image source={require('../../assets/x-mark-32.png')} style={styles.imageSize}/>
-          {/* <Text style={styles.text}>Nope!</Text> */}
+          <XButton style={styles.svg}/>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btn}
@@ -39,8 +43,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             onLike();
           }}
         >
-          <Image source={require('../../assets/heart.png')} style={styles.imageSize}/>
-          {/* <Text style={styles.text}>Yep!</Text> */}
+          <Like style={styles.svg}/>
         </TouchableOpacity>
       </View>
     </View>
@@ -48,34 +51,62 @@ const SwipeUserInfo: React.FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
+  topContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '2%',
+    width: '100%',
+    color: 'white'
+  },
   container: {
     flex: 1,
-    backgroundColor: 'rgba(114,90,193, 0.4)',
+    backgroundColor: 'rgba(114,90,193, 0.6)',
     alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: 10,
-    padding: 10,
+    padding: 5,
   },
   text: {
     color: 'white',
     opacity: 1,
     fontSize: 18,
     alignSelf: 'center',
+    top: 10
+  },
+  topCorner: {
+    color: 'white',
+    opacity: 1,
+    fontSize: 18,
+    // alignSelf: 'center',
+    fontWeight: '700'
+  },
+  svg: {
+    
+  },
+  location: {
+    marginLeft:40
+  },
+  tag: {
+    flex: 1,
+    alignItems: 'flex-start',
+    fontSize: 18,
+    fontWeight: '700',
+    color: 'white'
   },
   imageSize: {
     width: 50,
     height: 35
   },
   btn: {
-    borderWidth: 1,
-    borderColor: 'white',
     borderRadius: 10,
     padding: 10,
     minWidth: 70,
     marginTop: 10,
     marginLeft: 50,
     marginRight: 50,
-  },
+    top: 10
+    },
   btnFlex: {
     display: 'flex',
     flexDirection: 'row',

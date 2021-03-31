@@ -2,27 +2,32 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Dimensions, Text } from 'react-native';
 import { Activities } from '../interfaces/activities.interface';
-import { Users } from '../interfaces/users.interface';
 import SwipeUserInfo from '../molecules/SwipeUserInfo';
 
 interface IProps {
   target: Activities;
+  tag: string;
   onLike: () => void;
   onDislike: () => void;
 }
 
-const Swipe: React.FC<IProps> = ({ target, onLike, onDislike }: IProps) => {
+const Swipe: React.FC<IProps> = ({ target, tag, onLike, onDislike }: IProps) => {
+
+  const  birthday = (new Date()).getFullYear() - (new Date(target.user.profile.dateOfBirth)).getFullYear();
+
   return (
     <View style={styles.container}>
+      
       <ImageBackground
         source={{ uri: target.user.profile.profilePicture }}
         style={styles.image}
       >
         <Text style={styles.text}>
-        {target.user.profile.name}, {target.user.profile.dateOfBirth}
+        {target.user.profile.name}, {birthday}
       </Text>
         <View style={styles.infobox}>
           <SwipeUserInfo
+            tag={tag}
             onLike={onLike}
             onDislike={onDislike}
             name={target.user.profile.name}
@@ -35,6 +40,7 @@ const Swipe: React.FC<IProps> = ({ target, onLike, onDislike }: IProps) => {
     </View>
   );
 };
+
 const windowWidth = Math.round(Dimensions.get('window').width); 
 
 const styles = StyleSheet.create({
@@ -47,9 +53,12 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     opacity: 1,
-    fontSize: 26,
+    fontSize: 40,
     alignSelf: 'center',
-    bottom: 330
+    bottom: 340,
+    // textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    // textShadowOffset: {width: 1, height: 1},
+    // textShadowRadius: 10
   },
   image: {
     flex: 1,
@@ -60,13 +69,14 @@ const styles = StyleSheet.create({
   infobox: {
     flex: 1,
     width: '90%',
+    minHeight: 180,
     position: 'absolute',
     bottom: 0,
     borderRadius: 20,
     color: '#ffffff',
     marginLeft: '4%',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 35,
   },
 });
 

@@ -22,7 +22,13 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: false,
         headerTintColor: colors.violet,
-      }}>
+      }}
+    >
+      <Menu.Screen
+        name='ChatPage'
+        component={ChatPage}
+        options={{ headerShown: false }}
+      />
       {/* <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} /> */}
 
       <Menu.Screen name='LoginPage' component={LoginPage} />
@@ -34,12 +40,6 @@ function LoginNavigator() {
       <Menu.Screen name='ImageUserPage' component={ImageUserPage} />
 
       <Menu.Screen name='TagDatePage' component={TagDatePage} />
-
-      <Menu.Screen
-        name='ChatPage'
-        component={ChatPage}
-        options={{ headerShown: false }}
-      />
 
       <Menu.Screen
         name='MatchSuccessPage'

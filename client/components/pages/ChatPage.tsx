@@ -1,11 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../../helpers/styles';
 import ChatList from '../organisms/ChatList';
-import TagList from '../organisms/TagList';
 import { useQuery, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
-import TextTitle from '../atoms/TextTitle';
 import TitleHeader from '../molecules/TitleHeader';
 
 // GQL Query definition

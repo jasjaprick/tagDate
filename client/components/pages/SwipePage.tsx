@@ -9,7 +9,13 @@ import {
   currentUserRegistrationId,
   currentUserTag,
 } from '../interfaces/AppState';
+
 import TitleHeader from '../molecules/TitleHeader';
+
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import NoMoreUsers from '../organisms/NoMoreUsers';
+import TextTitle from '../atoms/TextTitle';
+
 
 interface Props {
   dbUser: IUsers[];
@@ -183,7 +189,11 @@ const SwipePage: React.FC<Props> = () => {
     velocityThreshold: 0.3,
     directionalOffsetThreshold: 80,
   };
+
+  // const tag = data.findActivityByTag[0].tag;
+
   const renderUsers = () => {
+
     if (users.length === 0 || activeIndex >= users.length) {
       return (
         <View>
@@ -192,6 +202,7 @@ const SwipePage: React.FC<Props> = () => {
         </View>
       );
     }
+
 
     return users
       .map((item, i) => {
@@ -262,6 +273,7 @@ const SwipePage: React.FC<Props> = () => {
                 <View>
                   <Swipe
                     target={users[activeIndex]}
+                    tag={data.findActivityByTag[i].tag}
                     onLike={onLike}
                     onDislike={onDislike}
                   />
@@ -335,6 +347,7 @@ const SwipePage: React.FC<Props> = () => {
               <QueryResult error={error} loading={loading} data={users}>
                 <View>
                   <Swipe
+                    tag={data.findActivityByTag[i].tag}
                     target={users[activeIndex + 1]}
                     onLike={onLike}
                     onDislike={onDislike}

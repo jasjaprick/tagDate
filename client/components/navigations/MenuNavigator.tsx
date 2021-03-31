@@ -4,6 +4,7 @@ import ChatPage from '../pages/ChatPage';
 import SwipePage from '../pages/SwipePage';
 import ChatNavigator from './ChatNavigator';
 import TagDatePage from '../pages/TagDatePage';
+import { colors } from '../../helpers/styles';
 import LoginPage from '../pages/LoginPage';
 
 type MenuParamList = {
@@ -17,7 +18,9 @@ const Menu = createDrawerNavigator<MenuParamList>();
 
 const MenuNavigator = () => {
   return (
-    <Menu.Navigator>
+    <Menu.Navigator drawerStyle={{ backgroundColor: colors.green,  }}  drawerContentOptions={{
+      activeTintColor: '#fff'
+    }}>
       <Menu.Screen name='Swipe' component={SwipePage} />
       <Menu.Screen name='Chat' component={ChatNavigator} />
       <Menu.Screen name='Profile' component={ChatPage} />

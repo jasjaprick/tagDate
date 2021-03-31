@@ -1,18 +1,14 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import LoginSuccessPage from '../pages/LoginSuccessPage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
-import LocationPage from '../organisms/Location';
 import TagDatePage from '../pages/TagDatePage';
 import { colors } from '../../helpers/styles';
 import MatchSuccessPage from '../pages/MatchSuccessPage';
-import ChatPage from '../pages/ChatPage';
 import MenuNavigator from './MenuNavigator';
-import IndividualChatPage from '../pages/IndividualChatPage';
-import Chat from '../atoms/Chat';
 import ImageUserPage from '../pages/ImageUserPage';
+import ChatNavigator from './ChatNavigator';
 
 const Menu = createStackNavigator();
 
@@ -22,8 +18,7 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: false,
         headerTintColor: colors.violet,
-      }}
-    >
+      }}>
       <Menu.Screen name='LoginPage' component={LoginPage} />
 
       <Menu.Screen name='MenuNavigator' component={MenuNavigator} />
@@ -34,11 +29,9 @@ function LoginNavigator() {
 
       <Menu.Screen name='TagDatePage' component={TagDatePage} />
 
-      <Menu.Screen
-        name='MatchSuccessPage'
-        component={MatchSuccessPage}
-        options={{ headerShown: false }}
-      />
+      <Menu.Screen name='MatchSuccessPage' component={MatchSuccessPage} />
+
+      <Menu.Screen name='Chat' component={ChatNavigator} />
     </Menu.Navigator>
   );
 }

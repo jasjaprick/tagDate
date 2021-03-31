@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { colors, boxShadow } from '../../helpers/styles';
-import TitleHeader from '../molecules/TitleHeader';
 import { currentUserRegistrationId } from '../interfaces/AppState';
 
 interface IProps {
@@ -20,7 +18,6 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   let userToDisplay;
 
   // filter for the target user and display that user in the chat
-
   if (Number(userOne.id) === userId) {
     userToDisplay = userTwo;
   } else {

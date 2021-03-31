@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
+
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+
 import Chat from '../atoms/Chat';
 
 interface IProps {

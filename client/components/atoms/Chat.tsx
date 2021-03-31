@@ -28,7 +28,7 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   //TODO: remove and replace with chat function when it is ready
   const randomMessages = [
     'Hello, how are you?',
-    "Let's meet up later!",
+    'Let\'s meet up later!',
     'Cool that you also want to go fishing!',
     'Our date was amazing!',
   ];

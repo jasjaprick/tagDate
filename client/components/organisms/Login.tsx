@@ -16,7 +16,13 @@ function Login() {
 
   return (
     <View style={styles.loginContainer}>
-      <MainLogo width={400} />
+      <MainLogo style={{
+        marginTop: 40,
+        marginBottom: 40,
+        marginLeft: '5%',
+        marginRight: '5%',
+        width: '90%'
+      }} />
       <InputFieldShort
         value={username}
         placeholder='email'

@@ -21,7 +21,7 @@ function LoginPage({ navigation }) {
       />
       <Login navigation={navigation} />
       <TouchableOpacity style={styles.registerButton} onPress={register}>
-        <Text style={styles.registerText}>Register</Text>
+        <Text style={styles.registerText}>No Account? Register</Text>
       </TouchableOpacity>
     </View>
   );
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   },
   registerText: {
     color: colors.violet,
+    textDecorationLine: 'underline'
   },
 });
 

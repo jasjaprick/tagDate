@@ -1,9 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
 import { currentUserRegistrationId } from '../interfaces/AppState';
+import PrimaryButton from '../atoms/PrimaryButton';
+import Camera from '../../assets/img/camera.svg';
+import { colors } from '../../helpers/styles';
 
 interface IPropsImage {
   selectedImage: string | null;
@@ -19,7 +22,7 @@ const ADD_PROFILE_PICTURE = gql`
   }
 `;
 
-const ImageUserPage: React.FC<IPropsImage> = () => {
+const ImageUserPage: React.FC<IPropsImage> = ({ isPrimary, title, action }) => {
   const [selectedImage, setSelectedImage] = React.useState(null);
   const userId = currentUserRegistrationId();
 
@@ -59,7 +62,10 @@ const ImageUserPage: React.FC<IPropsImage> = () => {
   if (selectedImage !== null) {
     return (
       <View style={styles.container}>
+        <Text style={styles.text}>You look amazing! 🤩 </Text>
         <Image source={{ uri: selectedImage }} style={styles.thumbnail} />
+        {/* <PrimaryButton action={onPressNext} title={'Next'} isPrimary={true} /> */}
+
         <TouchableOpacity onPress={onPressNext} style={styles.button}>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
@@ -69,18 +75,12 @@ const ImageUserPage: React.FC<IPropsImage> = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: 'https://i.imgur.com/TkIrScD.png' }}
-        style={styles.logo}
+      <Camera style={styles.icon} />
+      <PrimaryButton
+        action={openImagePickerAsync}
+        title={'Pick a photo!'}
+        isPrimary={true}
       />
-      <Text style={styles.instructions}>
-        To share a photo from your phone with a friend, just press the button
-        below!
-      </Text>
-
-      <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
-        <Text style={styles.buttonText}>Pick a photo</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -92,16 +92,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logo: {
-    width: 305,
-    height: 159,
-    marginBottom: 20,
+  thumbnail: {
+    width: 300,
+    height: 300,
+    resizeMode: 'cover',
   },
-  instructions: {
-    color: '#888',
-    fontSize: 18,
-    marginHorizontal: 15,
+  icon: {
     marginBottom: 10,
+  },
+  text: {
+    marginBottom: 10,
+    color: colors.violet,
+    fontSize: 20,
   },
   button: {
     backgroundColor: 'blue',
@@ -111,11 +113,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#fff',
-  },
-  thumbnail: {
-    width: 300,
-    height: 300,
-    resizeMode: 'stretch',
   },
 });
 

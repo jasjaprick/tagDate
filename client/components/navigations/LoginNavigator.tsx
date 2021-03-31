@@ -24,13 +24,6 @@ function LoginNavigator() {
         headerTintColor: colors.violet,
       }}
     >
-      <Menu.Screen
-        name='ChatPage'
-        component={ChatPage}
-        options={{ headerShown: false }}
-      />
-      {/* <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} /> */}
-
       <Menu.Screen name='LoginPage' component={LoginPage} />
 
       <Menu.Screen name='MenuNavigator' component={MenuNavigator} />

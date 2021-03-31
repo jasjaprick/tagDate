@@ -27,7 +27,7 @@ const SwipeUserInfo: React.FC<Props> = ({
             <Text style={styles.tag}>#{tag}</Text> 
             <Text style={styles.topCorner}><Location style={styles.location} /> {location}</Text>
       </View>
-            <Text style={styles.text}>Do you want to {activity}?</Text>
+            <Text style={styles.text}> {activity}?</Text>
       <View style={styles.btnFlex}>
         <TouchableOpacity
           style={styles.btn}
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     opacity: 1,
     fontSize: 18,
     alignSelf: 'center',
-    top: 10
+    top: 30
   },
   topCorner: {
     color: 'white',

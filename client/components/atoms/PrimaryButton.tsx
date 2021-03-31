@@ -12,7 +12,7 @@ const Button = styled.TouchableOpacity<ITheme>`
   padding: 16px 40px;
   width: 80%;
   border-radius: 10px;
-  border: 2px solid ${colors.violet}
+  border: 2px solid ${colors.violet};
   margin: 20px auto;
   display: flex;
   align-items: center;

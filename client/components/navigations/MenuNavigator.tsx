@@ -13,19 +13,22 @@ type MenuParamList = {
   Swipe: undefined;
   Chat: undefined;
   Profile: undefined;
-  LogOut: undefined;
+  Logout: undefined;
 };
 const Menu = createDrawerNavigator<MenuParamList>();
 
 const MenuNavigator = () => {
   return (
-    <Menu.Navigator drawerStyle={{ backgroundColor: colors.green,  }}  drawerContentOptions={{
+    <Menu.Navigator drawerStyle={{ backgroundColor: colors.green,  }} drawerContentOptions={{
       activeTintColor: '#fff'
+
     }}>
-      <Menu.Screen name='Swipe' component={SwipePage} />
+      <Menu.Screen name='Swipe' component={SwipePage} options={{
+        drawerLabel:  'Swipe '
+      }}/>
       <Menu.Screen name='Chat' component={ChatNavigator} />
       <Menu.Screen name='Profile' component={ProfilePage} />
-      <Menu.Screen name='LogOut' component={LoginPage} />
+      <Menu.Screen name='Logout' component={LoginPage} />
     </Menu.Navigator>
   );
 };

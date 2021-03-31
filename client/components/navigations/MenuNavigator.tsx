@@ -5,6 +5,7 @@ import SwipePage from '../pages/SwipePage';
 import ChatNavigator from './ChatNavigator';
 import TagDatePage from '../pages/TagDatePage';
 import LoginPage from '../pages/LoginPage';
+import ProfilePage from '../pages/ProfilePage';
 
 type MenuParamList = {
   Date: undefined;
@@ -20,7 +21,7 @@ const MenuNavigator = () => {
     <Menu.Navigator>
       <Menu.Screen name='Swipe' component={SwipePage} />
       <Menu.Screen name='Chat' component={ChatNavigator} />
-      <Menu.Screen name='Profile' component={ChatPage} />
+      <Menu.Screen name='Profile' component={ProfilePage} />
       <Menu.Screen name='LogOut' component={LoginPage} />
     </Menu.Navigator>
   );

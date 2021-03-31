@@ -5,7 +5,10 @@ services:
     container_name: pg-docker
     ports:
       - '5432:5432'
-    env_file:
-      - .env.pg
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+      PGDATA: /data/postgres
     volumes:
       - /data/postgres

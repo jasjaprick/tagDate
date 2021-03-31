@@ -115,7 +115,6 @@ const RegisterPage = () => {
     const currentAge: Date | string = selectedAge || age;
     setShow(Platform.OS === 'ios');
     setAge(currentAge);
-    console.log(age);
   };
 
   // fn passed down to datepicker through personal details that handles the visibility of the

@@ -33,8 +33,6 @@ function Login() {
     setInputPassword('');
   };
 
-  // console.log('username', username, 'password', password);
-
   const [login, { called, error, loading, data }] = useLazyQuery(LOGIN);
 
   useEffect(() => {

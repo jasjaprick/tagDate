@@ -32,7 +32,6 @@ export class AddPictureResolver {
     @Arg('data') data: changePictureInput,
     @Ctx() ctx: Context
   ) {
-    console.log('IT IS CALLED');
     return await ctx.prisma.profile.update({
       where: { id: data.id },
       data: { profilePicture: data.profilePic },

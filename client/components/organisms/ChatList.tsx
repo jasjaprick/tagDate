@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Chat from '../atoms/Chat';
 
 interface IProps {
@@ -7,16 +8,24 @@ interface IProps {
 }
 
 const ChatList: React.FunctionComponent<IProps> = ({ matches }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.chatListContainer}>
       {matches.map((match) => (
-        <Chat key={match.id} match={match} />
-      ))}
-      {matches.map((match) => (
-        <Chat key={match.id} match={match} />
-      ))}
-      {matches.map((match) => (
-        <Chat key={match.id} match={match} />
+        <TouchableOpacity
+          key={match.id}
+          // matchId={match.id}
+          onPress={() => {
+            {
+              navigation.navigate('IndividualChatPage', {
+                matchId: match.id,
+              });
+            }
+          }}
+        >
+          <Chat match={match} />
+        </TouchableOpacity>
       ))}
     </View>
   );

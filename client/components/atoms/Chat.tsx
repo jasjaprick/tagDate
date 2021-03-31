@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import { colors, boxShadow } from '../../helpers/styles';
 import { currentUserRegistrationId } from '../interfaces/AppState';

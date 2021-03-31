@@ -14,9 +14,9 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
-        animationEnabled: false,
-
-      }}>
+        animationEnabled: false
+      }}
+    >
 
       <Menu.Screen name='ChatPage' component={ChatPage} />
       <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} />

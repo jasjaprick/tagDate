@@ -31,6 +31,7 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
   useEffect(() => {
     if (result.data) {
       const newMessage = result.data.listenMessages;
+      console.log('potential problem here, chatbubblelist 49');
       setMessages([...messages, newMessage]);
     }
   }, [result.data]);
@@ -38,9 +39,7 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
   return (
     <View style={styles.chatBubbleListContainer}>
       <ScrollView>
-        {messages?.map((
-          message //need to implement interface for messages
-        ) => (
+        {messages?.map((message: any) => (   //need to implement interface for messages
           <ChatBubble
             key={message.id}
             message={message.content}

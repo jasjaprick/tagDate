@@ -132,7 +132,7 @@ export class PossibleMatchResolvers {
 
       const partnerActivity = await ctx.prisma.activity.findFirst({
         where: {
-          AND: [{ postedBy: data.UID1 }, { isActive: true }],
+          AND: [{ postedBy: data.UID2 }, { isActive: true }],
         },
       });
       return ctx.prisma.possibleMatch.create({

@@ -3,20 +3,28 @@ import * as tq from 'type-graphql';
 import { ApolloServer } from 'apollo-server';
 import { UserResolver } from './User/UserResolvers';
 import { context } from './context';
-//import { ProfileResolvers } from './Profile/ProfileResolvers'
+import { AddPictureResolver } from './Profile/ProfileResolvers';
 import { ActivityResolvers } from './Activity/ActivityResolvers';
 import { AuthResolver } from './Auth/AuthResolver';
 import { PossibleMatchResolvers } from './PossibleMatch/PossibleMatchResolvers';
-import  { ChatResolvers, messageResolver,  } from './Chat/ChatAndMessageResolvers'
+import { ChatResolvers, messageResolver } from './Chat/ChatAndMessageResolvers';
 const app = async () => {
   const schema = await tq.buildSchema({
-    resolvers: [UserResolver, ActivityResolvers, PossibleMatchResolvers, ChatResolvers, messageResolver, AuthResolver, ],
+    resolvers: [
+      UserResolver,
+      ActivityResolvers,
+      PossibleMatchResolvers,
+      ChatResolvers,
+      messageResolver,
+      AuthResolver,
+      AddPictureResolver,
+    ],
   });
 
  const server =  new ApolloServer({ schema, context: context, subscriptions: {
     path: '/subscriptions',
     onConnect: (connectionParams, websocket, context) => console.log('Client connected for subscriptions'),
-  } })
+  } });
   
   server.listen({ port: 4000 }, () =>
     console.log(`

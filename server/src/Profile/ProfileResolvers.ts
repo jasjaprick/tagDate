@@ -1,21 +1,44 @@
-// import 'reflect-metadata';
-// import {
-//   Query,
-//   Mutation,
-//   Arg,
-//   Ctx,
-//   Int,
-//   Field,
-//   InputType,
-//   Resolver,
-//   ID,
-//   Args,
-// } from 'type-graphql';
+import 'reflect-metadata';
+import {
+  Query,
+  Mutation,
+  Arg,
+  Ctx,
+  Int,
+  Field,
+  InputType,
+  Resolver,
+  ID,
+  Args,
+} from 'type-graphql';
 
-// import { Context } from '../context';
-// import { Profile } from './Profile';
+import { Context } from '../context';
+import { Profile } from './Profile';
 
-// //TODO: DELETE THIS
+@InputType()
+class changePictureInput {
+  @Field()
+  id: number;
+
+  @Field()
+  profilePic: string;
+}
+
+//TODO: DELETE THIS
+@Resolver(Profile)
+export class AddPictureResolver {
+  @Mutation((returns) => Profile)
+  async changePicture(
+    @Arg('data') data: changePictureInput,
+    @Ctx() ctx: Context
+  ) {
+    console.log('IT IS CALLED');
+    return await ctx.prisma.profile.update({
+      where: { id: data.id },
+      data: { profilePicture: data.profilePic },
+    });
+  }
+}
 // @InputType()
 // export class AddProfileInput {
 //   @Field()

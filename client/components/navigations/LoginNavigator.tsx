@@ -12,6 +12,7 @@ import ChatPage from '../pages/ChatPage';
 import MenuNavigator from './MenuNavigator';
 import IndividualChatPage from '../pages/IndividualChatPage';
 import Chat from '../atoms/Chat';
+import ImageUserPage from '../pages/ImageUserPage';
 
 const Menu = createStackNavigator();
 
@@ -21,7 +22,13 @@ function LoginNavigator() {
       screenOptions={{
         headerShown: false,
         headerTintColor: colors.violet,
-      }}>
+      }}
+    >
+      <Menu.Screen
+        name='ChatPage'
+        component={ChatPage}
+        options={{ headerShown: false }}
+      />
       {/* <Menu.Screen name='IndividualChatPage' component={IndividualChatPage} /> */}
 
       <Menu.Screen name='LoginPage' component={LoginPage} />
@@ -30,13 +37,9 @@ function LoginNavigator() {
 
       <Menu.Screen name='RegisterPage' component={RegisterPage} />
 
-      <Menu.Screen name='TagDatePage' component={TagDatePage} />
+      <Menu.Screen name='ImageUserPage' component={ImageUserPage} />
 
-      <Menu.Screen
-        name='ChatPage'
-        component={ChatPage}
-        options={{ headerShown: false }}
-      />
+      <Menu.Screen name='TagDatePage' component={TagDatePage} />
 
       <Menu.Screen
         name='MatchSuccessPage'

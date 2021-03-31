@@ -139,7 +139,7 @@ const RegisterPage = () => {
       const result = await addUser();
       console.log('result', result);
       currentUserRegistrationId(+result?.data.addUser.id);
-      navigation.navigate('TagDatePage');
+      navigation.navigate('ImageUserPage');
     } else setRenderPageIndex(0);
   };
 
@@ -163,12 +163,10 @@ const RegisterPage = () => {
             setUserGender={setUserGender}
             showMode={showMode}
             onAgeChange={onAgeChange}
-            //minAge={getMaximumDate()}
             show={show}
             age={age}
             bio={bio}
             setBio={setBio}
-            // picture pending
             location={location}
             setLocation={setLocation}
           />

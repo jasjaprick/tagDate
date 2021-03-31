@@ -8,9 +8,9 @@ import InputFieldShort from '../atoms/InputFieldShort';
 import { gql, useLazyQuery } from '@apollo/client';
 
 const LOGIN = gql`
-  query Query($email: String!, $password: String!) {
-    getWebToken(email: $email, password: $password) {
-      accessToken
+  query Query($getWebTokenData: LoginInput!) {
+    getWebToken(data: $getWebTokenData) {
+      id
     }
   }
 `;
@@ -22,31 +22,42 @@ function Login() {
   const handleLogin = () => {
     // navigation.replace('MenuNavigator');
     console.log(`clicking login`);
-
     login({
       variables: {
-        email: 'diana@example.com',
-        password: '1234',
+        getWebTokenData: {
+          email: username,
+          password: '1234',
+        },
       },
     });
+    setUsername('');
+    setPassword('');
   };
 
   // console.log('username', username, 'password', password);
 
-  const [login, { called, loading, data }] = useLazyQuery(LOGIN);
+  const [login, { called, error, loading, data }] = useLazyQuery(LOGIN);
 
+  console.log(`called`, called);
+
+  if (error) {
+    console.log(`error`, error);
+  }
   console.log(`data`, data);
 
   useEffect(() => {
-    console.log(`data`, data);
     if (loading) {
       console.log(`Loading!!`);
     }
+
     if (data) {
-      navigation.navigate('MenuNavigator');
-    }
-    if (data === null) {
-      console.log(`invalid username`);
+      if (data.getWebToken === null) {
+        console.log('invalid user');
+        navigation.navigate('MenuNavigator');
+      } else if (data.getWebToken) {
+        console.log('go in');
+        navigation.navigate('MenuNavigator');
+      }
     }
   }, [data]);
 

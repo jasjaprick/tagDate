@@ -1,31 +1,50 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../../helpers/styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import TextTitle from '../atoms/TextTitle';
+import { useNavigation } from '@react-navigation/core';
+import { Image, View } from 'react-native';
+import Hamburger from '../../assets/img/hamburger-purple.svg';
+import styled from 'styled-components/native';
 
-function IndividualChatHeader(props) {
-  return (
-    <View style={styles.IndividualChatHeaderContainer}>
-      <Text style={styles.IndividualChatName}>Girl Girlovic</Text>
-      <Text style={styles.IndividualChatTag}>Wants to eat a Tuna Salad</Text>
-    </View>
-  );
+interface IProps {
+  title: string;
+  src: any
 }
 
-const styles = StyleSheet.create({
-  IndividualChatHeaderContainer: {
-    backgroundColor: colors.violet,
-  },
-  IndividualChatName: {
-    fontSize: 20,
-    padding: 5,
-    alignSelf: 'center',
-    color: 'white',
-  },
-  IndividualChatTag: {
-    padding: 5,
-    alignSelf: 'center',
-    color: 'white',
-  },
-});
+const Header = styled.View`
+  padding: 4px 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const ImageContainer = styled.View`
+  width: 50px;
+  height: 50px;
+  border-radius: 260px;
+  margin: 5px;
+  overflow: hidden;
+`;
+
+const IndividualChatHeader: React.FC<IProps> = ({ src, title }) => {
+  const navigation = useNavigation();
+
+  return (
+    <Header>
+      <ImageContainer>
+        <Image
+          source={src}
+          style={{ width: 50, height: 50 }}
+        />
+      </ImageContainer>
+      <TextTitle>{title}</TextTitle>
+      <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <Hamburger />
+      </TouchableOpacity>
+    </Header>
+  );
+};
 
 export default IndividualChatHeader;

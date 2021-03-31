@@ -42,7 +42,7 @@ export class ChatResolvers {
   //returns all the chats for the user based on its id
   @Query(returns => [Chat]) //include: {userOne: true, userTwo:true, messages: true}  OR: [{userOneId: id},
   async getChatByUserId(@Arg('id') id: number, @Ctx() ctx: Context) {
-    const chats = await ctx.prisma.chat.findMany({where:{ OR: [{userOneId: id}, {userTwoId: id}]}, include: {userOne: true, userTwo: true, messages: true}});
+    const chats = await ctx.prisma.chat.findMany({where:{ OR: [{userOneId: id}, {userTwoId: id}]}, include: {userOne: {include: {profile: true}}, userTwo: {include: {profile: true}}, messages: true}});
     return chats;
   }
   
@@ -55,7 +55,7 @@ export class ChatResolvers {
   }
 
 
-  @Query(returns=> Chat,)
+  @Query(returns=> Chat)
   async getAllMessagesForChat(@PubSub() pubsub: PubSubEngine,
   @Arg("chatId") chatId: number, @Ctx() ctx: Context) {
     return await  ctx.prisma.chat.findUnique({where: {id: chatId}, include:{messages: true}}); 

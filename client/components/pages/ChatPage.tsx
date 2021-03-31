@@ -9,47 +9,45 @@ import TextTitle from '../atoms/TextTitle';
 import TitleHeader from '../molecules/TitleHeader';
 
 // GQL Query definition
-const GET_MATCHES = gql`
-  query Query($id: Float!) {
-    getConfirmedMatches(id: $id) {
-      id
-      userOne {
-        id
-        profile {
-          name
-          dateOfBirth
-        }
+
+const GET_CONFIRMED_CHATS = gql`
+query Query($id: Float!) {
+  getChatByUserId(id: $id) {
+    
+    
+    id
+    messages {
+      content
+      senderId
+    }
+    userOne {
+      profile {
+        name
+        profilePicture
       }
-      userTwo {
-        id
-        profile {
-          name
-          dateOfBirth
-        }
-      }
-      userOneActivity {
-        tag
-      }
-      userTwoActivity {
-        tag
+    }
+    userTwo {
+      profile {
+        name
+        profilePicture
       }
     }
   }
-`;
+}
+`
 
 const ChatPage: React.FunctionComponent = () => {
-  const { loading, error, data } = useQuery(GET_MATCHES, {
-    variables: { id: 1 },
+  const { loading, error, data } = useQuery(GET_CONFIRMED_CHATS, {
+    variables: { id: 2 },
   });
-
-  console.log(data);
-
+  
+  
   return (
     <QueryResult error={error} loading={loading} data={data}>
-      {data && data.getConfirmedMatches.length > 0 ? (
+      {data && data.getChatByUserId.length > 0 ? (
         <View style={styles.chatPageContainer}>
           <TitleHeader isPrimary={true} title={'Chats'} />
-          <ChatList matches={data.getConfirmedMatches} />
+          <ChatList matches={data.getChatByUserId} />
         </View>
       ) : (
         <View style={styles.chatPageContainer}>
@@ -70,3 +68,35 @@ const styles = StyleSheet.create({
 });
 
 export default ChatPage;
+
+//IAM KEEPING THIS COMMENTED OUT CODE HERE JUST IN CASE MY IMPLEMENTATION IS LACKING SOMETHING
+// const { loading, error, data } = useQuery(GET_MATCHES, {
+  //   variables: { id: 1 },
+  // });
+  // const GET_MATCHES = gql`
+  //   query Query($id: Float!) {
+  //     getConfirmedMatches(id: $id) {
+  //       id
+  //       userOne {
+  //         id
+  //         profile {
+  //           name
+  //           dateOfBirth
+  //         }
+  //       }
+  //       userTwo {
+  //         id
+  //         profile {
+  //           name
+  //           dateOfBirth
+  //         }
+  //       }
+  //       userOneActivity {
+  //         tag
+  //       }
+  //       userTwoActivity {
+  //         tag
+  //       }
+  //     }
+  //   }
+  // `;

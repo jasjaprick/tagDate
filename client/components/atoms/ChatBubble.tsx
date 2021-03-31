@@ -5,8 +5,8 @@ import { currentUserRegistrationId } from '../interfaces/AppState';
 
 // interface for the ChatBubble element
 interface IProps {
-  message: string,
-  senderId: number
+  message: any,
+  senderId: any
 }
 
 // interface for the inner content
@@ -16,10 +16,12 @@ interface ITheme {
 
 // styling for the bubble container with conditional rendering for the background
 const Bubble = styled.View<ITheme>`
-  padding: 5px;
+  padding: 12px 16px;
   margin: 5px 5%;
   background-color: ${props =>  props.sender ? colors.green : colors.lightGrey};
-  border-radius: 4px;
+  border-radius: 8px;
+  align-self: ${props => props.sender ? 'flex-end' : 'flex-start'};
+
   text-align: ${props =>  props.sender ? 'left' : 'right'};
   box-shadow: ${boxShadow};
 `;
@@ -32,8 +34,8 @@ const BubbleText = styled.Text<ITheme>`
 
 const ChatBubble: React.FC<IProps> = ({ message, senderId }) => {
 const ownId = currentUserRegistrationId();
-const isOwnIdCheck = (ownId: number | null, senderId: number): boolean => senderId === ownId;
-
+const isOwnIdCheck = (ownId: any, senderId: any): boolean => senderId === ownId;
+console.log(senderId);
 return (
   <Bubble sender={isOwnIdCheck(ownId, senderId)}>
     <BubbleText sender={isOwnIdCheck(ownId, senderId)}>{message}</BubbleText>

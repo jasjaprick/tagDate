@@ -13,6 +13,7 @@ const CHAT_MESSAGES = gql`
       messages {
         id
         content
+        senderId
       }
     }
   }

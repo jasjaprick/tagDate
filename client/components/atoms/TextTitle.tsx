@@ -2,10 +2,13 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { colors } from '../../helpers/styles';
 
-
-function TextTitle({ children }) {
-  return <Text style={styles.TextTitle}>{children}</Text>;
+interface IProps {
+  children: string
 }
+
+const TextTitle: React.FC<IProps> = ({ children }) => {
+  return <Text style={styles.TextTitle}>{children}</Text>;
+};
 
 const styles = StyleSheet.create({
   TextTitle: {

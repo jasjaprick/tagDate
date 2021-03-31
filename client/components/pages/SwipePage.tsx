@@ -15,6 +15,8 @@ import {
   currentUserRegistrationId,
   currentUserTag,
 } from '../interfaces/AppState';
+import NoMoreUsers from '../organisms/NoMoreUsers';
+import TextTitle from '../atoms/TextTitle';
 
 interface Props {
   dbUser: IUsers[];
@@ -190,7 +192,17 @@ const SwipePage: React.FC<Props> = () => {
   };
   const renderUsers = () => {
     if (users.length === 0 || activeIndex >= users.length)
-      return <Text>NO MORE USERS!</Text>;
+      return (
+        <View>
+          <NoMoreUsers />
+          {/* <Text style={{
+            fontSize: 30,
+            position: 'absolute',
+            top: 500,
+            left: 90
+          }}>No more users...</Text> */}
+        </View>
+      );
 
     return users
       .map((item, i) => {

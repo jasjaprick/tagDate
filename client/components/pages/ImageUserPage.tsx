@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
@@ -9,8 +9,9 @@ import Camera from '../../assets/img/camera.svg';
 import { colors } from '../../helpers/styles';
 
 interface IPropsImage {
-  selectedImage: string | null;
-  setSelectedImage: React.Dispatch<React.SetStateAction<string | null>>;
+  title: string;
+  action: () => Promise<void>;
+  isPrimary: boolean;
 }
 
 const ADD_PROFILE_PICTURE = gql`
@@ -23,7 +24,7 @@ const ADD_PROFILE_PICTURE = gql`
 `;
 
 const ImageUserPage: React.FC<IPropsImage> = ({ isPrimary, title, action }) => {
-  const [selectedImage, setSelectedImage] = React.useState(null);
+  const [selectedImage, setSelectedImage] = React.useState<string | null>(null);
   const userId = currentUserRegistrationId();
 
   const [changePicture] = useMutation(ADD_PROFILE_PICTURE, {
@@ -64,11 +65,7 @@ const ImageUserPage: React.FC<IPropsImage> = ({ isPrimary, title, action }) => {
       <View style={styles.container}>
         <Text style={styles.text}>You look amazing! 🤩 </Text>
         <Image source={{ uri: selectedImage }} style={styles.thumbnail} />
-        {/* <PrimaryButton action={onPressNext} title={'Next'} isPrimary={true} /> */}
-
-        <TouchableOpacity onPress={onPressNext} style={styles.button}>
-          <Text style={styles.buttonText}>Next</Text>
-        </TouchableOpacity>
+        <PrimaryButton action={onPressNext} title={'Next'} isPrimary={true} />
       </View>
     );
   }
@@ -85,6 +82,8 @@ const ImageUserPage: React.FC<IPropsImage> = ({ isPrimary, title, action }) => {
   );
 };
 
+const windowWidth = Math.round(Dimensions.get('window').width);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
   },
   thumbnail: {
     width: 300,
-    height: 300,
+    height: 200,
     resizeMode: 'cover',
   },
   icon: {

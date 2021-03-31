@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/core';
 import { colors } from '../../helpers/styles';
 import MainLogo from '../../assets/img/logo-only-color.svg';
 import HamburgerWhite from '../../assets/img/hamburger-white.svg';
@@ -26,7 +25,6 @@ font-size: 30px;
 color: ${colors.violet};`;
 
 const RegisterHeader: React.FC<IProps> = ({ title }) => {
-  const navigation = useNavigation();
   return (
     <Header>
       <MainLogo />

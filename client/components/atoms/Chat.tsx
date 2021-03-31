@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import { colors, boxShadow } from '../../helpers/styles';
 import { currentUserRegistrationId } from '../interfaces/AppState';
@@ -33,7 +34,12 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
 
   return (
     <ChatContainer>
-      <PhotoContainer></PhotoContainer>
+      <ImageContainer>
+        <Image
+          source={{ uri: userToDisplay.profile.profilePicture }}
+          style={{ width: 60, height: 60 }}
+        />
+      </ImageContainer>
       <InformationContainer>
         <InformationContainerTop>
           <ChatPersonName>{userToDisplay.profile.name}</ChatPersonName>
@@ -54,16 +60,15 @@ const ChatContainer = styled.View`
   border-radius: 10px;
   margin-bottom: 20px;
   box-shadow: ${boxShadow};
-  border-width: 1px;
-  border-color: gray;
+
 `;
 
-const PhotoContainer = styled.View`
-  background-color: blue;
+const ImageContainer = styled.View`
   width: 60px;
   height: 60px;
-  border-radius: 50px;
-  margin: 10px;
+  border-radius: 260px;
+  margin: 5px;
+  overflow: hidden;
 `;
 
 const ChatPersonName = styled.Text`
@@ -83,7 +88,6 @@ const InformationContainer = styled.View`
 const InformationContainerTop = styled.View`
   flex-direction: row;
   width: 100%;
-  /* background-color: green; */
   justify-content: space-between;
   align-items: center;
 `;

@@ -41,34 +41,18 @@ export class AuthResolver {
   // Get JWT
   @Query((returns) => User, { nullable: true })
   async getWebToken(@Arg('data') data: LoginInput, @Ctx() ctx: Context) {
-    console.log('initializing getjwt');
     //Verify email
     const user = await ctx.prisma.user.findUnique({
       where: {
         email: data.email,
       },
     });
-    console.log('user', user);
 
     if (!user) {
-      console.log('user not found');
       return null;
     }
 
-    console.log('user.id', user.id);
+     return user;
 
-    //Verify password
-    if (user.password === data.password) {
-      // return null;
-    }
-    return user;
-
-    // //Generate accessToken
-    // // const webToken: IToken = {};
-    // // webToken.accessToken = sign({ id: user.id }, 'deded');
-    // // console.log('accessToken', webToken.accessToken);
-    // console.log('id', id);
-
-    return id;
   }
 }

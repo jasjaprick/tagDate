@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppScreen from './components/tools/AppScreen';
 import LoginNavigator from './components/navigations/LoginNavigator';
@@ -12,6 +12,8 @@ const LOCAL_IP = process.env.REACT_NATIVE_LOCAL_IP;
 const httpLink = new HttpLink({
   uri: `http://${LOCAL_IP}:4000`,
 });
+
+LogBox.ignoreAllLogs(true);
 
 const wsLink = new WebSocketLink({
   uri: `ws://${LOCAL_IP}:4000/subscriptions`,

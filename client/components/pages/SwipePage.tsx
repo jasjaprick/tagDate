@@ -188,19 +188,12 @@ const SwipePage: React.FC<Props> = () => {
 
   // const tag = data.findActivityByTag[0].tag;
   const userID = currentUserRegistrationId();
-  console.log(`userID swipe`, userID);
 
   const renderUsers = () => {
     if (users.length === 0 || activeIndex >= users.length)
       return (
         <View>
           <NoMoreUsers />
-          {/* <Text style={{
-            fontSize: 30,
-            position: 'absolute',
-            top: 500,
-            left: 90
-          }}>No more users...</Text> */}
         </View>
       );
 

@@ -105,7 +105,6 @@ export class UserResolver {
         profilePicture: data.profilePicture,
       },
     });
-    console.log('User Added 🥳');
     // Finally, return the user including the newly set profile
     return ctx.prisma.user.findUnique({
       where: {

@@ -111,7 +111,6 @@ export class PossibleMatchResolvers {
         },
         include: { messages: true },
       });
-      console.log(newChat);
       return await ctx.prisma.possibleMatch.findUnique({
         where: { id: newMatch.id },
         include: {

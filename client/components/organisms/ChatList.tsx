@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Chat from '../atoms/Chat';
 
 interface IProps {
@@ -9,12 +9,6 @@ interface IProps {
 const ChatList: React.FunctionComponent<IProps> = ({ matches }) => {
   return (
     <View style={styles.chatListContainer}>
-      {matches.map((match) => (
-        <Chat key={match.id} match={match} />
-      ))}
-      {matches.map((match) => (
-        <Chat key={match.id} match={match} />
-      ))}
       {matches.map((match) => (
         <Chat key={match.id} match={match} />
       ))}

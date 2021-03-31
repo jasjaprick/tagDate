@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { colors, boxShadow } from '../../helpers/styles';
-import TitleHeader from '../molecules/TitleHeader';
 import { currentUserRegistrationId } from '../interfaces/AppState';
 
 interface IProps {
@@ -20,7 +18,7 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   let userToDisplay;
 
   // filter for the target user and display that user in the chat
-  if (userOne.id === userId) {    ////HARD CODED VALUE, NEEDS TO BE REPLACED BY THE LOGGEDIN USER ID
+  if (userOne.id === userId) {
     userToDisplay = userTwo;
   } else {
     userToDisplay = userOne;
@@ -30,7 +28,7 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   //TODO: remove and replace with chat function when it is ready
   const randomMessages = [
     'Hello, how are you?',
-    'Let\'s meet up later!',
+    "Let's meet up later!",
     'Cool that you also want to go fishing!',
     'Our date was amazing!',
   ];

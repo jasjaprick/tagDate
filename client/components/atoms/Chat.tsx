@@ -1,8 +1,10 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Image } from 'react-native';
+=======
+>>>>>>> aacd2822443b640176376b11a59396d5e6343d01
 import styled from 'styled-components/native';
 import { colors, boxShadow } from '../../helpers/styles';
-import TitleHeader from '../molecules/TitleHeader';
 import { currentUserRegistrationId } from '../interfaces/AppState';
 
 interface IProps {
@@ -20,7 +22,6 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   let userToDisplay;
 
   // filter for the target user and display that user in the chat
-
   if (Number(userOne.id) === userId) {
     userToDisplay = userTwo;
   } else {

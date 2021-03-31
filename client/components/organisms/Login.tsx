@@ -21,8 +21,6 @@ function Login() {
   const [inputPassword, setInputPassword] = useState('');
   const navigation = useNavigation();
   const handleLogin = () => {
-    // navigation.replace('MenuNavigator');
-    console.log(`clicking login`);
     login({
       variables: {
         getWebTokenData: {
@@ -39,25 +37,10 @@ function Login() {
 
   const [login, { called, error, loading, data }] = useLazyQuery(LOGIN);
 
-  console.log(`called`, called);
-
-  if (error) {
-    console.log(`error`, error);
-  }
-  console.log(`data`, data);
-
   useEffect(() => {
-    if (loading) {
-      console.log(`Loading!!`);
-    }
-
     if (data) {
-      if (data.getWebToken === null) {
-        console.log('invalid user');
-      } else if (data.getWebToken) {
-        console.log('go in');
+      if (data.getWebToken) {
         currentUserRegistrationId(+data.getWebToken.id);
-
         navigation.navigate('MenuNavigator');
       }
     }

@@ -22,24 +22,9 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
     }
   `;
 
-<<<<<<< HEAD
-  const [messages, setMessages] = useState(props.data || []);
-
-  const result = useSubscription(CHAT_SUBSCRIPTION, {
-    variables: { listenMessagesArgs: 1 }  //this value is currently hardcoded and represents the chatID 
-  });
-  //we watchout for new updates to the subscription with useEffect
-  useEffect(() => {             
-  if (result.data) {
-     const newMessage = result.data.listenMessages;
-     setMessages([...messages, newMessage]);
-     
-}
-    
-=======
   const [messages, setMessages] = useState(props.data.messages || []);
 
-  let result = useSubscription(CHAT_SUBSCRIPTION, {
+  const result = useSubscription(CHAT_SUBSCRIPTION, {
     variables: { listenMessagesArgs: Number(props.data.id) }, //this value is currently hardcoded and represents the chatID
   });
   //we watchout for new updates to the subscription with useEffect
@@ -48,19 +33,14 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
       const newMessage = result.data.listenMessages;
       setMessages([...messages, newMessage]);
     }
->>>>>>> b7a0a3b684a36c7d297dc9cb1e28671e5ea67a5e
   }, [result.data]);
 
   return (
     <View style={styles.chatBubbleListContainer}>
       <ScrollView>
-<<<<<<< HEAD
-        {messages?.map((message: any) => (   //need to implement interface for messages
-=======
         {messages?.map((
           message //need to implement interface for messages
         ) => (
->>>>>>> b7a0a3b684a36c7d297dc9cb1e28671e5ea67a5e
           <ChatBubble
             key={message.id}
             message={message.content}

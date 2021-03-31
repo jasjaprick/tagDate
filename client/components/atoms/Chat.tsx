@@ -1,8 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Image } from 'react-native';
-=======
->>>>>>> aacd2822443b640176376b11a59396d5e6343d01
 import styled from 'styled-components/native';
 import { colors, boxShadow } from '../../helpers/styles';
 import { currentUserRegistrationId } from '../interfaces/AppState';

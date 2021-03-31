@@ -77,14 +77,12 @@ const SwipePage: React.FC<Props> = () => {
   const position = useRef(new Animated.ValueXY()).current;
 
   useEffect(() => {
-    error && console.log(error);
     if (data?.findActivityByTag) {
       setUsers(data.findActivityByTag);
     }
   }, [data]);
 
   useEffect(() => {
-    console.log('ACTIVE INDEX', activeIndex);
     position.setValue({ x: 0, y: 0 });
   }, [activeIndex]);
 

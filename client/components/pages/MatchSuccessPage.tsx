@@ -8,6 +8,7 @@ import { colors } from '../../helpers/styles';
 import PrimaryButton from '../atoms/PrimaryButton';
 import TitleHeader from '../molecules/TitleHeader';
 
+<<<<<<< HEAD
 const OuterContainer = styled.View`
   width: 100%;
   height: 100%;
@@ -82,6 +83,16 @@ const MatchSuccessPage: React.FC = () => {
         </View>
       </InnerContainer>
     </OuterContainer>
+=======
+function MatchSuccessPage(props) {
+  return (
+    <View style={styles.MatchSuccessPageContainer}>
+      <Text style={styles.MatchSuccessPageTitle}>Match!</Text>
+      <View style={styles.imageContainer}></View>
+      <PrimaryButton isPrimary={true} title="Let's Talk!" action={} />
+      <PrimaryButton isPrimary={false} title='Later' action={} />
+    </View>
+>>>>>>> b7a0a3b684a36c7d297dc9cb1e28671e5ea67a5e
   );
 };
 

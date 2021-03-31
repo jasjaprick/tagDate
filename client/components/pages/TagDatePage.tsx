@@ -37,8 +37,6 @@ const TagDatePage = () => {
   const navigation = useNavigation();
 
   const HandleOnPress = async () => {
-    console.log('dateDescription', dateDescription);
-    console.log('tag', tag);
     const activity = await addActivity();
     currentUserTag(activity.data.addActivity.tag);
 

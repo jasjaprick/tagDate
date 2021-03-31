@@ -18,12 +18,18 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   let userToDisplay;
 
   // filter for the target user and display that user in the chat
+<<<<<<< HEAD
   if (userOne.id === userId) {
+=======
+
+  if (Number(userOne.id) === userId) {
+>>>>>>> b7a0a3b684a36c7d297dc9cb1e28671e5ea67a5e
     userToDisplay = userTwo;
   } else {
     userToDisplay = userOne;
   }
 
+<<<<<<< HEAD
   // Set array of random messages
   //TODO: remove and replace with chat function when it is ready
   const randomMessages = [
@@ -32,6 +38,9 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
     'Cool that you also want to go fishing!',
     'Our date was amazing!',
   ];
+=======
+  const lastMessage = match.messages[match.messages.length - 1]?.content;
+>>>>>>> b7a0a3b684a36c7d297dc9cb1e28671e5ea67a5e
 
   // set fn that gets a random number between 0-3 and retrieve a random message to display
   const getRandomMessageIndex = () => {
@@ -47,7 +56,8 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
           <DateTime>Today</DateTime>
         </InformationContainerTop>
         <LastMessageSent>
-          {randomMessages[getRandomMessageIndex()]}
+          {/* {randomMessages[getRandomMessageIndex()]} */}
+          {lastMessage}
         </LastMessageSent>
       </InformationContainer>
     </ChatContainer>

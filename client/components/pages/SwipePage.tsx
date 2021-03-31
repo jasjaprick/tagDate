@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { IUsers } from '../../db';
-import {
-  Text,
-  View,
-  Dimensions,
-  Animated,
-  PanResponder,
-} from 'react-native';
+import { Text, View, Dimensions, Animated, PanResponder } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
@@ -15,6 +9,7 @@ import {
   currentUserRegistrationId,
   currentUserTag,
 } from '../interfaces/AppState';
+import TitleHeader from '../molecules/TitleHeader';
 
 interface Props {
   dbUser: IUsers[];
@@ -189,8 +184,14 @@ const SwipePage: React.FC<Props> = () => {
     directionalOffsetThreshold: 80,
   };
   const renderUsers = () => {
-    if (users.length === 0 || activeIndex >= users.length)
-      return <Text>NO MORE USERS!</Text>;
+    if (users.length === 0 || activeIndex >= users.length) {
+      return (
+        <View>
+          <TitleHeader isPrimary={true} title={'Swipe'} />
+          <Text>NO MORE USERS!</Text>
+        </View>
+      );
+    }
 
     return users
       .map((item, i) => {

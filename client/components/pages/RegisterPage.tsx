@@ -1,18 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Platform,
-} from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, gql } from '@apollo/client';
 import { boxShadow } from '../../helpers/styles';
 import PersonalDetails from '../organisms/PersonalDetails';
-import AddPicture from '../organisms/AddPicture';
 import UserAccessData from '../organisms/UserAccessData';
 import PrimaryButton from '../atoms/PrimaryButton';
 import UserPreferences from '../organisms/UserPreferences';
@@ -27,40 +18,42 @@ interface Iprops {
 }
 
 const OuterContainer = styled.View`
-width: 100%;
-height: 100%;
-position: absolute;
-background-color: white;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;`;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
 
 const Container = styled.SafeAreaView`
-margin: 30px auto 0 auto;
-position: absolute;
-bottom: 0;
-left: 5%;
-right: 5%;
-background: white;
-border-top-left-radius: 10px;
-border-top-right-radius: 10px;
-height: 85%;
-padding-top: 10px;
-box-shadow: ${boxShadow};
+  margin: 30px auto 0 auto;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  background: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 85%;
+  padding-top: 10px;
+  box-shadow: ${boxShadow};
 `;
 
 const ButtonContainer = styled.View`
-position: relative;
-bottom: 10px;`;
+  position: relative;
+  bottom: 10px;
+`;
 
 const InnerContainer = styled.View`
-padding: 20px 0;
-height: 100%;
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: stretch;
+  padding: 20px 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: stretch;
 `;
 
 // Create user mutation
@@ -137,7 +130,6 @@ const RegisterPage = () => {
       setRenderPageIndex((prevRenderPageIndex) => prevRenderPageIndex + 1);
     else if (renderPageIndex === 2) {
       const result = await addUser();
-      console.log('result', result);
       currentUserRegistrationId(+result?.data.addUser.id);
       navigation.navigate('ImageUserPage');
     } else setRenderPageIndex(0);
@@ -147,12 +139,12 @@ const RegisterPage = () => {
     switch (renderPageIndex) {
       case 0:
         return (
-            <UserAccessData
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-            />
+          <UserAccessData
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
         );
       case 1:
         return (
@@ -185,12 +177,12 @@ const RegisterPage = () => {
 
       default:
         return (
-            <UserAccessData
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-            />
+          <UserAccessData
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
         );
     }
   }
@@ -205,7 +197,7 @@ const RegisterPage = () => {
           margin: 0,
         }}
       />
-        <RegisterHeader title={'Register'} />
+      <RegisterHeader title={'Register'} />
       <Container>
         <ScrollView>
           <InnerContainer>

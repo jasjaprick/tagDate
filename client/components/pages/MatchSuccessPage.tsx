@@ -1,40 +1,88 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Image, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components/native';
+import { boxShadow } from '../../helpers/styles';
+import Background from '../../assets/img/bcg.svg';
+import { colors } from '../../helpers/styles';
 import PrimaryButton from '../atoms/PrimaryButton';
+import TitleHeader from '../molecules/TitleHeader';
 
+const OuterContainer = styled.View`
+  width: 100%;
+  height: 100%;
+  background-color: white;
+`;
 
-function MatchSuccessPage(props) {
+const Container = styled.SafeAreaView`
+  margin: 30px auto 0 auto;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  background: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 85%;
+  padding-top: 10px;
+  box-shadow: ${boxShadow};
+`;
+
+const InnerContainer = styled.View`
+  padding: 15px 0;
+  height: 100%;
+  margin: 30% 0;
+`;
+
+const Heading = styled.Text`
+  font-size: 30px;
+  color: ${colors.violet};
+  margin-top: 90%;
+  text-align: center;
+`;
+
+const MatchSuccessPage: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleOnPress = () => {
+    navigation.navigate('Chat');
+  };
+
   return (
-    <View style={styles.MatchSuccessPageContainer}>
-      <Text style={styles.MatchSuccessPageTitle}>Match!</Text>
-      <View style={styles.imageContainer}></View>
-      <PrimaryButton
-      isPrimary={true}
-        title="Let's Talk!"
-        action={() => console.log('Let\'s talk!')}
+    <OuterContainer>
+      <Background
+        style={{
+          position: 'absolute',
+          width: '100%',
+          bottom: 0,
+          right: 0,
+          left: 7,
+          margin: 0,
+        }}
       />
-      <PrimaryButton isPrimary={false} title='Later' action={() => console.log('Later')} />
-    </View>
-  );
-}
+      <TitleHeader title={'Nice!'} isPrimary={true} />
+      <InnerContainer>
+        <Image
+          style={{
+            position: 'absolute',
+            top: -120,
+            width: '90%',
+            margin: '5%',
+          }}
+          source={require('../../assets/img/giphNice.gif')}
+        />
+        <Heading>You have a tagDate 💥</Heading>
 
-const styles = StyleSheet.create({
-  MatchSuccessPageContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  MatchSuccessPageTitle: {
-    fontSize: 40,
-    marginBottom: 20,
-  },
-  imageContainer: {
-    width: 200,
-    height: 200,
-    backgroundColor: 'dodgerblue',
-    marginBottom: 20,
-  },
-});
+        <View>
+          <PrimaryButton
+            isPrimary={true}
+            title="Let's Talk!"
+            action={handleOnPress}
+          />
+        </View>
+      </InnerContainer>
+    </OuterContainer>
+  );
+};
 
 export default MatchSuccessPage;

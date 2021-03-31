@@ -1,10 +1,9 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 import { activityData } from './mockData/mockActivities';
 import { possibleMatchData } from './mockData/mockPossibleMatches';
-import { mockProfilesData} from './mockData/mockProfiles';
+import { mockProfilesData } from './mockData/mockProfiles';
 import { userData } from './mockData/mockUsers';
 const prisma = new PrismaClient();
-
 
 async function main() {
   console.log('Start seeding');
@@ -22,15 +21,14 @@ async function main() {
   }
   for (const a of activityData) {
     const activity = await prisma.activity.create({
-      data: a
+      data: a,
     });
     console.log(`Created activity with id ${activity.id}`);
   }
   for (const pm of possibleMatchData) {
     const possibleMatch = await prisma.possibleMatch.create({
-      data: pm
-      }
-    );
+      data: pm,
+    });
     console.log(`Created possible match with id ${possibleMatch.id}`);
   }
 
@@ -38,9 +36,10 @@ async function main() {
 }
 
 main()
-.catch((err) => {
-  console.log(err);
-  process.exit(1);
-}).finally(async () => {
-  await prisma.$disconnect();
-});
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

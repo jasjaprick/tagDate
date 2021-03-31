@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { colors } from '../../helpers/styles';
 import InputFieldLarge from '../atoms/InputFieldLarge';
@@ -20,16 +20,14 @@ const SEND_MESSAGE = gql`
   }
 `;
 
-
-
-const IndividualChatSend: React.FC = () => {
+const IndividualChatSend: React.FC = ({ chatId }) => {
   const [textContent, setTextContent] = useState('');
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     variables: {
       messageSentData: {
         content: textContent, //WHERE IS  CONTENT,
         senderId: 1, //SENDERID ,
-        chatId: 1,
+        chatId: Number(chatId),
       },
     },
   });
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 80,
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   IndividualChatSendInput: { width: '85%' },
 });

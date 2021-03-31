@@ -1,15 +1,11 @@
 import { DatePicker } from '../atoms/DatePicker';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import React from 'react';
+import { View, Text } from 'react-native';
 import { Event } from '@react-native-community/datetimepicker';
-import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
 import styled from 'styled-components/native';
-import InputFieldLarge from '../atoms/InputFieldLarge';
-import AddPicture from './AddPicture';
-import { useNavigation } from '@react-navigation/native';
-
+import { Picker } from '@react-native-picker/picker';
+// import { useNavigation } from '@react-navigation/native';
 
 // Props
 interface IProps {
@@ -46,11 +42,11 @@ const PersonalDetails: React.FC<IProps> = ({
   location,
   setLocation,
 }) => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
-  const handleOnPress = () => {
-    navigation.navigate('UserPreferences');
-  };
+  // const handleOnPress = () => {
+  //   navigation.navigate('UserPreferences');
+  // };
 
   return (
     <Container>
@@ -58,37 +54,29 @@ const PersonalDetails: React.FC<IProps> = ({
         onChangeText={setName}
         placeholder={'Name'}
         isFluid={true}
-        value={name}></InputFieldShort>
+        value={name}
+      ></InputFieldShort>
 
       <View>
-        <DatePicker
-          showMode={showMode}
-          onAgeChange={onAgeChange}
-          show={show}
-          age={age}></DatePicker>
-      </View>
-
-      <View>
-        <Text >Gender</Text>
-
         <View>
-          <View>
-            <RadioButton
-              value='male'
-              status={userGender === 'male' ? 'checked' : 'unchecked'}
-              onPress={() => setUserGender('male')}
-            />
-            <Text>Male</Text>
-          </View>
-
-          <View>
-            <RadioButton
-              value='female'
-              status={userGender === 'female' ? 'checked' : 'unchecked'}
-              onPress={() => setUserGender('female')}
-            />
-            <Text >Female</Text>
-          </View> 
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 18,
+              marginTop: 20,
+              marginBottom: -60,
+              color: '#147EFB',
+            }}
+          >
+            What&apos;s your gender?
+          </Text>
+          <Picker
+            selectedValue={userGender}
+            onValueChange={(itemValue, itemIndex) => setUserGender(itemValue)}
+          >
+            <Picker.Item label='Male' value='male' />
+            <Picker.Item label='Female' value='female' />
+          </Picker>
         </View>
       </View>
 
@@ -97,7 +85,8 @@ const PersonalDetails: React.FC<IProps> = ({
           onChangeText={setBio}
           placeholder={'Describe yourself in 140 characters'}
           isFluid={true}
-          value={bio} />
+          value={bio}
+        />
       </View>
 
       <View>
@@ -105,9 +94,17 @@ const PersonalDetails: React.FC<IProps> = ({
           onChangeText={setLocation}
           placeholder={'Where do you live?'}
           isFluid={true}
-          value={location}/>
+          value={location}
+        />
       </View>
-      <AddPicture />
+      <View>
+        <DatePicker
+          showMode={showMode}
+          onAgeChange={onAgeChange}
+          show={show}
+          age={age}
+        ></DatePicker>
+      </View>
     </Container>
   );
 };

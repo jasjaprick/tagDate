@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import { View, Text } from 'react-native';
 import { AgePrefSelector } from '../atoms/AgePrefSelector';
-import InputAge from '../atoms/InputAge';
+import { Picker } from '@react-native-picker/picker';
 import styled from 'styled-components/native';
 
 interface IPropsPreferences {
@@ -30,32 +29,52 @@ const UserPreferences: React.FC<IPropsPreferences> = ({
   return (
     <Container>
       <View>
-        <Text>Interested in</Text>
-
         <View>
-          <View>
-            <RadioButton
-              value='male'
-              status={genderPreference === 'male' ? 'checked' : 'unchecked'}
-              onPress={() => setGenderPreference('male')}
-            />
-            <Text>Male</Text>
-          </View>
-          <View>
-            <RadioButton
-              value='female'
-              status={genderPreference === 'female' ? 'checked' : 'unchecked'}
-              onPress={() => setGenderPreference('female')}
-            />
-            <Text>Female</Text>
-          </View>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 18,
+              marginTop: 20,
+              marginBottom: -60,
+              color: '#147EFB',
+            }}
+          >
+            Who do you like?
+          </Text>
+          <Picker
+            selectedValue={genderPreference}
+            onValueChange={(itemValue, itemIndex) =>
+              setGenderPreference(itemValue)
+            }
+          >
+            <Picker.Item label='Male' value='male' />
+            <Picker.Item label='Female' value='female' />
+            <Picker.Item label='Whatever' value='all' />
+          </Picker>
         </View>
       </View>
-
-      <Text>Age range</Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 18,
+          marginTop: 10,
+          marginBottom: 20,
+          color: '#147EFB',
+        }}
+      >
+        How old do you like &apos;em?
+      </Text>
       <View>
-        <AgePrefSelector title={'Minimum age'} age={minAge} setAge={setMinAge}  />
-        <AgePrefSelector title={'Maximum age'} age={maxAge} setAge={setMaxAge}  />
+        <AgePrefSelector
+          title={'Minimum age'}
+          age={minAge}
+          setAge={setMinAge}
+        />
+        <AgePrefSelector
+          title={'Maximum age'}
+          age={maxAge}
+          setAge={setMaxAge}
+        />
       </View>
     </Container>
   );

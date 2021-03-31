@@ -5,7 +5,7 @@ import { boxShadow } from '../../helpers/styles';
 import Background from '../../assets/img/bcg.svg';
 import {colors} from '../../helpers/styles';
 import PrimaryButton from '../atoms/PrimaryButton';
-import TextTitle from '../atoms/TextTitle';
+import TitleHeader from '../molecules/TitleHeader';
 
 
 const OuterContainer = styled.View`
@@ -29,7 +29,7 @@ const Container = styled.SafeAreaView`
 `;
 
 const InnerContainer = styled.View`
-  padding: 30px 0;
+  padding: 15px 0;
   height: 100%;
   margin: 30% 0;
 `;
@@ -54,13 +54,14 @@ const NoMoreUsers: React.FC = () => {
           margin: 0,
         }}
       />
+        <TitleHeader title={'Oh no...'} isPrimary={true} />
       <InnerContainer>
         <Image
           style={{
             position: 'absolute',
-            top: -90,
-            width: '80%',
-            margin: '10%',
+            top: -120,
+            width: '90%',
+            margin: '5%',
           }}
           source={require('../../assets/img/giphy.gif')}
         />

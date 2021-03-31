@@ -6,6 +6,7 @@ import MainLogo from '../../assets/img/logo-main.svg';
 import { colors } from '../../helpers/styles';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { gql, useLazyQuery } from '@apollo/client';
+import { currentUserRegistrationId } from '../interfaces/AppState';
 
 const LOGIN = gql`
   query Query($getWebTokenData: LoginInput!) {
@@ -16,8 +17,8 @@ const LOGIN = gql`
 `;
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
   const navigation = useNavigation();
   const handleLogin = () => {
     // navigation.replace('MenuNavigator');
@@ -25,13 +26,13 @@ function Login() {
     login({
       variables: {
         getWebTokenData: {
-          email: username,
+          email: inputEmail,
           password: '1234',
         },
       },
     });
-    setUsername('');
-    setPassword('');
+    setInputEmail('');
+    setInputPassword('');
   };
 
   // console.log('username', username, 'password', password);
@@ -53,9 +54,10 @@ function Login() {
     if (data) {
       if (data.getWebToken === null) {
         console.log('invalid user');
-        navigation.navigate('MenuNavigator');
       } else if (data.getWebToken) {
         console.log('go in');
+        currentUserRegistrationId(+data.getWebToken.id);
+
         navigation.navigate('MenuNavigator');
       }
     }
@@ -63,23 +65,25 @@ function Login() {
 
   return (
     <View style={styles.loginContainer}>
-      <MainLogo style={{
-        marginTop: 40,
-        marginBottom: 40,
-        marginLeft: '5%',
-        marginRight: '5%',
-        width: '90%'
-      }} />
+      <MainLogo
+        style={{
+          marginTop: 40,
+          marginBottom: 40,
+          marginLeft: '5%',
+          marginRight: '5%',
+          width: '90%',
+        }}
+      />
       <InputFieldShort
-        value={username}
+        value={inputEmail}
         placeholder='email'
-        onChangeText={(username: string) => setUsername(username)}
+        onChangeText={(username: string) => setInputEmail(username)}
         isFluid={false}
       />
       <InputFieldShort
-        value={password}
+        value={inputPassword}
         placeholder='password'
-        onChangeText={(password: string) => setPassword(password)}
+        onChangeText={(password: string) => setInputPassword(password)}
         isFluid={false}
       />
       <PrimaryButton isPrimary={true} title='Login' action={handleLogin} />

@@ -1964,7 +1964,7 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/slider/-/slider-3.0.3.tgz"
   "version" "3.0.3"
 
-"@react-native-picker/picker@^1.9.7":
+"@react-native-picker/picker@^1.12.0", "@react-native-picker/picker@^1.9.7":
   "integrity" "sha512-LxtFcuQ/jxsNwH9byM4mMSusqGfaj0LHXTh6fJgvIKOBjAWwV+FjWHszQSPCbnycdezirf8dFLhF9phcNuE8CA=="
   "resolved" "https://registry.npmjs.org/@react-native-picker/picker/-/picker-1.12.0.tgz"
   "version" "1.12.0"

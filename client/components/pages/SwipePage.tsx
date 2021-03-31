@@ -1,12 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { IUsers } from '../../db';
-import {
-  Text,
-  View,
-  Dimensions,
-  Animated,
-  PanResponder,
-} from 'react-native';
+import { Text, View, Dimensions, Animated, PanResponder } from 'react-native';
 import Swipe from '../organisms/Swipe';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
@@ -193,6 +187,8 @@ const SwipePage: React.FC<Props> = () => {
   };
 
   // const tag = data.findActivityByTag[0].tag;
+  const userID = currentUserRegistrationId();
+  console.log(`userID swipe`, userID);
 
   const renderUsers = () => {
     if (users.length === 0 || activeIndex >= users.length)

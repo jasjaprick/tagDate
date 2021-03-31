@@ -10,7 +10,7 @@ import {
   ID,
 } from 'type-graphql';
 import { User } from '../User/User';
-import { Token, Id } from '../Auth/Auth';
+import { Token, id } from '../Auth/Auth';
 import { Context } from '../context';
 import { sign, verify } from 'jsonwebtoken';
 
@@ -39,7 +39,7 @@ export class AuthResolver {
   // Queries
 
   // Get JWT
-  @Query(() => Token)
+  @Query((returns) => User, { nullable: true })
   async getWebToken(@Arg('data') data: LoginInput, @Ctx() ctx: Context) {
     console.log('initializing getjwt');
     //Verify email
@@ -51,39 +51,24 @@ export class AuthResolver {
     console.log('user', user);
 
     if (!user) {
+      console.log('user not found');
       return null;
     }
+
+    console.log('user.id', user.id);
 
     //Verify password
-    if (user.password !== data.password) {
-      return null;
+    if (user.password === data.password) {
+      // return null;
     }
+    return user;
 
-    const webToken: IToken = {};
+    // //Generate accessToken
+    // // const webToken: IToken = {};
+    // // webToken.accessToken = sign({ id: user.id }, 'deded');
+    // // console.log('accessToken', webToken.accessToken);
+    // console.log('id', id);
 
-    //Generate accessToken
-    webToken.accessToken = sign({ id: user.id }, 'deded');
-    console.log('accessToken', webToken.accessToken);
-
-    return webToken;
-  }
-
-  // Verify JWT
-  @Query(() => Id)
-  async verifyWebToken(
-    @Arg('tokenToVerify') tokenToVerify: string,
-    @Ctx() ctx: Context
-  ) {
-    try {
-      let res = verify(tokenToVerify, 'deded');
-      const Id: IId = {};
-      Id.id = res.id;
-      console.log('id: ', Id.id);
-      return Id;
-    } catch (err) {
-      console.log('error', err);
-
-      return null;
-    }
+    return id;
   }
 }

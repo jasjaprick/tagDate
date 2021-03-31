@@ -186,7 +186,6 @@ const SwipePage: React.FC<Props> = () => {
     directionalOffsetThreshold: 80,
   };
 
-  // const tag = data.findActivityByTag[0].tag;
   const userID = currentUserRegistrationId();
 
   const renderUsers = () => {

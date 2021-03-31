@@ -38,7 +38,7 @@ query Query($id: Float!) {
 
 const ChatPage: React.FunctionComponent = () => {
   const { loading, error, data } = useQuery(GET_CONFIRMED_CHATS, {
-    variables: { id: 2 },
+    variables: { id: 2 },  //HARD CODED VALUE, NEEDS TO BE REPLACED BY THE LOGGEDIN USER ID
   });
   
   

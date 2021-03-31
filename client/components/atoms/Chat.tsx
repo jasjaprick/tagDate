@@ -14,7 +14,7 @@ const Chat: React.FunctionComponent<IProps> = ({match})  => {
   let userToDisplay;
 
   // filter for the target user and display that user in the chat
-  if (userOne.id === 2) {
+  if (userOne.id === 2) {    ////HARD CODED VALUE, NEEDS TO BE REPLACED BY THE LOGGEDIN USER ID
     userToDisplay = userTwo;
   } else {
     userToDisplay = userOne;

@@ -6,6 +6,7 @@ import Background from '../../assets/img/bcg.svg';
 import { colors } from '../../helpers/styles';
 import PrimaryButton from '../atoms/PrimaryButton';
 import TitleHeader from '../molecules/TitleHeader';
+import { useNavigation } from '@react-navigation/native';
 
 const OuterContainer = styled.View`
   width: 100%;
@@ -41,6 +42,13 @@ const Heading = styled.Text`
 `;
 
 const NoMoreUsers: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleOnPress = () => {
+    console.log('this is a bug');
+    navigation.navigate('TagDatePage');
+  };
+
   return (
     <OuterContainer>
       <Background
@@ -66,7 +74,11 @@ const NoMoreUsers: React.FC = () => {
         />
         <Heading>No more users...</Heading>
         <View>
-          <PrimaryButton title={'Next'} isPrimary={true} action={console.log('this is a bug')} />
+          <PrimaryButton
+            title={'Update tagDate'}
+            isPrimary={true}
+            action={handleOnPress}
+          />
         </View>
       </InnerContainer>
     </OuterContainer>

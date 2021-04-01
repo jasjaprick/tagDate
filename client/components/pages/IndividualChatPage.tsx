@@ -39,7 +39,7 @@ function IndividualChatPage(props) {
   const chatMatchId = +props.route.params.matchId;
 
   const result = useQuery(CHAT_MESSAGES, {
-    variables: { chatId: chatMatchId }, //value hardcoded
+    variables: { chatId: chatMatchId }, 
   });
 
   console.log(`result.data`, result.data);
@@ -77,10 +77,7 @@ function IndividualChatPage(props) {
       <KeyboardAvoidingView behavior={'padding'}>
         <IndividualChatSend
           chatId={result.data ? result.data.getAllMessagesForChat.id : ''}
-          // textContent={textContent}
-          // setTextContent={setTextContent}
-          // sendingAMessage={sendingAMessage}
-        />
+          />
       </KeyboardAvoidingView>
     </OuterContainer>
   );

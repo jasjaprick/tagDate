@@ -40,6 +40,7 @@ const ChatPage: React.FC = () => {
   const userId = currentUserRegistrationId();
   const { loading, error, data } = useQuery(GET_CONFIRMED_CHATS, {
     variables: { id: userId },
+    fetchPolicy: "network-only"
   });
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native';
 import ChatBubble from '../atoms/ChatBubble';
@@ -23,7 +23,7 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
   `;
 
   const [messages, setMessages] = useState(props.data.messages || []);
-
+  let scrollViewRef = useRef<ScrollView>(null);
   const result = useSubscription(CHAT_SUBSCRIPTION, {
     variables: { listenMessagesArgs: Number(props.data.id) }, //this value is currently hardcoded and represents the chatID
   });
@@ -37,7 +37,10 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
 
   return (
     <View >
-      <ScrollView>
+      <ScrollView 
+        ref={scrollViewRef}
+        onContentSizeChange={() => scrollViewRef.current !== null && scrollViewRef.current.scrollToEnd({ animated: true }) }
+      >
         {messages?.map((message: any) => {
           console.log(message);
           return (

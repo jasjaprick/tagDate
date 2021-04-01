@@ -40,6 +40,7 @@ function IndividualChatPage(props) {
 
   const result = useQuery(CHAT_MESSAGES, {
     variables: { chatId: chatMatchId }, 
+    fetchPolicy: "network-only"
   });
 
   console.log(`result.data`, result.data);

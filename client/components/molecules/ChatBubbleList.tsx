@@ -24,39 +24,35 @@ const ChatBubbleList: React.FC<IProps> = (props) => {
 
   const [messages, setMessages] = useState(props.data.messages || []);
 
-  let result = useSubscription(CHAT_SUBSCRIPTION, {
+  const result = useSubscription(CHAT_SUBSCRIPTION, {
     variables: { listenMessagesArgs: Number(props.data.id) }, //this value is currently hardcoded and represents the chatID
   });
   //we watchout for new updates to the subscription with useEffect
   useEffect(() => {
     if (result.data) {
       const newMessage = result.data.listenMessages;
-      console.log('potential problem here, chatbubblelist 49')
       setMessages([...messages, newMessage]);
     }
   }, [result.data]);
 
   return (
-    <View style={styles.chatBubbleListContainer}>
+    <View >
       <ScrollView>
-        {messages?.map((message: any) => (   //need to implement interface for messages
-          <ChatBubble
-            key={message.id}
-            message={message.content}
-            senderId={message.senderId}
-          />
-        ))}
+        {messages?.map((message: any) => {
+          console.log(message);
+          return (
+            //need to implement interface for messages
+            <ChatBubble
+              key={message.id}
+              message={message.content}
+              senderId={message.senderId}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollview: { flex: 1 },
-  chatBubbleListContainer: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-});
 
 export default ChatBubbleList;

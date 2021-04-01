@@ -13,35 +13,15 @@ const CHAT_MESSAGES = gql`
       messages {
         id
         content
+        senderId
       }
     }
   }
 `;
 
-// const SEND_MESSAGE = gql`
-//   mutation Mutation($messageSentData: createMessageInput!) {
-//     messageSent(data: $messageSentData) {
-//       content
-//       chat {
-//         messages {
-//           id
-//           content
-//         }
-//       }
-//     }
-//   }
-// `;
+
 function IndividualChatPage(props) {
-  // const [textContent, setTextContent] = useState('');
-  // const [sendMessage] = useMutation(SEND_MESSAGE, {
-  //   variables: {
-  //     messageSentData: {
-  //       content: textContent, //WHERE IS  CONTENT,
-  //       senderId: 1, //SENDERID ,
-  //       chatId: 1,
-  //     },
-  //   },
-  // });
+
 
   const chatMatchId = +props.route.params.matchId;
 
@@ -55,14 +35,6 @@ function IndividualChatPage(props) {
     background-color: white;
   `;
 
-  // const sendingAMessage = () => {
-  //   sendMessage();
-  //   setTextContent('');
-  // };
-
-  // const changeTextHandler = (value: string):void => {
-  //   setTextContent(value);
-  // };
   return (
     <OuterContainer>
       <IndividualChatHeader

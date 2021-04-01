@@ -5,6 +5,7 @@ import InputFieldLarge from '../atoms/InputFieldLarge';
 import SendButton from '../../assets/img/sendbutton.svg';
 import InputFieldShort from '../atoms/InputFieldShort';
 import { useMutation, gql } from '@apollo/client';
+import { currentUserRegistrationId } from '../interfaces/AppState';
 
 const SEND_MESSAGE = gql`
   mutation Mutation($messageSentData: createMessageInput!) {
@@ -21,12 +22,13 @@ const SEND_MESSAGE = gql`
 `;
 
 const IndividualChatSend: React.FC = ({ chatId }) => {
+  const userId = currentUserRegistrationId();
   const [textContent, setTextContent] = useState('');
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     variables: {
       messageSentData: {
         content: textContent, //WHERE IS  CONTENT,
-        senderId: 1, //SENDERID ,
+        senderId: userId, //SENDERID ,
         chatId: Number(chatId),
       },
     },

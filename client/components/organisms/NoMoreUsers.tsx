@@ -66,13 +66,7 @@ const NoMoreUsers: React.FC = () => {
         />
         <Heading>No more users...</Heading>
         <View>
-          <PrimaryButton
-            title={'Next'}
-            isPrimary={true}
-            action={() => {
-              console.log('NEXT');
-            }}
-          />
+          <PrimaryButton title={'Next'} isPrimary={true} action={console.log('this is a bug')} />
         </View>
       </InnerContainer>
     </OuterContainer>

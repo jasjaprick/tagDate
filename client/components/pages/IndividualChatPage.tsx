@@ -4,7 +4,7 @@ import IndividualChatContent from '../molecules/IndividualChatContent';
 import IndividualChatHeader from '../molecules/IndividualChatHeader';
 import IndividualChatSend from '../molecules/IndividualChatSend';
 import styled from 'styled-components/native';
-import Background from '../../assets/img/bcg.svg';
+import Background from '../../assets/img/chat-bcg.svg';
 import { useMutation, gql, useQuery } from '@apollo/client';
 const CHAT_MESSAGES = gql`
   query Query($chatId: Float!) {
@@ -37,6 +37,14 @@ function IndividualChatPage(props) {
 
   return (
     <OuterContainer>
+      <Background
+        style={{
+          position: 'absolute',
+          width: '100%',
+          bottom: 0,
+          margin: 0,
+        }}
+      />
       <IndividualChatHeader
         title={'Matty'}
         src={require('../../assets/img/matty.png')}

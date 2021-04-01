@@ -6,10 +6,26 @@ import IndividualChatSend from '../molecules/IndividualChatSend';
 import styled from 'styled-components/native';
 import Background from '../../assets/img/chat-bcg.svg';
 import { useMutation, gql, useQuery } from '@apollo/client';
+import { currentUserRegistrationId } from '../interfaces/AppState';
+
 const CHAT_MESSAGES = gql`
   query Query($chatId: Float!) {
     getAllMessagesForChat(chatId: $chatId) {
       id
+      userOne {
+        id
+        profile {
+          name
+          profilePicture
+        }
+      }
+      userTwo {
+        id
+        profile {
+          name
+          profilePicture
+        }
+      }
       messages {
         id
         content
@@ -19,21 +35,35 @@ const CHAT_MESSAGES = gql`
   }
 `;
 
-
 function IndividualChatPage(props) {
-
-
   const chatMatchId = +props.route.params.matchId;
 
   const result = useQuery(CHAT_MESSAGES, {
-    variables: { chatId: chatMatchId }, //value hardcoded
+    variables: { chatId: chatMatchId }, 
   });
+
+  console.log(`result.data`, result.data);
+
+  const userId = currentUserRegistrationId();
+  const userOne = result.data ? result.data.getAllMessagesForChat.userOne : '';
+  const userTwo = result.data ? result.data.getAllMessagesForChat.userTwo : '';
+  let userToDisplay;
+
+  if (Number(userOne.id) === userId) {
+    userToDisplay = userTwo?.profile;
+  } else {
+    userToDisplay = userOne?.profile;
+  }
 
   const OuterContainer = styled.View`
     width: 100%;
     height: 100%;
     background-color: white;
   `;
+
+  if (result.loading) {
+    return <></>;
+  }
 
   return (
     <OuterContainer>
@@ -46,8 +76,8 @@ function IndividualChatPage(props) {
         }}
       />
       <IndividualChatHeader
-        title={'Matty'}
-        src={require('../../assets/img/matty.png')}
+        title={userToDisplay ? userToDisplay.name : ''}
+        src={{ uri: userToDisplay.profilePicture }}
       />
       <IndividualChatContent
         data={result.data ? result.data.getAllMessagesForChat : ''}
@@ -55,10 +85,7 @@ function IndividualChatPage(props) {
       <KeyboardAvoidingView behavior={'padding'}>
         <IndividualChatSend
           chatId={result.data ? result.data.getAllMessagesForChat.id : ''}
-          // textContent={textContent}
-          // setTextContent={setTextContent}
-          // sendingAMessage={sendingAMessage}
-        />
+          />
       </KeyboardAvoidingView>
     </OuterContainer>
   );

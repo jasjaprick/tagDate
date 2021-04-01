@@ -1,4 +1,5 @@
-import React from 'react';
+import { gql, useSubscription } from '@apollo/client';
+import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import { colors, boxShadow } from '../../helpers/styles';
@@ -8,11 +9,31 @@ interface IProps {
   match: any;
 }
 
+const CHAT_SUBSCRIPTION = gql`
+subscription Subscription($listenMessagesArgs: Float!) {
+  listenMessages(args: $listenMessagesArgs) {
+    id
+    content
+    senderId
+  }
+}
+`;
+
 const Chat: React.FunctionComponent<IProps> = ({ match }) => {
   // Retrieving both users from the match prop, where on is loggin in user and other is target user
   const { userOne, userTwo } = match;
-
+  const [lastMessage, setLastMessage] = useState(match?.messages[match.messages.length - 1]?.content ?? '')
   const userId = currentUserRegistrationId();
+  
+  const result = useSubscription (CHAT_SUBSCRIPTION, {
+    variables: { listenMessagesArgs: Number(match.id) }, //this value is currently hardcoded and represents the chatID
+  });
+
+  useEffect(() => {
+    if(result.data) {
+      setLastMessage(result.data.listenMessages.content)
+    }
+  }, [result.data])
 
   //TODO: TS def
   // Set empty var as user that is the target user that we want to display
@@ -25,7 +46,7 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
     userToDisplay = userOne;
   }
 
-  const lastMessage = match.messages[match.messages.length - 1]?.content;
+  // const lastMessage = match.messages[match.messages.length - 1]?.content;
 
   // set fn that gets a random number between 0-3 and retrieve a random message to display
   const getRandomMessageIndex = () => {
@@ -46,7 +67,6 @@ const Chat: React.FunctionComponent<IProps> = ({ match }) => {
           <DateTime>Today</DateTime>
         </InformationContainerTop>
         <LastMessageSent>
-          {/* {randomMessages[getRandomMessageIndex()]} */}
           {lastMessage}
         </LastMessageSent>
       </InformationContainer>

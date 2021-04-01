@@ -67,7 +67,11 @@ export class ChatResolvers {
   ) {
     return await ctx.prisma.chat.findUnique({
       where: { id: chatId },
-      include: { messages: true },
+      include: {
+        messages: true,
+        userOne: { include: { profile: true } },
+        userTwo: { include: { profile: true } },
+      },
     });
   }
 }

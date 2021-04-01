@@ -4,6 +4,7 @@ import ChatList from '../organisms/ChatList';
 import { useQuery, gql } from '@apollo/client';
 import QueryResult from '../organisms/QueryResult';
 import TitleHeader from '../molecules/TitleHeader';
+import Background from '../../assets/img/chat-bcg.svg';
 import { currentUserRegistrationId } from '../interfaces/AppState';
 
 // GQL Query definition
@@ -46,8 +47,15 @@ const ChatPage: React.FC = () => {
     if (data && data.getChatByUserId.length > 0) {
       return (
         <QueryResult error={error} loading={loading} data={data}>
-
           <View style={styles.chatPageContainer}>
+            <Background
+              style={{
+                position: 'absolute',
+                width: '100%',
+                bottom: 0,
+                margin: 0,
+              }}
+            />
             <TitleHeader isPrimary={true} title={'Chat'} />
             <ChatList matches={data.getChatByUserId} />
           </View>
@@ -58,6 +66,14 @@ const ChatPage: React.FC = () => {
     return (
       <QueryResult error={error} loading={loading} data={data}>
         <View style={styles.chatPageContainer}>
+          <Background
+            style={{
+              position: 'absolute',
+              width: '100%',
+              bottom: 0,
+              margin: 0,
+            }}
+          />
           <TitleHeader title={'Chat'} isPrimary={true} />
           <Text>No matches for you...</Text>
         </View>

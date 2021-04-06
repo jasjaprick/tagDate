@@ -1,15 +1,37 @@
 import 'reflect-metadata';
 import * as tq from 'type-graphql';
 import { ApolloServer } from 'apollo-server';
-import { UserResolver } from './UserResolvers'
+import { UserResolver } from './User/UserResolvers';
 import { context } from './context';
-
+import { AddPictureResolver } from './Profile/ProfileResolvers';
+import { ActivityResolvers } from './Activity/ActivityResolvers';
+import { AuthResolver } from './Auth/AuthResolver';
+import { PossibleMatchResolvers } from './PossibleMatch/PossibleMatchResolvers';
+import { ChatResolvers, messageResolver } from './Chat/ChatAndMessageResolvers';
 const app = async () => {
   const schema = await tq.buildSchema({
-    resolvers: [UserResolver]
+    resolvers: [
+      UserResolver,
+      ActivityResolvers,
+      PossibleMatchResolvers,
+      ChatResolvers,
+      messageResolver,
+      AuthResolver,
+      AddPictureResolver,
+    ],
   });
 
-  new ApolloServer({ schema, context: context }).listen({ port: 4000 }, () =>
+  const server = new ApolloServer({
+    schema,
+    context: context,
+    subscriptions: {
+      path: '/subscriptions',
+      onConnect: (connectionParams, websocket, context) =>
+        console.log('Client connected for subscriptions'),
+    },
+  });
+
+  server.listen({ port: 4000 }, () =>
     console.log(`
   🚀 Server is running!
   🔊 Listening on port 4000
@@ -17,4 +39,4 @@ const app = async () => {
   );
 };
 
-app()
+app();

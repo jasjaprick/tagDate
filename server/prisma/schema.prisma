@@ -4,18 +4,81 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://jasja:admin@localhost:5432/tagdate-test?schema=public"
+  url      = env("DATABASE_URL")
 }
 
+// Model for the user that contains profile info, activities and rejected people
 model User {
-  id             Int      @id @default(autoincrement())
+  id              Int             @id @default(autoincrement())
+  email           String          @unique
+  password        String
+  rejections      Int[]
+  activity        Activity[] // Relational reference
+  possibleMatches PossibleMatch[] @relation("PossibleMatch") // Relational reference 
+  likedByUser     PossibleMatch[] @relation("LikedByUser") // Relational reference
+  profile         Profile?        @relation("userProfile") //Relational reference
+  chats           Chat[]          @relation("chat") //Relational reference
+  chatsAsUserTwo  Chat[]          @relation("userTwoChat")
+}
+
+//Model for the profile
+model Profile {
+  id             Int     @id @default(autoincrement())
+  user           User    @relation("userProfile", fields: [userId], references: [id]) //Relational reference
+  userId         Int // relational scalar field
   name           String
-  // bio            String?
-  age            Int
-  // interestedIn   String
-  // location       String
-  // profilePicture String?
-  // activity       String
-  // matches        String[]
+  bio            String?
+  dateOfBirth    String
+  gender         String
+  interestedIn   String
+  location       String
+  profilePicture String?
+}
+
+// Model for Activiy
+model Activity {
+  id              Int             @id @default(autoincrement())
+  description     String
+  tag             String
+  user            User            @relation(fields: [postedBy], references: [id]) // Relational reference
+  postedBy        Int // relational scalar field
+  ownActivity     PossibleMatch[] @relation("ownActivity") // Relation reference
+  partnerActivity PossibleMatch[] @relation("partnerActivity") // Relation reference
+  isActive        Boolean         @default(true)
+}
+
+// Joint table for Possible matches
+model PossibleMatch {
+  id              Int      @id @default(autoincrement())
+  userOne         User     @relation("PossibleMatch", fields: [UID1], references: [id]) // Relational reference
+  userTwo         User     @relation("LikedByUser", fields: [UID2], references: [id]) // Relational reference
+  UID1            Int // relational scalar field
+  UID2            Int // relational scalar field
+  userOneActivity Activity @relation("ownActivity", fields: [myActivity], references: [id]) // Relational reference 
+  userTwoActivity Activity @relation("partnerActivity", fields: [partnerActivity], references: [id]) // Relational reference
+  myActivity      Int // relational scalar field
+  partnerActivity Int // relational scalar field
+  isMatch         Boolean  @default(false)
+}
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  messages  Message[] @relation("chatMessages")
+  userOne   User      @relation("chat", fields: [userOneId], references: [id]) //Relational reference
+  userOneId Int
+  //users       Int[] //Relational scalar field
+  userTwo   User      @relation("userTwoChat", fields: [userTwoId], references: [id])
+  userTwoId Int //Relational scalar field
+  // receiver Int       @unique
+
+
+}
+
+model Message {
+  id       Int     @id @default(autoincrement())
+  chat     Chat    @relation("chatMessages", fields: [chatId], references: [id]) //Relational reference
+  chatId   Int //Relational scalar field
+  content  String?
+  senderId Int //the id of the sender in order to determine who is sending it
 
 }

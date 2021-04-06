@@ -1,49 +1,89 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { TextInput } from "react-native";
-import AppButton from "../atoms/PurpleButton";
-import colors from "../../helpers/colors";
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import PrimaryButton from '../atoms/PrimaryButton';
+import MainLogo from '../../assets/img/logo-main.svg';
+import { colors } from '../../helpers/styles';
+import InputFieldShort from '../atoms/InputFieldShort';
+import { gql, useLazyQuery } from '@apollo/client';
+import { currentUserRegistrationId } from '../interfaces/AppState';
 
-function Login(props) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const LOGIN = gql`
+  query Query($getWebTokenData: LoginInput!) {
+    getWebToken(data: $getWebTokenData) {
+      id
+    }
+  }
+`;
 
-  console.log("username", username, "password", password);
-
+function Login() {
+  const [inputEmail, setInputEmail] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
+  const navigation = useNavigation();
   const handleLogin = () => {
-    props.navigation.replace("LoginSuccessPage");
+    login({
+      variables: {
+        getWebTokenData: {
+          email: inputEmail,
+          password: '1234',
+        },
+      },
+    });
+    setInputEmail('');
+    setInputPassword('');
   };
+
+  const [login, { called, error, loading, data }] = useLazyQuery(LOGIN);
+
+  useEffect(() => {
+    if (data) {
+      if (data.getWebToken) {
+        currentUserRegistrationId(+data.getWebToken.id);
+        navigation.navigate('MenuNavigator');
+      }
+    }
+  }, [data]);
 
   return (
     <View style={styles.loginContainer}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="username"
-        onChangeText={setUsername}
+      <MainLogo
+        style={{
+          marginTop: 40,
+          marginBottom: 40,
+          marginLeft: '5%',
+          marginRight: '5%',
+          width: '90%',
+        }}
       />
-      <TextInput
-        style={styles.textInput}
-        placeholder="password"
-        onChangeText={setPassword}
-        secureTextEntry={true}
+      <InputFieldShort
+        value={inputEmail}
+        placeholder='email'
+        onChangeText={(username: string) => setInputEmail(username)}
+        isFluid={false}
       />
-      <AppButton title="Login" action={handleLogin} />
+      <InputFieldShort
+        value={inputPassword}
+        placeholder='password'
+        onChangeText={(password: string) => setInputPassword(password)}
+        isFluid={false}
+      />
+      <PrimaryButton isPrimary={true} title='Login' action={handleLogin} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   loginContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   textInput: {
     margin: 10,
-    textAlign: "center",
+    textAlign: 'center',
     borderBottomColor: colors.violet,
     borderBottomWidth: 2,
-    width: "80%",
+    width: '80%',
     color: colors.violet,
   },
 });

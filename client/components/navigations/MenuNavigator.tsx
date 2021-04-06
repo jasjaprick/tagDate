@@ -1,33 +1,33 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import SwipePage from '../pages/SwipePage';
+import ChatNavigator from './ChatNavigator';
+import { colors } from '../../helpers/styles';
+import LoginPage from '../pages/LoginPage';
+import ProfilePage from '../pages/ProfilePage';
 
-// import colors from "../helpers/colors";
-import iconHelper from "../helpers/iconHelper";
-import LoginPage from "../pages/LoginPage";
+type MenuParamList = {
+  Date: undefined;
+  Swipe: undefined;
+  Chat: undefined;
+  Profile: undefined;
+  Logout: undefined;
+};
+const Menu = createDrawerNavigator<MenuParamList>();
 
-const Menu = createBottomTabNavigator();
-
-function MenuNavigator(props) {
+const MenuNavigator = () => {
   return (
-    <Menu.Navigator
-      tabBarOptions={
-        {
-          // activeBackgroundColor: colors.green200,
-          // inactiveBackgroundColor: colors.green100,
-          // activeTintColor: "white",
-          // inactiveTintColor: "white",
-        }
-      }
-    >
-      <Menu.Screen
-        name="Home"
-        component={LoginPage}
-        options={{
-          tabBarIcon: () => iconHelper("Entypo", "home", 20, "white"),
-        }}
-      />
+    <Menu.Navigator drawerStyle={{ backgroundColor: colors.green,  }} drawerContentOptions={{
+      activeTintColor: '#fff'
+
+    }}>
+      <Menu.Screen name='Swipe' component={SwipePage} options={{
+        drawerLabel:  'Swipe '
+      }}/>
+      <Menu.Screen name='Chat' component={ChatNavigator} />
+      <Menu.Screen name='Profile' component={ProfilePage} />
+      <Menu.Screen name='Logout' component={LoginPage} />
     </Menu.Navigator>
   );
-}
-
+};
 export default MenuNavigator;

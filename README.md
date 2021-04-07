@@ -4,6 +4,9 @@
 TagDate is a dating application that matches people based on their idea for a perfect date.
 With its built in chat function it is easy to chat with your matches and make your perfect date happen.
 
+![image](https://user-images.githubusercontent.com/59917428/113839214-c8358400-978f-11eb-8ab5-d0e99b7b0d04.png)
+
+
 ### Tech Stack
 <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a><br>
 <a href="https://www.javascript.com/" target="_blank">JavaScript</a><br>
